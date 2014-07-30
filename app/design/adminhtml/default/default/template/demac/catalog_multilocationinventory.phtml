@@ -1,0 +1,71 @@
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">Multi Location Inventory</h4>
+    </div>
+    <div class="fieldset fieldset-wide">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="form-list">
+                <tr>
+                    <td class="label">
+                        <label for="multilocationinventory_global_inventory">Global Inventory</label>
+                    </td>
+                    <td class="value">
+                        <span class="bold"><?php echo $this->getGlobalInventory() ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="multilocationinventory_global_location">Scope Inventory</label>
+                    </td>
+                    <td class="value">
+                        <span class="bold"><?php echo $this->getScopeInventory() ?></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div class="grid">
+            <table cellspacing="0" class="data border">
+                <thead>
+                <tr class="headings">
+                    <th>Location</th>
+                    <th>Quantity</th>
+                    <th>Backorders</th>
+                    <th>Stock Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($this->getLocationsInventories() as $_location): ?>
+                    <tr>
+                        <td>
+                            <?php echo $_location['name'] ?>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   name="multilocationinventory[<?php echo $_location['id'] ?>][quantity]"
+                                   class="input-text validate-number"
+                                   value="<?php echo $_location['qty'] ?>" />
+                        </td>
+                        <td>
+                            <select name="multilocationinventory[<?php echo $_location['id'] ?>][backorders]" style="width:86%;" class="select">
+                                <?php if($_location['backorders'] == ''): ?>
+                                    <option value="-"></option>
+                                <?php endif; ?>
+                                <option value="1" <?php echo ($_location['backorders'] === "1")?'selected="selected"':'' ?>>Yes</option>
+                                <option value="0" <?php echo ($_location['backorders'] !== "1")?'selected="selected"':'' ?>>No</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="multilocationinventory[<?php echo $_location['id'] ?>][is_in_stock]" style="width:86%;" class="select">
+                                <option value="1" <?php echo ($_location['is_in_stock'] === "1")?'selected="selected"':'' ?>>In Stock</option>
+                                <option value="0" <?php echo ($_location['is_in_stock'] !== "1")?'selected="selected"':'' ?>>Out Of Stock</option>
+                            </select>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

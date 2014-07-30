@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <multi_location_inventory_stock translate="title" module="demac_multilocationinventory">
+                <title>Multi-LocationInventory Stock Resource</title>
+                <acl>multi_location_inventory_stock</acl>
+                <model>demac_multilocationinventory/stock_api</model>
+                <methods>
+                    <list translate="title" module="demac_multilocationinventory">
+                        <title>Retrieve list of stock records for a Location</title>
+                        <acl>multi_location_inventory_stock/list</acl>
+                        <method>items</method>
+                    </list>
+                    <create translate="title" module="demac_multilocationinventory">
+                        <title>Create stock record for a given product/location</title>
+                        <acl>multi_location_inventory_stock/create</acl>
+                        <method>create</method>
+                    </create>
+                    <multiCreate translate="title" module="demac_multilocationinventory">
+                        <title>Create multiple stock records for a given product/location</title>
+                        <acl>multi_location_inventory_stock/create</acl>
+                        <method>multiCreate</method>
+                    </multiCreate>
+                    <info translate="title" module="demac_multilocationinventory">
+                        <title>Retrieve specific stock record for product/location</title>
+                        <acl>multi_location_inventory_stock/info</acl>
+                        <method>info</method>
+                    </info>
+                    <update translate="title" module="demac_multilocationinventory">
+                        <title>Update stock record for a given product/location</title>
+                        <acl>multi_location_inventory_stock/update</acl>
+                        <method>update</method>
+                    </update>
+                    <multiUpdate translate="title" module="demac_multilocationinventory">
+                        <title>Update multiple stock records for given product/location</title>
+                        <acl>multi_location_inventory_stock/update</acl>
+                        <method>multiUpdate</method>
+                    </multiUpdate>
+                    <delete translate="title" module="demac_multilocationinventory">
+                        <title>Delete stock record for a given product/location</title>
+                        <acl>multi_location_inventory_stock/delete</acl>
+                        <method>remove</method>
+                    </delete>
+                    <multiDelete translate="title" module="demac_multilocationinventory">
+                        <title>Delete multiple stock records for given product/location</title>
+                        <acl>multi_location_inventory_stock/delete</acl>
+                        <method>multiRemove</method>
+                    </multiDelete>
+                </methods>
+                <faults module="demac_multilocationinventory">
+                    <data_invalid>
+                        <code>100</code>
+                        <message>Invalid data. Details in error message.</message>
+                    </data_invalid>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Stock Item doesn't exist.</message>
+                    </not_exists>
+                    <not_deleted>
+                        <code>103</code>
+                        <message>Stock Item was not deleted. Details in error message.</message>
+                    </not_deleted>
+                </faults>
+            </multi_location_inventory_stock>
+            <multi_location_inventory_location translate="title" module="demac_multilocationinventory">
+                <title>Multi-LocationInventory Location Resource</title>
+                <acl>multi_location_inventory_location</acl>
+                <model>demac_multilocationinventory/location_api</model>
+                <methods>
+                    <list translate="title" module="demac_multilocationinventory">
+                        <title>Retrieve list of Locations</title>
+                        <acl>multi_location_inventory_location/list</acl>
+                        <method>items</method>
+                    </list>
+                    <create translate="title" module="demac_multilocationinventory">
+                        <title>Create location</title>
+                        <acl>multi_location_inventory_location/create</acl>
+                        <method>create</method>
+                    </create>
+                    <multiCreate translate="title" module="demac_multilocationinventory">
+                        <title>Create multiple Locations</title>
+                        <acl>multi_location_inventory_location/create</acl>
+                        <method>multiCreate</method>
+                    </multiCreate>
+                    <info translate="title" module="demac_multilocationinventory">
+                        <title>Retrieve specific Location</title>
+                        <acl>multi_location_inventory_location/info</acl>
+                        <method>info</method>
+                    </info>
+                    <update translate="title" module="demac_multilocationinventory">
+                        <title>Update Location</title>
+                        <acl>multi_location_inventory_location/update</acl>
+                        <method>update</method>
+                    </update>
+                    <multiUpdate translate="title" module="demac_multilocationinventory">
+                        <title>Update multiple Locations</title>
+                        <acl>multi_location_inventory_location/update</acl>
+                        <method>multiUpdate</method>
+                    </multiUpdate>
+                    <delete translate="title" module="demac_multilocationinventory">
+                        <title>Delete Location</title>
+                        <acl>multi_location_inventory_location/delete</acl>
+                        <method>remove</method>
+                    </delete>
+                    <multiDelete translate="title" module="demac_multilocationinventory">
+                        <title>Delete multiple Locations</title>
+                        <acl>multi_location_inventory_location/delete</acl>
+                        <method>multiRemove</method>
+                    </multiDelete>
+                </methods>
+                <faults module="demac_multilocationinventory">
+                    <data_invalid>
+                        <code>100</code>
+                        <message>Invalid data. Details in error message.</message>
+                    </data_invalid>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Location doesn't exist.</message>
+                    </not_exists>
+                    <not_deleted>
+                        <code>103</code>
+                        <message>Location was not deleted. Details in error message.</message>
+                    </not_deleted>
+                </faults>
+            </multi_location_inventory_location>
+        </resources>
+        <v2>
+            <resources_function_prefix>
+                <multi_location_inventory_stock>multiLocationInventoryStock</multi_location_inventory_stock>
+                <multi_location_inventory_location>multiLocationInventoryLocation</multi_location_inventory_location>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <multi_location_inventory_stock translate="title" module="demac_multilocationinventory">
+                    <title>Multi-LocationInventory Stock</title>
+                    <list translate="title" module="demac_multilocationinventory">
+                        <title>List Stock Records</title>
+                    </list>
+                    <create translate="title" module="demac_multilocationinventory">
+                        <title>Create Stock Record</title>
+                    </create>
+                    <info translate="title" module="demac_multilocationinventory">
+                        <title>Get Info for Stock Record</title>
+                    </info>
+                    <update translate="title" module="demac_multilocationinventory">
+                        <title>Update Stock Record</title>
+                    </update>
+                    <delete translate="title" module="demac_multilocationinventory">
+                        <title>Delete Stock Record</title>
+                    </delete>
+                </multi_location_inventory_stock>
+                <multi_location_inventory_location translate="title" module="demac_multilocationinventory">
+                    <title>Multi-LocationInventory Location</title>
+                    <list translate="title" module="demac_multilocationinventory">
+                        <title>List Locations</title>
+                    </list>
+                    <create translate="title" module="demac_multilocationinventory">
+                        <title>Create Location</title>
+                    </create>
+                    <info translate="title" module="demac_multilocationinventory">
+                        <title>Get Location</title>
+                    </info>
+                    <update translate="title" module="demac_multilocationinventory">
+                        <title>Update Location</title>
+                    </update>
+                    <delete translate="title" module="demac_multilocationinventory">
+                        <title>Delete Location</title>
+                    </delete>
+                </multi_location_inventory_location>
+            </resources>
+        </acl>
+    </api>
+</config>

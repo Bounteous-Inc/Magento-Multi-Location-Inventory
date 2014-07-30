@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <demac_multilocationinventory translate="title" module="demac_multilocationinventory">
+                    <title>Multi-Location Inventory</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/multiLocationInventory</action>
+                </demac_multilocationinventory>
+            </children>
+        </catalog>
+        <report>
+            <children>
+                <products>
+                    <children>
+                        <lowstock>
+                            <depends>
+                                <module>HopefullyNobodyNamesAModuleThis</module>
+                            </depends>
+                        </lowstock>
+                    </children>
+                </products>
+            </children>
+        </report>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <catalog>
+                        <children>
+                            <demac_multilocationinventory translate="title" module="demac_multilocationinventory">
+                                <title>Demac Multi-Location Inventory</title>
+                                <sort_order>30</sort_order>
+                            </demac_multilocationinventory>
+                        </children>
+                    </catalog>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <demac_multilocationinventory translate="title" module="demac_multilocationinventory">
+                                        <title>Demac Multi-Location Inventory</title>
+                                    </demac_multilocationinventory>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

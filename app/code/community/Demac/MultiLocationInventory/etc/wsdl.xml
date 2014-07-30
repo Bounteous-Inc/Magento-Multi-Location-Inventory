@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+            <!--================== Stock ===================-->
+            <complexType name="multiLocationInventoryStockEntity">
+                <all>
+                    <element name="location_id" type="xsd:string" minOccurs="1" />
+                    <element name="product_id" type="xsd:string" minOccurs="1"/>
+                </all>
+            </complexType>
+            <complexType name="multiLocationInventoryStockEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:multiLocationInventoryStockEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="multiLocationInventoryStockDataEntity">
+                <all>
+                    <element name="location_id" type="xsd:string" minOccurs="0" />
+                    <element name="product_id" type="xsd:string" minOccurs="0" />
+                    <element name="product_sku" type="xsd:string" minOccurs="0" />
+                    <element name="product_name" type="xsd:string" minOccurs="0" />
+                    <element name="qty" type="xsd:string" minOccurs="0" />
+                    <element name="is_in_stock" type="xsd:string" minOccurs="0" />
+                    <element name="product_status" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="multiLocationInventoryStockDataEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:multiLocationInventoryStockDataEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="multiLocationInventoryStockUpdateEntity">
+                <all>
+                    <element name="location_id" type="xsd:string" minOccurs="1" />
+                    <element name="product_id" type="xsd:string" minOccurs="1"/>
+                    <element name="qty" type="xsd:string" minOccurs="0" />
+                    <element name="is_in_stock" type="xsd:int" minOccurs="0" />
+                    <element name="manage_stock" type="xsd:int" minOccurs="0" />
+                    <element name="use_config_manage_stock" type="xsd:int" minOccurs="0" />
+                    <element name="backorders" type="xsd:int" minOccurs="0" />
+                    <element name="use_config_backorders" type="xsd:int" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="multiLocationInventoryStockUpdateEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:multiLocationInventoryStockUpdateEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <!--================== Location ===================-->
+            <complexType name="multiLocationInventoryLocationDataEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:multiLocationInventoryLocationDataEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="multiLocationInventoryLocationDataEntity">
+                <all>
+                    <element name="id" type="xsd:string" minOccurs="0" />
+                    <element name="external_id" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="address" type="xsd:string" minOccurs="0" />
+                    <element name="zipcode" type="xsd:string" minOccurs="0" />
+                    <element name="city" type="xsd:string" minOccurs="0" />
+                    <element name="region_id" type="xsd:string" minOccurs="0" />
+                    <element name="country_id" type="xsd:string" minOccurs="0" />
+                    <element name="phone" type="xsd:string" minOccurs="0" />
+                    <element name="fax" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="store_url" type="xsd:string" minOccurs="0" />
+                    <element name="status" type="xsd:string" minOccurs="0" />
+                    <element name="image" type="xsd:string" minOccurs="0" />
+                    <element name="marker" type="xsd:string" minOccurs="0" />
+                    <element name="lat" type="xsd:string" minOccurs="0" />
+                    <element name="long" type="xsd:string" minOccurs="0" />
+                    <element name="created_time" type="xsd:string" minOccurs="0" />
+                    <element name="update_time" type="xsd:string" minOccurs="0" />
+                    <element name="store_ids" type="typens:ArrayOfString" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="multiLocationInventoryLocationCreateEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:multiLocationInventoryLocationCreateEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="multiLocationInventoryLocationCreateEntity">
+                <all>
+                    <element name="external_id" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="1" />
+                    <element name="address" type="xsd:string" minOccurs="1" />
+                    <element name="zipcode" type="xsd:string" minOccurs="0" />
+                    <element name="city" type="xsd:string" minOccurs="1" />
+                    <element name="region_id" type="xsd:string" minOccurs="1" />
+                    <element name="country_id" type="xsd:string" minOccurs="1" />
+                    <element name="phone" type="xsd:string" minOccurs="0" />
+                    <element name="fax" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="store_url" type="xsd:string" minOccurs="0" />
+                    <element name="status" type="xsd:string" minOccurs="0" />
+                    <element name="image" type="xsd:string" minOccurs="0" />
+                    <element name="marker" type="xsd:string" minOccurs="0" />
+                    <element name="lat" type="xsd:string" minOccurs="0" />
+                    <element name="long" type="xsd:string" minOccurs="0" />
+                    <element name="store_ids" type="typens:ArrayOfString" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="multiLocationInventoryLocationUpdateEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:multiLocationInventoryLocationUpdateEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="multiLocationInventoryLocationUpdateEntity">
+                <all>
+                    <element name="location_id" type="xsd:string" minOccurs="1" />
+                    <element name="external_id" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="address" type="xsd:string" minOccurs="0" />
+                    <element name="zipcode" type="xsd:string" minOccurs="0" />
+                    <element name="city" type="xsd:string" minOccurs="0" />
+                    <element name="region_id" type="xsd:string" minOccurs="0" />
+                    <element name="country_id" type="xsd:string" minOccurs="0" />
+                    <element name="phone" type="xsd:string" minOccurs="0" />
+                    <element name="fax" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="store_url" type="xsd:string" minOccurs="0" />
+                    <element name="status" type="xsd:string" minOccurs="0" />
+                    <element name="image" type="xsd:string" minOccurs="0" />
+                    <element name="marker" type="xsd:string" minOccurs="0" />
+                    <element name="lat" type="xsd:string" minOccurs="0" />
+                    <element name="long" type="xsd:string" minOccurs="0" />
+                    <element name="store_ids" type="typens:ArrayOfString" minOccurs="0" />
+                </all>
+            </complexType>
+        </schema>
+    </types>
+    <!--================== Stock ===================-->
+    <message name="multiLocationInventoryStockListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="locationId" type="xsd:string" />
+        <part name="filters" type="typens:filters" />
+    </message>
+    <message name="multiLocationInventoryStockListResponse">
+        <part name="result" type="typens:multiLocationInventoryStockDataEntityArray" />
+    </message>
+    <message name="multiLocationInventoryStockCreateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="stockData" type="typens:multiLocationInventoryStockUpdateEntity" />
+    </message>
+    <message name="multiLocationInventoryStockCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryStockMultiCreateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="stockDataArray" type="typens:multiLocationInventoryStockUpdateEntityArray"/>
+    </message>
+    <message name="multiLocationInventoryStockMultiCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryStockInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="ids" type="typens:multiLocationInventoryStockEntity"/>
+    </message>
+    <message name="multiLocationInventoryStockInfoResponse">
+        <part name="result" type="typens:multiLocationInventoryStockDataEntity" />
+    </message>
+    <message name="multiLocationInventoryStockUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="stockData" type="typens:multiLocationInventoryStockUpdateEntity" />
+    </message>
+    <message name="multiLocationInventoryStockUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryStockMultiUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="stockDataArray" type="typens:multiLocationInventoryStockUpdateEntityArray"/>
+    </message>
+    <message name="multiLocationInventoryStockMultiUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryStockDeleteRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="ids" type="typens:multiLocationInventoryStockEntity"/>
+    </message>
+    <message name="multiLocationInventoryStockDeleteResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryStockMultiDeleteRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="idsArray" type="typens:multiLocationInventoryStockEntityArray"/>
+    </message>
+    <message name="multiLocationInventoryStockMultiDeleteResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <!--================== Location ===================-->
+    <message name="multiLocationInventoryLocationInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="locationId" type="xsd:string"/>
+    </message>
+    <message name="multiLocationInventoryLocationInfoResponse">
+        <part name="result" type="typens:multiLocationInventoryLocationDataEntity" />
+    </message>
+    <message name="multiLocationInventoryLocationListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters" />
+    </message>
+    <message name="multiLocationInventoryLocationListResponse">
+        <part name="result" type="typens:multiLocationInventoryLocationDataEntityArray" />
+    </message>
+    <message name="multiLocationInventoryLocationCreateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="LocationData" type="typens:multiLocationInventoryLocationCreateEntity" />
+    </message>
+    <message name="multiLocationInventoryLocationCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryLocationMultiCreateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="LocationDataArray" type="typens:multiLocationInventoryLocationCreateEntityArray"/>
+    </message>
+    <message name="multiLocationInventoryLocationMultiCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryLocationUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="LocationData" type="typens:multiLocationInventoryLocationUpdateEntity" />
+    </message>
+    <message name="multiLocationInventoryLocationUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryLocationMultiUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="LocationDataArray" type="typens:multiLocationInventoryLocationUpdateEntityArray"/>
+    </message>
+    <message name="multiLocationInventoryLocationMultiUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryLocationDeleteRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="id" type="xsd:string"/>
+    </message>
+    <message name="multiLocationInventoryLocationDeleteResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="multiLocationInventoryLocationMultiDeleteRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="idsArray" type="typens:ArrayOfString"/>
+    </message>
+    <message name="multiLocationInventoryLocationMultiDeleteResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <!--================== Stock ===================-->
+        <operation name="multiLocationInventoryStockList">
+            <documentation>Retrieve stock data by location id</documentation>
+            <input message="typens:multiLocationInventoryStockListRequest" />
+            <output message="typens:multiLocationInventoryStockListResponse" />
+        </operation>
+        <operation name="multiLocationInventoryStockCreate">
+            <documentation>Create New Stock Data</documentation>
+            <input message="typens:multiLocationInventoryStockCreateRequest" />
+            <output message="typens:multiLocationInventoryStockCreateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryStockMultiCreate">
+            <documentation>Create New Stock Data</documentation>
+            <input message="typens:multiLocationInventoryStockMultiCreateRequest" />
+            <output message="typens:multiLocationInventoryStockMultiCreateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryStockInfo">
+            <documentation>Retrieve Stock Info</documentation>
+            <input message="typens:multiLocationInventoryStockInfoRequest" />
+            <output message="typens:multiLocationInventoryStockInfoResponse" />
+        </operation>
+        <operation name="multiLocationInventoryStockUpdate">
+            <documentation>Update Stock Item</documentation>
+            <input message="typens:multiLocationInventoryStockUpdateRequest" />
+            <output message="typens:multiLocationInventoryStockUpdateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryStockMultiUpdate">
+            <documentation>Update Multiple Stock Items</documentation>
+            <input message="typens:multiLocationInventoryStockMultiUpdateRequest" />
+            <output message="typens:multiLocationInventoryStockMultiUpdateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryStockDelete">
+            <documentation>Delete Stock Item</documentation>
+            <input message="typens:multiLocationInventoryStockDeleteRequest" />
+            <output message="typens:multiLocationInventoryStockDeleteResponse" />
+        </operation>
+        <operation name="multiLocationInventoryStockMultiDelete">
+            <documentation>Delete Multiple Stock Items</documentation>
+            <input message="typens:multiLocationInventoryStockMultiDeleteRequest" />
+            <output message="typens:multiLocationInventoryStockMultiDeleteResponse" />
+        </operation>
+        <!--================== Location ===================-->
+        <operation name="multiLocationInventoryLocationList">
+            <documentation>Retrieve Location List</documentation>
+            <input message="typens:multiLocationInventoryLocationListRequest" />
+            <output message="typens:multiLocationInventoryLocationListResponse" />
+        </operation>
+        <operation name="multiLocationInventoryLocationCreate">
+            <documentation>Create New Location</documentation>
+            <input message="typens:multiLocationInventoryLocationCreateRequest" />
+            <output message="typens:multiLocationInventoryLocationCreateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryLocationMultiCreate">
+            <documentation>Create New Locations</documentation>
+            <input message="typens:multiLocationInventoryLocationMultiCreateRequest" />
+            <output message="typens:multiLocationInventoryLocationMultiCreateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryLocationInfo">
+            <documentation>Retrieve Location Info</documentation>
+            <input message="typens:multiLocationInventoryLocationInfoRequest" />
+            <output message="typens:multiLocationInventoryLocationInfoResponse" />
+        </operation>
+        <operation name="multiLocationInventoryLocationUpdate">
+            <documentation>Update Location</documentation>
+            <input message="typens:multiLocationInventoryLocationUpdateRequest" />
+            <output message="typens:multiLocationInventoryLocationUpdateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryLocationMultiUpdate">
+            <documentation>Update Multiple Locations</documentation>
+            <input message="typens:multiLocationInventoryLocationMultiUpdateRequest" />
+            <output message="typens:multiLocationInventoryLocationMultiUpdateResponse" />
+        </operation>
+        <operation name="multiLocationInventoryLocationDelete">
+            <documentation>Delete Location</documentation>
+            <input message="typens:multiLocationInventoryLocationDeleteRequest" />
+            <output message="typens:multiLocationInventoryLocationDeleteResponse" />
+        </operation>
+        <operation name="multiLocationInventoryLocationMultiDelete">
+            <documentation>Delete Multiple Locations</documentation>
+            <input message="typens:multiLocationInventoryLocationMultiDeleteRequest" />
+            <output message="typens:multiLocationInventoryLocationMultiDeleteResponse" />
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <!--================== Stock ===================-->
+        <operation name="multiLocationInventoryStockList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryStockCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryStockMultiCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryStockInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryStockUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryStockMultiUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryStockDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryStockMultiDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <!--================== Location ===================-->
+        <operation name="multiLocationInventoryLocationList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryLocationCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryLocationMultiCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryLocationInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryLocationUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryLocationMultiUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryLocationDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="multiLocationInventoryLocationMultiDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}" />
+        </port>
+    </service>
+</definitions>

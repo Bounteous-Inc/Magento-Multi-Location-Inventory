@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <demac_tab translate="label" module="demac_multilocationinventory">
+            <label>Demac Media</label>
+            <sort_order>300</sort_order>
+        </demac_tab>
+    </tabs>
+    <sections>
+        <demac_multilocationinventory translate="label" module="demac_multilocationinventory">
+            <label>Multi-Location Inventory</label>
+            <tab>demac_tab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <use_global_status translate="label">
+                            <label>Use Global Inventory Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_global_status>
+                        <apiurl translate="label">
+                            <label>API Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enter here the Google API Url. Use the default value : http://maps.googleapis.com/maps/api/js?v=3</comment>
+                        </apiurl>
+                        <apikey translate="label">
+                            <label>API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enter here the Google API key</comment>
+                        </apikey>
+                        <apisensor translate="label">
+                            <label>Api Sensor</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>You can enable the sensor to use the geolocation</comment>
+                        </apisensor>
+                        <direction translate="label">
+                            <label>Enable Direction</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>You can enable the direction</comment>
+                        </direction>
+                        <closest_amount translate="label">
+                            <label>Closest stores to show</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-zero-or-greater</validate>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>How many closest stores to show, 0 for none</comment>
+                        </closest_amount>
+                        <defaultimage translate="label comment">
+                            <label>Default Store Image</label>
+                            <comment>Allowed file types: PNG, JPG, JPEG.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>demac_multilocationinventory/system_config_backend_image</backend_model>
+                            <base_url type="media" scope_info="1">multilocationinventory/images</base_url>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </defaultimage>
+                        <mapicon translate="label comment">
+                            <label>Marker Icon</label>
+                            <comment>Allowed file types: PNG, JPG, JPEG.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>demac_multilocationinventory/system_config_backend_marker</backend_model>
+                            <base_url type="media" scope_info="1">multilocationinventory/markers</base_url>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </mapicon>
+                    </fields>
+                </general>
+            </groups>
+        </demac_multilocationinventory>
+    </sections>
+</config>
