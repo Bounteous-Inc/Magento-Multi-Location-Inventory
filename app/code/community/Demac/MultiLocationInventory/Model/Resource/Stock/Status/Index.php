@@ -16,7 +16,7 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
      *
      * @param bool|array $productIds
      */
-    public function updateStockStatusIndex($productIds = FALSE)
+    public function updateStockStatusIndex($productIds = false)
     {
         $query  = Mage::helper('demac_multilocationinventory/indexer')->getAllStockStatusIndexSelects($productIds);
         $update = Mage::helper('demac_multilocationinventory/indexer')->getUpdateStockStatusIndexQuery($query);
@@ -28,7 +28,7 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
      *
      * @param bool|array $productIds
      */
-    public function updateCoreStockStatus($productIds = FALSE)
+    public function updateCoreStockStatus($productIds = false)
     {
         $query = Mage::helper('demac_multilocationinventory/indexer')->getUpdateCoreStockStatusQuery($productIds);
         $this->_getWriteAdapter()->query($query);
@@ -39,7 +39,7 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
      *
      * @param bool|array $productIds
      */
-    public function updateCoreStockItem($productIds = FALSE)
+    public function updateCoreStockItem($productIds = false)
     {
         $coreStockItemUpdateQuery = Mage::helper('demac_multilocationinventory/indexer')->getUpdateCoreStockItemQuery($productIds);
         $this->_getWriteAdapter()->query($coreStockItemUpdateQuery);
@@ -53,10 +53,10 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
     public function createMissingStockRows($productIds)
     {
         $productFilter = '';
-        if($productIds !== FALSE) {
+        if($productIds !== false) {
             $productFilter = ' AND e.entity_id IN(' . implode(',', $productIds) . ')';
         }
-        $missingStockRowsQuery = $this->_getWriteAdapter()
+        $missingStockRowsQuery       = $this->_getWriteAdapter()
             ->select()
             ->from(
                 array(
@@ -118,7 +118,7 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
             . '   ON e.entity_id = stock_idx.product_id'
             . '      AND store.store_id = stock_idx.store_id'
             . ' WHERE stock_idx.qty IS NULL';
-        if (is_array($productIds)) {
+        if(is_array($productIds)) {
             $query .= ' AND e.entity_id IN(' . implode(',', $productIds) . ')';
         }
         $query .=

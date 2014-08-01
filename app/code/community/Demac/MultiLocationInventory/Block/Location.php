@@ -13,7 +13,7 @@ class Demac_MultiLocationInventory_Block_Location extends Mage_Core_Block_Templa
     public function getDefaultMarker()
     {
         $defaultMarker = '';
-        if (!is_null(Mage::getStoreConfig('demac_multilocationinventory/general/mapicon')) && Mage::getStoreConfig('demac_multilocationinventory/general/mapicon') != '') {
+        if(!is_null(Mage::getStoreConfig('demac_multilocationinventory/general/mapicon')) && Mage::getStoreConfig('demac_multilocationinventory/general/mapicon') != '') {
             $defaultMarker = 'multilocationinventory/markers/' . Mage::getStoreConfig('demac_multilocationinventory/general/mapicon');
         }
 
@@ -33,15 +33,15 @@ class Demac_MultiLocationInventory_Block_Location extends Mage_Core_Block_Templa
             ->addFieldToSelect('*');
 
         foreach ($locations as $location) {
-            if (!is_null($location->getCountryId())) {
+            if(!is_null($location->getCountryId())) {
                 $location->setCountryId($this->getCountryByCode($location->getCountryId()));
             } else {
                 $location->setCountryId($this->__('NC'));
             }
 
-            if (!is_null($location->getImage()) || $location->getImage() != '') {
+            if(!is_null($location->getImage()) || $location->getImage() != '') {
                 $imgUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $location->getImage();
-            } elseif (!is_null(Mage::getStoreConfig('demac_multilocationinventory/general/defaultimage')) && Mage::getStoreConfig('demac_multilocationinventory/general/defaultimage') != '') {
+            } elseif(!is_null(Mage::getStoreConfig('demac_multilocationinventory/general/defaultimage')) && Mage::getStoreConfig('demac_multilocationinventory/general/defaultimage') != '') {
                 $imgUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'multilocationinventory/images/' . Mage::getStoreConfig('demac_multilocationinventory/general/defaultimage');
             } else {
                 $imgUrl = $this->getLogoSrc();
@@ -60,7 +60,7 @@ class Demac_MultiLocationInventory_Block_Location extends Mage_Core_Block_Templa
     public function getGoogleApiUrl()
     {
         $apiUrl = Mage::getStoreConfig('demac_multilocationinventory/general/apiurl');
-        if (is_null($apiUrl))
+        if(is_null($apiUrl))
             $apiUrl = "http://maps.googleapis.com/maps/api/js?v=3";
         $apiKey       = "&key=" . Mage::getStoreConfig('demac_multilocationinventory/general/apikey');
         $apiSensor    = Mage::getStoreConfig('demac_multilocationinventory/general/apisensor');
@@ -99,7 +99,7 @@ class Demac_MultiLocationInventory_Block_Location extends Mage_Core_Block_Templa
      */
     public function getLogoSrc()
     {
-        if (empty($this->_data['logo_src'])) {
+        if(empty($this->_data['logo_src'])) {
             $this->_data['logo_src'] = Mage::getStoreConfig('design/header/logo_src');
         }
 

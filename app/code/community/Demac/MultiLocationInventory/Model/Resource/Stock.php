@@ -40,7 +40,7 @@ class Demac_MultiLocationInventory_Model_Resource_Stock extends Mage_Core_Model_
 
 
         $stockId = $adapter->fetchOne($select, $bind);
-        if ($stockId) {
+        if($stockId) {
             $this->load($stock, $stockId);
         } else {
             $stock->setData(array());

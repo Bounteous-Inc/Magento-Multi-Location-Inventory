@@ -43,7 +43,7 @@ class Demac_MultiLocationInventory_Model_System_Config_Backend_Image extends Mag
      */
     protected function _addWhetherScopeInfo()
     {
-        return TRUE;
+        return true;
     }
 
     /**
@@ -59,7 +59,7 @@ class Demac_MultiLocationInventory_Model_System_Config_Backend_Image extends Mag
         $deleteFlag  = (is_array($value) && !empty($value['delete']));
         $fileTmpName = $_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'];
 
-        if ($this->getOldValue() && ($fileTmpName || $deleteFlag)) {
+        if($this->getOldValue() && ($fileTmpName || $deleteFlag)) {
             $io = new Varien_Io_File();
             $io->rm($this->_getUploadRoot(self::UPLOAD_ROOT_TOKEN) . DS . self::UPLOAD_DIR . DS . $this->getOldValue());
         }

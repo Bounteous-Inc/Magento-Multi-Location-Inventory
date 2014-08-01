@@ -81,7 +81,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Multiloc
      */
     public function canShowTab()
     {
-        return TRUE;
+        return true;
     }
 
     /**
@@ -91,7 +91,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Multiloc
      */
     public function isHidden()
     {
-        return FALSE;
+        return false;
     }
 
 

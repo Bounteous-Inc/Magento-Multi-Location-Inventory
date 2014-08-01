@@ -17,11 +17,11 @@ class Demac_MultiLocationInventory_Model_Observer
     public function catalogProductCollectionApplyLimitationsBefore(Varien_Event_Observer $observer)
     {
         $filters = $observer->getCategoryId();
-        if (isset($filters['visibility']) && !Mage::getStoreConfig('cataloginventory/options/show_out_of_stock')) {
+        if(isset($filters['visibility']) && !Mage::getStoreConfig('cataloginventory/options/show_out_of_stock')) {
             $storeId = Mage::app()->getStore()->getId();
             $observer->getCollection();
             $selectFrom = $observer->getCollection()->getSelect()->getPart(Zend_Db_Select::FROM);
-            if (!isset($selectFrom['stock_status_index'])) {
+            if(!isset($selectFrom['stock_status_index'])) {
                 $observer->getCollection()
                     ->getSelect()
                     ->join(
@@ -48,7 +48,7 @@ class Demac_MultiLocationInventory_Model_Observer
      */
     public function checkoutAllSubmitAfter($observer)
     {
-        if (Mage::getStoreConfig('cataloginventory/options/can_subtract')) {
+        if(Mage::getStoreConfig('cataloginventory/options/can_subtract')) {
 
             $order   = $observer->getEvent()->getOrder();
             $quote   = $observer->getEvent()->getQuote();
@@ -60,11 +60,11 @@ class Demac_MultiLocationInventory_Model_Observer
             $quoteItems             = $observer->getEvent()->getQuote()->getAllItems();
 
             foreach ($quoteItems as $quoteItem) {
-                if (sizeof($quoteItem->getChildren()) == 0) {
+                if(sizeof($quoteItem->getChildren()) == 0) {
                     $updatedProducts[] = $quoteItem->getProductId();
 
                     $this->checkoutProducts[$quoteItem->getId()] = $quoteItem->getQty();
-                    if (!is_null($quoteItem->getParentItem())) {
+                    if(!is_null($quoteItem->getParentItem())) {
                         $this->checkoutProducts[$quoteItem->getId()] = $quoteItem->getParentItem()->getQty();
                     }
                 }
@@ -90,7 +90,7 @@ class Demac_MultiLocationInventory_Model_Observer
 
         foreach ($this->checkoutProducts as $checkoutProductQuoteItemId => $checkoutProductQuantity) {
             $checkoutProductItem = $quote->getItemById($checkoutProductQuoteItemId);
-            if ($checkoutProductItem->getProduct()->getTypeId() == 'simple') {
+            if($checkoutProductItem->getProduct()->getTypeId() == 'simple') {
                 $checkoutProductId = $checkoutProductItem->getProductId();
                 $locationIds       = Mage::helper('demac_multilocationinventory/location')->getPrioritizedLocationsForOrderQuoteItem($orderId, $checkoutProductQuoteItemId);
                 //loop through each location and distribute the inventory
@@ -129,7 +129,7 @@ class Demac_MultiLocationInventory_Model_Observer
                 //Get Backorder Location
                 //Reduce backorder inventory if possible...
                 foreach ($this->checkoutProducts as $checkoutProductQuoteItemId => $checkoutProductQuantity) {
-                    if ($checkoutProductQuantity > 0) {
+                    if($checkoutProductQuantity > 0) {
                         $backorderLocationCollection = Mage::getModel('demac_multilocationinventory/stock')
                             ->getCollection()
                             ->addFieldToSelect(array('location_id', 'qty'))
@@ -151,7 +151,7 @@ class Demac_MultiLocationInventory_Model_Observer
                             ->order('FIELD(location_id,' . implode(',', $locationIds) . ')')
                             ->limit(1);
 
-                        if ($backorderLocationCollection->getSize()) {
+                        if($backorderLocationCollection->getSize()) {
                             $firstBackorderLocation = $backorderLocationCollection->getFirstItem();
                             $stockId                = $firstBackorderLocation['stock_id'];
                             $locationId             = $firstBackorderLocation['location_id'];
@@ -197,15 +197,15 @@ class Demac_MultiLocationInventory_Model_Observer
         $orderStockSource->setLocationId($locationId);
 
 
-        if ($requestedQty > 0) {
-            if ($requestedQty >= $availableQty) {
+        if($requestedQty > 0) {
+            if($requestedQty >= $availableQty) {
                 //deduct available qty
                 $orderStockSource->setQty($availableQty);
                 $orderStockSource->save();
                 $this->checkoutProducts[$quoteItemId] -= $availableQty;
                 $stock = Mage::getModel('demac_multilocationinventory/stock')->load($stockId);
                 $stock->setQty(0);
-                if (!$stock->getBackorders()) {
+                if(!$stock->getBackorders()) {
                     $stock->setIsInStock(0);
                 }
                 $stock->save();
@@ -219,7 +219,7 @@ class Demac_MultiLocationInventory_Model_Observer
                 $stock->save();
 
                 //returning false causes our iterator to stop.
-                return FALSE;
+                return false;
             }
         }
     }

@@ -13,7 +13,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Virtual
      *
      * @return string
      */
-    public function getStockStatusIndexSelectQuery($productIds = FALSE)
+    public function getStockStatusIndexSelectQuery($productIds = false)
     {
         $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
         $storesTable                   = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stores');
@@ -38,7 +38,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Virtual
             . '      location.status = 1'
             . '      AND product_entity.type_id = "virtual"';
 
-        if (is_array($productIds)) {
+        if(is_array($productIds)) {
             $query .= '      AND stock.product_id IN (' . implode(',', $productIds) . ')';
         }
 
@@ -55,7 +55,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Virtual
      *
      * @return string
      */
-    public function getGlobalStockStatusIndexSelectQuery($productIds = FALSE)
+    public function getGlobalStockStatusIndexSelectQuery($productIds = false)
     {
         $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
         $locationsTable                = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/location');
@@ -77,7 +77,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Virtual
             . '      location.status = 1'
             . '      AND product_entity.type_id = "virtual"';
 
-        if (is_array($productIds)) {
+        if(is_array($productIds)) {
             $query .= '      AND stock.product_id IN (' . implode(',', $productIds) . ')';
         }
 

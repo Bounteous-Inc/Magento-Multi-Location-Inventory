@@ -6,7 +6,7 @@
     <p>
         <a href="#" onclick="initGeoloc(); return false;"
            title="<?php echo $this->__('Detect My Location') ?>"><?php echo $this->__('Detect My Location') ?></a>
-        <?php if ($this->getSavedLocation()): ?>
+        <?php if($this->getSavedLocation()): ?>
             <span><?php echo $this->__(' - ') ?></span>
             <a href="#" onclick="$('clear_location').value = 1; $('closest_store_form').submit()"
                title="<?php echo $this->__('Clear saved location') ?>"><?php echo $this->__('Clear saved location') ?></a>
@@ -56,7 +56,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <?php if (!is_null($store->getStoreUrl()) && $store->getStoreUrl() != ''): ?>
+                        <?php if(!is_null($store->getStoreUrl()) && $store->getStoreUrl() != ''): ?>
                             <?php echo $this->__('Website :') ?><a href='<?php echo $store->getStoreUrl() ?>'
                                                                    target='_blank'><?php echo $this->__('%s', $store->getStoreUrl()); ?></a>
                         <?php endif; ?>
@@ -64,14 +64,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <?php if (!is_null($store->getPhone()) && $store->getPhone() != ''): ?>
+                        <?php if(!is_null($store->getPhone()) && $store->getPhone() != ''): ?>
                             <?php echo $this->__('Phone : %s', $store->getPhone()); ?>
                         <?php endif; ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <?php if (!is_null($store->getFax()) && $store->getFax() != ''): ?>
+                        <?php if(!is_null($store->getFax()) && $store->getFax() != ''): ?>
                             <?php echo $this->__('Fax : %s', $store->getFax()); ?>
                         <?php endif; ?>
                     </td>

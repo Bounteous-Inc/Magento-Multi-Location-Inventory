@@ -26,12 +26,12 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
     {
         $items      = $this->getColumnValues('id');
         $connection = $this->getConnection();
-        if (count($items)) {
+        if(count($items)) {
             $select = $connection->select()
                 ->from(array('demac_multilocationinventory_stores' => $this->getTable('demac_multilocationinventory/stores')))
                 ->where('demac_multilocationinventory_stores.location_id IN (?)', $items);
 
-            if ($result = $connection->fetchPairs($select)) {
+            if($result = $connection->fetchPairs($select)) {
                 foreach ($this as $item) {
                     $stores = $this->lookupStoreIds($item->getId());
                     $item->setData('store_id', $stores);
@@ -42,7 +42,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
                 ->from(array('demac_multilocationinventory_locator_stores' => $this->getTable('demac_multilocationinventory/locator_stores')))
                 ->where('demac_multilocationinventory_locator_stores.location_id IN (?)', $items);
 
-            if ($result = $connection->fetchPairs($select)) {
+            if($result = $connection->fetchPairs($select)) {
                 foreach ($this as $item) {
                     $stores = $this->lookupLocatorStoreIds($item->getId());
                     $item->setData('locator_store_id', $stores);
@@ -66,7 +66,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
         $connection = $this->getConnection();
         $select     = $connection->select()
             ->from($this->getTable('demac_multilocationinventory/stores'), 'store_id')
-            ->where('location_id = ?', (int)$locationId);
+            ->where('location_id = ?', (int) $locationId);
 
         return $connection->fetchCol($select);
     }
@@ -83,7 +83,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
         $connection = $this->getConnection();
         $select     = $connection->select()
             ->from($this->getTable('demac_multilocationinventory/locator_stores'), 'store_id')
-            ->where('location_id = ?', (int)$locationId);
+            ->where('location_id = ?', (int) $locationId);
 
         return $connection->fetchCol($select);
     }
@@ -96,7 +96,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
      */
     protected function _renderFiltersBefore()
     {
-        if ($this->getFilter('store_id')) {
+        if($this->getFilter('store_id')) {
             $this->getSelect()->join(
                 array('demac_multilocationinventory_stores' => $this->getTable('demac_multilocationinventory/stores')),
                 'main_table.id = demac_multilocationinventory_stores.location_id',
@@ -106,10 +106,10 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
             /*
              * Allow analytic functions usage because of one field grouping
              */
-            $this->_useAnalyticFunction = TRUE;
+            $this->_useAnalyticFunction = true;
         }
 
-        if ($this->getFilter('locator_store_id')) {
+        if($this->getFilter('locator_store_id')) {
             $this->getSelect()->join(
                 array('demac_multilocationinventory_locator_stores' => $this->getTable('demac_multilocationinventory/locator_stores')),
                 'main_table.id = demac_multilocationinventory_locator_stores.location_id',
@@ -119,7 +119,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
             /*
              * Allow analytic functions usage because of one field grouping
              */
-            $this->_useAnalyticFunction = TRUE;
+            $this->_useAnalyticFunction = true;
         }
 
         return parent::_renderFiltersBefore();
@@ -134,18 +134,18 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
      * @return Demac_MultiLocationInventory_Model_Resource_Location_Collection
      *
      */
-    public function addStoreFilter($store, $withAdmin = TRUE)
+    public function addStoreFilter($store, $withAdmin = true)
     {
-        if (!$this->getFlag('store_filter_added')) {
-            if ($store instanceof Mage_Core_Model_Store) {
+        if(!$this->getFlag('store_filter_added')) {
+            if($store instanceof Mage_Core_Model_Store) {
                 $store = array($store->getId());
             }
 
-            if (!is_array($store)) {
+            if(!is_array($store)) {
                 $store = array($store);
             }
 
-            if ($withAdmin) {
+            if($withAdmin) {
                 $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
             }
 
@@ -164,19 +164,19 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
      * @return Demac_MultiLocationInventory_Model_Resource_Location_Collection
      *
      */
-    public function addLocatorStoreFilter($store, $withAdmin = TRUE)
+    public function addLocatorStoreFilter($store, $withAdmin = true)
     {
 
-        if (!$this->getFlag('locator_store_filter_added')) {
-            if ($store instanceof Mage_Core_Model_Store) {
+        if(!$this->getFlag('locator_store_filter_added')) {
+            if($store instanceof Mage_Core_Model_Store) {
                 $store = array($store->getId());
             }
 
-            if (!is_array($store)) {
+            if(!is_array($store)) {
                 $store = array($store);
             }
 
-            if ($withAdmin) {
+            if($withAdmin) {
                 $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
             }
             // @method Varien_Db_Select join($name, $cond, $cols = '*', $schema = null)
@@ -201,7 +201,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
      *
      * @return Demac_MultiLocationInventory_Model_Resource_Location_Collection
      */
-    public function joinStockDataOnProductAndStoreView($productId = FALSE, $storeViewId = FALSE)
+    public function joinStockDataOnProductAndStoreView($productId = false, $storeViewId = false)
     {
         $this
             ->getSelect()
@@ -217,13 +217,13 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
             ->addFieldToFilter('main_table.status', 1);
 
 
-        if ($productId) {
+        if($productId) {
             $this
                 ->addFieldToFilter(
                     array('stock.product_id', 'stock.product_id'),
                     array(
                         array('eq' => $productId),
-                        array('null' => TRUE)
+                        array('null' => true)
                     )
                 );
         }
@@ -238,7 +238,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
                 array()
             );
 
-        if ($storeViewId) {
+        if($storeViewId) {
 
             $this->addFieldToFilter('stores.store_id', $storeViewId);
         }

@@ -22,15 +22,15 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index_Collection
     {
         $productIds = array();
         foreach ($products as $product) {
-            if ($product instanceof Mage_Catalog_Model_Product) {
+            if($product instanceof Mage_Catalog_Model_Product) {
                 $productIds[] = $product->getId();
             } else {
                 $productIds[] = $product;
             }
         }
-        if (empty($productIds)) {
-            $productIds[] = FALSE;
-            $this->_setIsLoaded(TRUE);
+        if(empty($productIds)) {
+            $productIds[] = false;
+            $this->_setIsLoaded(true);
         }
         $this->addFieldToFilter('main_table.product_id', array('in' => $productIds));
 
@@ -44,7 +44,7 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index_Collection
      *
      * @return Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index_Collection
      */
-    public function joinStockStatus($storeId = NULL)
+    public function joinStockStatus($storeId = null)
     {
         $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
         $this->getSelect()->joinLeft(

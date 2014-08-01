@@ -1,14 +1,14 @@
 {
- 'name': 'demac/multilocationinventory',
- 'type': 'magento-module',
- 'description': 'Pending Description',
- 'authors': [
-   {
-     'name': 'Demac Media',
-     'email': 'support@demacmedia.com'
-   }
- ],
- 'require': {
-   'magento-hackathon/magento-composer-installer': '*'
- }
+    'name': 'demac/multilocationinventory',
+    'type': 'magento-module',
+    'description': 'Pending Description',
+    'authors': [
+        {
+            'name': 'Demac Media',
+            'email': 'support@demacmedia.com'
+        }
+    ],
+    'require': {
+        'magento-hackathon/magento-composer-installer': '*'
+    }
 }

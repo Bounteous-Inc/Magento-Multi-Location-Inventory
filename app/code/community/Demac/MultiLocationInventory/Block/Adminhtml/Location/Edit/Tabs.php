@@ -15,7 +15,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tabs extends Ma
     /**
      * @var bool|array An array of tabs to be rendered.
      */
-    protected $tabs = FALSE;
+    protected $tabs = false;
 
     /**
      * Init form tabs.
@@ -39,10 +39,10 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tabs extends Ma
                                 'label'   => Mage::helper('demac_multilocationinventory')->__('Location'),
                                 'title'   => Mage::helper('demac_multilocationinventory')->__('Location'),
                                 'content' => $this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_edit_tab_location')->toHtml(),
-                                'active'  => TRUE
+                                'active'  => true
                             )
         );
-        if (Mage::registry('multilocationinventory_data') && Mage::registry('multilocationinventory_data')->getId()) {
+        if(Mage::registry('multilocationinventory_data') && Mage::registry('multilocationinventory_data')->getId()) {
             $tabs[] = array('inventory' =>
                                 array(
                                     'label'   => Mage::helper('demac_multilocationinventory')->__('Inventory'),
@@ -62,7 +62,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tabs extends Ma
      */
     protected function _beforeToHtml()
     {
-        if (!$this->tabs) {
+        if(!$this->tabs) {
             $this->prepareTabs();
         }
 

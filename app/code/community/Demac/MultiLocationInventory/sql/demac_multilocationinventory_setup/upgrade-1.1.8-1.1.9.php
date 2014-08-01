@@ -14,9 +14,9 @@ $installer->getConnection()
         'manage_stock',
         array(
             'type'     => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-            'length'   => NULL,
-            'unsigned' => TRUE,
-            'nullable' => FALSE,
+            'length'   => null,
+            'unsigned' => true,
+            'nullable' => false,
             'default'  => '1'
         )
     );

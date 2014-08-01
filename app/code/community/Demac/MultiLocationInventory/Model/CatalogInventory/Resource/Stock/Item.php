@@ -25,7 +25,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Resource_Stock_Item ex
             ->addFieldToFilter('store_id', $storeId);
 
         $stockStatus = $stockStatusCollection->getFirstItem();
-        if ($data && $stockStatus->getId()) {
+        if($data && $stockStatus->getId()) {
             $data['qty']         = $stockStatus->getQty();
             $data['backorders']  = $stockStatus->getBackorders();
             $data['is_in_stock'] = $stockStatus->getIsInStock();

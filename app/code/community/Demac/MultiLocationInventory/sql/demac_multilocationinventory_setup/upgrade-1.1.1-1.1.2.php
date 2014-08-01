@@ -15,15 +15,15 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('demac_multilocationinventory/quote'))
-    ->addColumn('item_id', Varien_Db_Ddl_Table::TYPE_INTEGER, NULL, array(
-        'unsigned' => TRUE,
-        'nullable' => FALSE,
-        'primary'  => TRUE,
+    ->addColumn('item_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned' => true,
+        'nullable' => false,
+        'primary'  => true,
     ), 'Quote Item ID')
-    ->addColumn('location_stock_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, NULL, array(
-        'unsigned' => TRUE,
-        'nullable' => FALSE,
-        'primary'  => TRUE
+    ->addColumn('location_stock_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'unsigned' => true,
+        'nullable' => false,
+        'primary'  => true
     ), 'Location Stock ID')
     ->setComment('Location Stock To Quote Item Relation Table');
 

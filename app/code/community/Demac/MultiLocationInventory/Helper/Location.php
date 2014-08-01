@@ -19,10 +19,10 @@ class Demac_MultiLocationInventory_Helper_Location extends Mage_Core_Helper_Abst
     {
         $closestLocation = $this->getClosestLocation($customerCoordinates);
         $excludes        = array();
-        while ($closestLocation !== FALSE) {
+        while ($closestLocation !== false) {
             //check if inventory of the correct product is available at this location...
             $quantityAvailable = Mage::getModel('demac_multilocationinventory/stock')->loadByProduct($closestLocation->getId(), $productId)->getQty();
-            if ($quantityAvailable > $quantity) {
+            if($quantityAvailable > $quantity) {
                 return $closestLocation;
             }
 
@@ -30,7 +30,7 @@ class Demac_MultiLocationInventory_Helper_Location extends Mage_Core_Helper_Abst
             $closestLocation = $this->getClosestLocation($customerCoordinates, $excludes);
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
@@ -44,21 +44,21 @@ class Demac_MultiLocationInventory_Helper_Location extends Mage_Core_Helper_Abst
      */
     protected function getClosestLocation($customerCoordinates, $excludes = array())
     {
-        if (!Mage::helper('geocoding')) {
+        if(!Mage::helper('geocoding')) {
             Mage::throwException('Demac_Geocoding module must be loaded before calling getClosestLocation.');
         }
-        $closestLocation = FALSE;
+        $closestLocation = false;
         $closestDistance = 0;
         $locations       = Mage::getModel('demac_multilocationinventory/location')->getCollection();
         foreach ($locations as $location) {
-            if (!in_array($location->getId(), $excludes)) {
+            if(!in_array($location->getId(), $excludes)) {
                 $locationCoordinates = array(
                     'latitude'  => $location->getLat(),
                     'longitude' => $location->getLong()
                 );
 
                 $locationDistance = Mage::helper('geocoding')->getGeocodingEngine()->findDistance($customerCoordinates, $locationCoordinates);
-                if ($closestLocation == FALSE || $closestDistance > $locationDistance) {
+                if($closestLocation == false || $closestDistance > $locationDistance) {
                     $closestLocation = $location;
                     $closestDistance = $locationDistance;
                 }
@@ -97,7 +97,7 @@ class Demac_MultiLocationInventory_Helper_Location extends Mage_Core_Helper_Abst
         foreach ($locationIds as $locationId) {
             //each priority score will have an array of locations with that score
             $priority = $this->getPriorityForOrderLocationQuoteItem($orderId, $locationId, $quoteItemId);
-            if (isset($prioritizedLocationsProcessing[$priority])) {
+            if(isset($prioritizedLocationsProcessing[$priority])) {
                 $prioritizedLocationsProcessing[$priority][] = $locationId;
             } else {
                 $prioritizedLocationsProcessing[$priority] = array($locationId);

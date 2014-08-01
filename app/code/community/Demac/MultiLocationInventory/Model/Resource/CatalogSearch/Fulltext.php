@@ -18,8 +18,8 @@ class Demac_MultiLocationInventory_Model_Resource_CatalogSearch_Fulltext extends
      *
      * @return array
      */
-    protected function _getSearchableProducts($storeId, array $staticFields, $productIds = NULL, $lastProductId = 0,
-        $limit = 100)
+    protected function _getSearchableProducts($storeId, array $staticFields, $productIds = null, $lastProductId = 0,
+                                              $limit = 100)
     {
         $websiteId    = Mage::app()->getStore($storeId)->getWebsiteId();
         $writeAdapter = $this->_getWriteAdapter();
@@ -27,7 +27,7 @@ class Demac_MultiLocationInventory_Model_Resource_CatalogSearch_Fulltext extends
         $select = $writeAdapter->select();
 
         $select
-            ->useStraightJoin(TRUE)
+            ->useStraightJoin(true)
             ->from(
                 array('e' => $this->getTable('catalog/product')),
                 array_merge(array('entity_id', 'type_id'), $staticFields)
@@ -49,7 +49,7 @@ class Demac_MultiLocationInventory_Model_Resource_CatalogSearch_Fulltext extends
                 array('in_stock' => 'is_in_stock')
             );
 
-        if (!is_null($productIds)) {
+        if(!is_null($productIds)) {
             $select->where('e.entity_id IN(?)', $productIds);
         }
 

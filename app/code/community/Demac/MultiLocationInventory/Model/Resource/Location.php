@@ -5,7 +5,7 @@
  */
 class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected $_location = NULL;
+    protected $_location = null;
 
     protected function _construct()
     {
@@ -35,30 +35,30 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
     protected function saveStores($object)
     {
         $oldStores = $this->lookupStoreIds($object->getId());
-        $newStores = (array)$object->getStores();
-        if (empty($newStores)) {
-            $newStores = (array)$object->getStoreId();
+        $newStores = (array) $object->getStores();
+        if(empty($newStores)) {
+            $newStores = (array) $object->getStoreId();
         }
         $table  = $this->getTable('demac_multilocationinventory/stores');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
 
-        if ($delete) {
+        if($delete) {
             $where = array(
-                'location_id = ?' => (int)$object->getId(),
+                'location_id = ?' => (int) $object->getId(),
                 'store_id IN (?)' => $delete
             );
 
             $this->_getWriteAdapter()->delete($table, $where);
         }
 
-        if ($insert) {
+        if($insert) {
             $data = array();
 
             foreach ($insert as $storeId) {
                 $data[] = array(
-                    'location_id' => (int)$object->getId(),
-                    'store_id'    => (int)$storeId
+                    'location_id' => (int) $object->getId(),
+                    'store_id'    => (int) $storeId
                 );
             }
 
@@ -74,30 +74,30 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
     protected function saveLocatorStores($object)
     {
         $oldStores = $this->lookupLocatorStoreIds($object->getId());
-        $newStores = (array)$object->getLocatorStores();
-        if (empty($newStores)) {
-            $newStores = (array)$object->getStoreId();
+        $newStores = (array) $object->getLocatorStores();
+        if(empty($newStores)) {
+            $newStores = (array) $object->getStoreId();
         }
         $table  = $this->getTable('demac_multilocationinventory/locator_stores');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
 
-        if ($delete) {
+        if($delete) {
             $where = array(
-                'location_id = ?' => (int)$object->getId(),
+                'location_id = ?' => (int) $object->getId(),
                 'store_id IN (?)' => $delete
             );
 
             $this->_getWriteAdapter()->delete($table, $where);
         }
 
-        if ($insert) {
+        if($insert) {
             $data = array();
 
             foreach ($insert as $storeId) {
                 $data[] = array(
-                    'location_id' => (int)$object->getId(),
-                    'store_id'    => (int)$storeId
+                    'location_id' => (int) $object->getId(),
+                    'store_id'    => (int) $storeId
                 );
             }
 
@@ -118,8 +118,8 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
     {
         $select = parent::_getLoadSelect($field, $value, $object);
 
-        if ($object->getStoreId()) {
-            $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId());
+        if($object->getStoreId()) {
+            $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int) $object->getStoreId());
             $select->join(
                 array('demac_multilocationinventory_stores' => $this->getTable('demac_multilocationinventory/stores')),
                 $this->getMainTable() . '.id = demac_multilocationinventory_stores.location_id',
@@ -129,8 +129,8 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
                 ->limit(1);
         }
 
-        if ($object->getLocatorStoreId()) {
-            $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getLocatorStoreId());
+        if($object->getLocatorStoreId()) {
+            $storeIds = array(Mage_Core_Model_App::ADMIN_STORE_ID, (int) $object->getLocatorStoreId());
             $select->join(
                 array('demac_multilocationinventory_locator_stores' => $this->getTable('demac_multilocationinventory/locator_stores')),
                 $this->getMainTable() . '.id = demac_multilocationinventory_locator_stores.location_id',
@@ -155,7 +155,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
             ->from($this->getTable('demac_multilocationinventory/stores'), 'store_id')
-            ->where('location_id = ?', (int)$locationId);
+            ->where('location_id = ?', (int) $locationId);
 
         return $adapter->fetchCol($select);
     }
@@ -172,7 +172,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
             ->from($this->getTable('demac_multilocationinventory/locator_stores'), 'store_id')
-            ->where('location_id = ?', (int)$locationId);
+            ->where('location_id = ?', (int) $locationId);
 
         return $adapter->fetchCol($select);
     }
@@ -186,7 +186,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
-        if ($object->getId()) {
+        if($object->getId()) {
             $stores = $this->lookupStoreIds($object->getId());
 
             $object->setData('store_id', $stores);
@@ -207,17 +207,17 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
      *
      * @return Demac_MultiLocationInventory_Model_Resource_Location
      */
-    public function addStoreFilter($store, $withAdmin = TRUE)
+    public function addStoreFilter($store, $withAdmin = true)
     {
-        if ($store instanceof Mage_Core_Model_Store) {
+        if($store instanceof Mage_Core_Model_Store) {
             $store = array($store->getId());
         }
 
-        if (!is_array($store)) {
+        if(!is_array($store)) {
             $store = array($store);
         }
 
-        if ($withAdmin) {
+        if($withAdmin) {
             $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
         }
         $this->addFilter('store_id', array('in' => $store), 'public');
@@ -233,17 +233,17 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
      *
      * @return Demac_MultiLocationInventory_Model_Resource_Location
      */
-    public function addLocatorStoreFilter($store, $withAdmin = TRUE)
+    public function addLocatorStoreFilter($store, $withAdmin = true)
     {
-        if ($store instanceof Mage_Core_Model_Store) {
+        if($store instanceof Mage_Core_Model_Store) {
             $store = array($store->getId());
         }
 
-        if (!is_array($store)) {
+        if(!is_array($store)) {
             $store = array($store);
         }
 
-        if ($withAdmin) {
+        if($withAdmin) {
             $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
         }
         $this->addFilter('locator_store_id', array('in' => $store), 'public');

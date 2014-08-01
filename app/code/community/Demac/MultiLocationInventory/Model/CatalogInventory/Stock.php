@@ -50,19 +50,19 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Stock extends Mage_Cat
             $stockItems[$item->getProductId()] = $item;
         }
         foreach ($productCollection as &$product) {
-            if (isset($stockItems[$product->getId()])) {
+            if(isset($stockItems[$product->getId()])) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
                 $stockItem->setStockId(1);
                 $stockItem->setProduct($product);
                 $stockItem->setManageStock(1);
-                $stockItem->setIsInStock((bool)$stockItems[$product->getId()]->getIsInStock());
-                $stockItem->setQty((int)$stockItems[$product->getId()]->getQty());
-                $stockItem->setBackorders((bool)$stockItems[$product->getId()]->getBackorders());
+                $stockItem->setIsInStock((bool) $stockItems[$product->getId()]->getIsInStock());
+                $stockItem->setQty((int) $stockItems[$product->getId()]->getQty());
+                $stockItem->setBackorders((bool) $stockItems[$product->getId()]->getBackorders());
                 //@TODO load isQtyDecimal and set it properly.
-                $stockItem->setIsQtyDecimal(FALSE);
+                $stockItem->setIsQtyDecimal(false);
                 $product->setStockItem($stockItem);
-                $product->setIsInStock((bool)$stockItems[$product->getId()]->getIsInStock());
-                $product->setIsSalable((bool)$stockItems[$product->getId()]->getIsInStock());
+                $product->setIsInStock((bool) $stockItems[$product->getId()]->getIsInStock());
+                $product->setIsSalable((bool) $stockItems[$product->getId()]->getIsInStock());
             }
         }
 
@@ -81,11 +81,11 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Stock extends Mage_Cat
     public function backItemQty($productId, $qty)
     {
         $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
-        if ($stockItem->getId() && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
+        if($stockItem->getId() && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
             $stockItem->addQty($qty);
-            if ($stockItem->getCanBackInStock() && $stockItem->getQty() > $stockItem->getMinQty()) {
-                $stockItem->setIsInStock(TRUE)
-                    ->setStockStatusChangedAutomaticallyFlag(TRUE);
+            if($stockItem->getCanBackInStock() && $stockItem->getQty() > $stockItem->getMinQty()) {
+                $stockItem->setIsInStock(true)
+                    ->setStockStatusChangedAutomaticallyFlag(true);
             }
             $stockItem->save();
         }

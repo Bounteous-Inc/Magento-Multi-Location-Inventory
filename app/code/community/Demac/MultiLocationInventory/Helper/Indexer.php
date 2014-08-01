@@ -13,7 +13,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
      *
      * @return array|string
      */
-    public function getAllStockStatusIndexSelects($productIds = FALSE, $union = TRUE)
+    public function getAllStockStatusIndexSelects($productIds = false, $union = true)
     {
         $stockStatusIndexSelect = array();
         foreach ($this->getAllStockStatusIndexes() as $indexerModel) {
@@ -21,7 +21,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
             $stockStatusIndexSelect[] = $indexerModel->getGlobalStockStatusIndexSelectQuery($productIds);
         }
 
-        if ($union) {
+        if($union) {
             return implode(' UNION ', $stockStatusIndexSelect);
         } else {
             return $stockStatusIndexSelect;
@@ -38,7 +38,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
         $indexesConfig = Mage::getConfig()->getNode('global/mli_index_types')->asArray();
         foreach ($indexesConfig as &$indexerModel) {
             $indexerModel = Mage::getModel($indexerModel);
-            if (!$indexerModel instanceof Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface) {
+            if(!$indexerModel instanceof Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface) {
                 Mage::throwException('Invalid Indexer Model ' . get_class($indexes) . ', does not implement Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface. ');
             }
         }
@@ -89,7 +89,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
         $stockStatusCollection
             ->addFieldToSelect($fields)
             ->addFieldToFilter('store_id', 0);
-        if($productIds !== FALSE) {
+        if($productIds !== false) {
             $stockStatusCollection
                 ->addFieldToFilter(
                     'product_id',
@@ -98,6 +98,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
                     )
                 );
         }
+
         return $stockStatusCollection->getSelectSql(true);
     }
 
@@ -108,7 +109,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
      *
      * @return array|string
      */
-    public function getUpdateCoreStockStatusQuery($productIds = FALSE)
+    public function getUpdateCoreStockStatusQuery($productIds = false)
     {
 
         $stockStatusIndexTable = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock_status_index');
@@ -131,7 +132,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
      *
      * @return array|string
      */
-    public function getUpdateCoreStockItemQuery($productIds = FALSE)
+    public function getUpdateCoreStockItemQuery($productIds = false)
     {
         $stockStatusIndexTable = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock_status_index');
         $coreStockItemTable    = Mage::getModel('core/resource')->getTableName('cataloginventory/stock_item');

@@ -11,9 +11,9 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Resource_Stock extends
      *
      * @return array
      */
-    public function getProductsStock($stock, $productIds, $lockRows = FALSE)
+    public function getProductsStock($stock, $productIds, $lockRows = false)
     {
-        if (empty($productIds)) {
+        if(empty($productIds)) {
             return array();
         }
         $itemTable    = $this->getTable('demac_multilocationinventory/stock_status_index');

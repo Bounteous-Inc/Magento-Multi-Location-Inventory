@@ -18,7 +18,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Resource_Stock_Status 
     public function getProductStatus($productIds, $websiteId, $stockId = 1)
     {
         $storeId = Mage::app()->getStore()->getId();
-        if (is_numeric($productIds)) {
+        if(is_numeric($productIds)) {
             $productIds = array($productIds);
         }
         $stockStatusCollection = Mage::getModel('demac_multilocationinventory/stock_status_index')
@@ -81,7 +81,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Resource_Stock_Status 
         $websiteId     = Mage::app()->getStore($collection->getStoreId())->getWebsiteId();
         $joinCondition = $this->_getReadAdapter()
             ->quoteInto('e.entity_id = status_table_mli.product_id'
-                . ' AND status_table_mli.store_id = ?', Mage::app()->getStore()->getId()
+                        . ' AND status_table_mli.store_id = ?', Mage::app()->getStore()->getId()
             );
 
         $collection->getSelect()

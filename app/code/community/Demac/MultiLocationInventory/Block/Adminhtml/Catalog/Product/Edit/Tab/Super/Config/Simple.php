@@ -36,19 +36,19 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Tab_Supe
 
         /* Standart attributes */
         foreach ($attributes as $attribute) {
-            if (($attribute->getIsRequired()
+            if(($attribute->getIsRequired()
                     && $attribute->getApplyTo()
                     // If not applied to configurable
                     && !in_array(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE, $attribute->getApplyTo())
                     // If not used in configurable
                     && !in_array($attribute->getId(),
-                        $this->_getProduct()->getTypeInstance(TRUE)->getUsedProductAttributeIds($this->_getProduct()))
+                                 $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributeIds($this->_getProduct()))
                 )
                 // Or in additional
                 || in_array($attribute->getAttributeCode(), $attributesConfig['additional'])
             ) {
                 $inputType = $attribute->getFrontend()->getInputType();
-                if (!in_array($inputType, $availableTypes)) {
+                if(!in_array($inputType, $availableTypes)) {
                     continue;
                 }
                 $attributeCode = $attribute->getAttributeCode();
@@ -63,7 +63,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Tab_Supe
                     )
                 )->setEntityAttribute($attribute);
 
-                if (in_array($attributeCode, $attributesConfig['autogenerate'])) {
+                if(in_array($attributeCode, $attributesConfig['autogenerate'])) {
                     $element->setDisabled('true');
                     $element->setValue($this->_getProduct()->getData($attributeCode));
                     $element->setAfterElementHtml(
@@ -77,7 +77,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Tab_Supe
                 }
 
 
-                if ($inputType == 'select' || $inputType == 'multiselect') {
+                if($inputType == 'select' || $inputType == 'multiselect') {
                     $element->setValues($attribute->getFrontend()->getSelectOptions());
                 }
             }
@@ -85,14 +85,14 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Tab_Supe
         }
 
         /* Configurable attributes */
-        $usedAttributes = $this->_getProduct()->getTypeInstance(TRUE)->getUsedProductAttributes($this->_getProduct());
+        $usedAttributes = $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributes($this->_getProduct());
         foreach ($usedAttributes as $attribute) {
             $attributeCode = $attribute->getAttributeCode();
             $fieldset->addField('simple_product_' . $attributeCode, 'select', array(
                 'label'    => $attribute->getFrontend()->getLabel(),
                 'name'     => $attributeCode,
-                'values'   => $attribute->getSource()->getAllOptions(TRUE, TRUE),
-                'required' => TRUE,
+                'values'   => $attribute->getSource()->getAllOptions(true, true),
+                'required' => true,
                 'class'    => 'validate-configurable',
                 'onchange' => 'superProduct.showPricing(this, \'' . $attributeCode . '\')'
             ));

@@ -15,7 +15,7 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     public function create($data)
     {
         try {
-            $data = (array)$data;
+            $data = (array) $data;
 
             $locationItem = Mage::getModel('demac_multilocationinventory/location');
 
@@ -27,13 +27,13 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
             $locationData = array();
 
             foreach ($fieldArray as $field) {
-                if (isset($data[$field])) {
+                if(isset($data[$field])) {
                     $locationData[$field] = $data[$field];
                 }
             }
 
-            if (isset($data['store_ids'])) {
-                $locationData['store_id'] = (array)$data['store_ids'];
+            if(isset($data['store_ids'])) {
+                $locationData['store_id'] = (array) $data['store_ids'];
             }
 
             $locationData = $this->getAddressInformation($locationData, $locationItem);
@@ -48,7 +48,7 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
             $this->_fault('data_invalid', $e->getMessage());
         }
 
-        return FALSE;
+        return false;
 
     }
 
@@ -62,13 +62,13 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     public function multiCreate($productData)
     {
 
-        $productData = (array)$productData;
+        $productData = (array) $productData;
 
         foreach ($productData as $data) {
             $this->create($data);
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -82,7 +82,7 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     {
         $locationItem = Mage::getModel('demac_multilocationinventory/location')->load($locationId);
 
-        if (!$locationItem->getId()) {
+        if(!$locationItem->getId()) {
             $this->_fault('not_exists');
             // No item found
         }
@@ -104,7 +104,7 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     {
         $collection = Mage::getResourceModel('demac_multilocationinventory/location_collection')->load();
 
-        if (is_array($filters)) {
+        if(is_array($filters)) {
             try {
                 foreach ($filters as $field => $value) {
                     $collection->addFieldToFilter($field, $value);
@@ -134,11 +134,11 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     public function update($data)
     {
         try {
-            $data = (array)$data;
+            $data = (array) $data;
 
             $locationItem = Mage::getModel('demac_multilocationinventory/location')->load($data['location_id']);
 
-            if (!$locationItem->getId()) {
+            if(!$locationItem->getId()) {
                 $this->_fault('not_exists');
                 // No item found
             }
@@ -151,13 +151,13 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
             $locationData = array();
 
             foreach ($fieldArray as $field) {
-                if (isset($data[$field])) {
+                if(isset($data[$field])) {
                     $locationData[$field] = $data[$field];
                 }
             }
 
-            if (isset($data['store_ids'])) {
-                $locationData['store_id'] = (array)$data['store_ids'];
+            if(isset($data['store_ids'])) {
+                $locationData['store_id'] = (array) $data['store_ids'];
             }
 
             $locationData = $this->getAddressInformation($locationData, $locationItem);
@@ -169,7 +169,7 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
             $this->_fault('data_invalid', $e->getMessage());
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -182,13 +182,13 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     public function multiUpdate($locationDataArray)
     {
 
-        $locationDataArray = (array)$locationDataArray;
+        $locationDataArray = (array) $locationDataArray;
 
         foreach ($locationDataArray as $locationData) {
             $this->update($locationData);
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -202,7 +202,7 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     {
         $locationItem = Mage::getModel('demac_multilocationinventory/location')->load($locationId);
 
-        if (!$locationItem->getId()) {
+        if(!$locationItem->getId()) {
             $this->_fault('not_exists');
             // No item found
         }
@@ -214,7 +214,7 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
             // Some errors while deleting.
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -227,13 +227,13 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
     public function multiRemove($idArray)
     {
 
-        $idArray = (array)$idArray;
+        $idArray = (array) $idArray;
 
         foreach ($idArray as $id) {
             $this->remove($id);
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -250,27 +250,27 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
         $address = isset($locationData['address']) ? $locationData['address'] : $locationItem->getAddress();
         $city    = isset($locationData['city']) ? $locationData['city'] : $locationItem->getCity();
 
-        if (isset($locationData['region_id'])) {
+        if(isset($locationData['region_id'])) {
             $region = Mage::getModel('directory/region')->loadByCode($locationData['region_id'], $country);
-            if (!$region->getName() && in_array($country, array('US', 'CA', 'DE', 'AT', 'CH', 'ES', 'FR', 'RO', 'FI', 'EE', 'LV', 'LT'))) {
+            if(!$region->getName() && in_array($country, array('US', 'CA', 'DE', 'AT', 'CH', 'ES', 'FR', 'RO', 'FI', 'EE', 'LV', 'LT'))) {
                 $this->_fault('data_invalid', 'Invalid Region');
             }
-            if ($region->getId()) {
+            if($region->getId()) {
                 $locationData['region_id'] = $region->getCode();
             }
         } else {
             $region = Mage::getModel('directory/region')->load($locationItem->getRegionId());
         }
-        if ((isset($locationData['address']) || isset($locationData['country'])
+        if((isset($locationData['address']) || isset($locationData['country'])
                 || isset($locationData['city']) || isset($locationData['region_id']))
             && (!isset($locationData['lat']) || !isset($locationData['long'])
                 || $locationData['lat'] == '' || $locationData['long'] == '')
         ) {
             $address .= ' ' . $city . ' ' . $region->getName();
             $latLong = Mage::helper('demac_multilocationinventory')->getLatLong($address, $country);
-            if (is_null($latLong[0])) {
-                $locationData['lat']  = FALSE;
-                $locationData['long'] = FALSE;
+            if(is_null($latLong[0])) {
+                $locationData['lat']  = false;
+                $locationData['long'] = false;
             } else {
                 $locationData['lat']  = $latLong[0];
                 $locationData['long'] = $latLong[1];

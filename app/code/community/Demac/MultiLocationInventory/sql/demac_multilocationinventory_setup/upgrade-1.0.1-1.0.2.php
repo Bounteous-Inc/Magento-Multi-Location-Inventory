@@ -18,7 +18,7 @@ $installer->addAttribute('customer', $attributeCode, array(
     'input'            => 'text',
     'label'            => 'Saved Store/Location',
     'position'         => 999,
-    'required'         => FALSE,
+    'required'         => false,
     'visible_on_front' => 0,
     'is_user_defined'  => 0,
     'is_system'        => 1,

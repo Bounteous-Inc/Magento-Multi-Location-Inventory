@@ -13,7 +13,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Configurable
      *
      * @return string
      */
-    public function getStockStatusIndexSelectQuery($productIds = FALSE)
+    public function getStockStatusIndexSelectQuery($productIds = false)
     {
         $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
         $storesTable                   = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stores');
@@ -41,7 +41,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Configurable
             . '      location.status = 1'
             . '      AND product_entity.type_id = "configurable"';
 
-        if (is_array($productIds)) {
+        if(is_array($productIds)) {
             $query .= '      AND product_entity.entity_id IN (' . implode(',', $productIds) . ')';
         }
 
@@ -59,7 +59,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Configurable
      *
      * @return string
      */
-    public function getGlobalStockStatusIndexSelectQuery($productIds = FALSE)
+    public function getGlobalStockStatusIndexSelectQuery($productIds = false)
     {
         $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
         $locationsTable                = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/location');
@@ -84,7 +84,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Configurable
             . '      location.status = 1'
             . '      AND product_entity.type_id = "configurable"';
 
-        if (is_array($productIds)) {
+        if(is_array($productIds)) {
             $query .= '      AND product_entity.entity_id IN (' . implode(',', $productIds) . ')';
         }
 

@@ -10,13 +10,13 @@ $table = $installer->getTable('demac_multilocationinventory/location');
 
 $installer->getConnection()
     ->addColumn($table, 'external_id',
-        array(
-            'type'    => Varien_Db_Ddl_Table::TYPE_TEXT,
-            'length'  => 255,
-            'unique'  => TRUE,
-            'comment' => 'External ID for client usage',
-            'after'   => 'name'
-        )
+                array(
+                    'type'    => Varien_Db_Ddl_Table::TYPE_TEXT,
+                    'length'  => 255,
+                    'unique'  => true,
+                    'comment' => 'External ID for client usage',
+                    'after'   => 'name'
+                )
     );
 
 $installer->getConnection()

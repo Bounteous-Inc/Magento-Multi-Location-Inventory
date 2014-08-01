@@ -22,12 +22,12 @@ class Demac_MultiLocationInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'label' => 'N/A'
         );
 
-        if ($countryCode != '') {
+        if($countryCode != '') {
             $regionArray = Mage::getModel('directory/region')
                 ->getResourceCollection()
                 ->addCountryFilter($countryCode);
             foreach ($regionArray as $region) {
-                if ($region->getCode() == '') {
+                if($region->getCode() == '') {
                     $region[] = $notAvailableOption;
                 } else {
                     $options[] = array(
@@ -62,7 +62,7 @@ class Demac_MultiLocationInventory_Helper_Data extends Mage_Core_Helper_Abstract
     public function getLatLong($postalCode, $country)
     {
         sleep(1);
-        if ($this->geocodingAvailable()) {
+        if($this->geocodingAvailable()) {
             $coordinates = Mage::getModel('geocoding/geocode')->loadByPostalCode($postalCode, $country);
 
             return array($coordinates['latitude'], $coordinates['longitude']);
@@ -95,7 +95,7 @@ class Demac_MultiLocationInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function geocodingAvailable()
     {
-        return (bool)Mage::getModel('geocoding/geocode');
+        return (bool) Mage::getModel('geocoding/geocode');
     }
 
 
@@ -105,7 +105,7 @@ class Demac_MultiLocationInventory_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return mixed
      */
-    public function getConfigData($field, $storeId = NULL)
+    public function getConfigData($field, $storeId = null)
     {
         // Start Refactor : Add a class constant for the path
         $path = self::CONFIG_PATH . $field;

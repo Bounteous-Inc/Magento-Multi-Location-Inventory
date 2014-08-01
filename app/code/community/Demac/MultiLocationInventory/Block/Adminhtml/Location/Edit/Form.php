@@ -26,14 +26,14 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Form extends Ma
         $model = Mage::registry('multilocationinventory_data');
 
         $form = new Varien_Data_Form(array(
-                'id'      => 'edit_form',
-                'action'  => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'))),
-                'method'  => 'post',
-                'enctype' => 'multipart/form-data')
+                                         'id'      => 'edit_form',
+                                         'action'  => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'))),
+                                         'method'  => 'post',
+                                         'enctype' => 'multipart/form-data')
         );
 
         $form->setValues($model->getData());
-        $form->setUseContainer(TRUE);
+        $form->setUseContainer(true);
         $this->setForm($form);
 
         return parent::_prepareForm();

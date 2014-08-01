@@ -34,9 +34,9 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
         $id    = $this->getRequest()->getParam('id');
         $model = Mage::getModel('demac_multilocationinventory/location');
 
-        if ($id) {
+        if($id) {
             $model->load($id);
-            if (!$model->getId()) {
+            if(!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This location no longer exists.'));
                 $this->_redirect('*/*/');
 
@@ -45,8 +45,8 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
         }
 
         $this->_title($model->getId() ? $model->getName() : $this->__('New Location'));
-        $data = Mage::getSingleton('adminhtml/session')->getStoreData(TRUE);
-        if (!empty($data)) {
+        $data = Mage::getSingleton('adminhtml/session')->getStoreData(true);
+        if(!empty($data)) {
             $model->setData($data);
         }
         Mage::register('multilocationinventory_data', $model);
@@ -74,13 +74,13 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
      */
     public function saveAction()
     {
-        if ($postData = $this->getRequest()->getPost()) {
-            if (isset($_FILES['image']['name']) and (file_exists($_FILES['image']['tmp_name']))) {
+        if($postData = $this->getRequest()->getPost()) {
+            if(isset($_FILES['image']['name']) and (file_exists($_FILES['image']['tmp_name']))) {
                 try {
                     $uploader = new Varien_File_Uploader('image');
                     $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-                    $uploader->setAllowRenameFiles(FALSE);
-                    $uploader->setFilesDispersion(FALSE);
+                    $uploader->setAllowRenameFiles(false);
+                    $uploader->setFilesDispersion(false);
                     $locImg = 'multilocationinventory/images/';
                     $path   = Mage::getBaseDir('media') . DS . $locImg;
                     $uploader->save($path, $_FILES['image']['name']);
@@ -91,19 +91,19 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
                 }
                 // End Refactor
             } else {
-                if (isset($postData['image']['delete']) && $postData['image']['delete'] == 1) {
+                if(isset($postData['image']['delete']) && $postData['image']['delete'] == 1) {
                     $postData['image'] = '';
                 } else {
                     unset($postData['image']);
                 }
             }
 
-            if (isset($_FILES['marker']['name']) and (file_exists($_FILES['marker']['tmp_name']))) {
+            if(isset($_FILES['marker']['name']) and (file_exists($_FILES['marker']['tmp_name']))) {
                 try {
                     $uploader = new Varien_File_Uploader('marker');
                     $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-                    $uploader->setAllowRenameFiles(FALSE);
-                    $uploader->setFilesDispersion(FALSE);
+                    $uploader->setAllowRenameFiles(false);
+                    $uploader->setFilesDispersion(false);
                     $locMarker = 'multilocationinventory/markers/';
                     $path      = Mage::getBaseDir('media') . DS . $locMarker;
                     $uploader->save($path, $_FILES['marker']['name']);
@@ -112,7 +112,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
 
                 }
             } else {
-                if (isset($postData['marker']['delete']) && $postData['marker']['delete'] == 1) {
+                if(isset($postData['marker']['delete']) && $postData['marker']['delete'] == 1) {
                     $postData['marker'] = '';
                 } else {
                     unset($postData['marker']);
@@ -122,7 +122,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
             $model = Mage::getSingleton('demac_multilocationinventory/location');
 
 
-            if ($id = $this->getRequest()->getParam('id')) {
+            if($id = $this->getRequest()->getParam('id')) {
                 $model->load($id);
             }
 
@@ -130,18 +130,18 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
             $model->setData($postData);
 
             try {
-                if (is_null($model->getCreatedTime()) || $model->getCreatedTime() == '') {
+                if(is_null($model->getCreatedTime()) || $model->getCreatedTime() == '') {
                     $model->setCreatedTime(time());
                 }
                 $model->setUpdateTime(time());
 
-                if (!is_null($model->getImage()) && $model->getImage() != '') {
+                if(!is_null($model->getImage()) && $model->getImage() != '') {
                     $filename = str_replace(" ", "_", $model->getImage());
                     $filename = str_replace(":", "_", $filename);
                     $model->setImage($locImg . $filename);
                 }
 
-                if (!is_null($model->getMarker()) && $model->getMarker() != '') {
+                if(!is_null($model->getMarker()) && $model->getMarker() != '') {
                     $filename = str_replace(" ", "_", $model->getMarker());
                     $filename = str_replace(":", "_", $filename);
                     $model->setMarker($locMarker . $filename);
@@ -150,7 +150,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
                 $model->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The Location has been saved.'));
-                if ($this->getRequest()->getParam('back')) {
+                if($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', array('id' => $model->getId()));
 
                     return;
@@ -177,7 +177,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
      */
     public function deleteAction()
     {
-        if ($this->getRequest()->getParam('id') > 0) {
+        if($this->getRequest()->getParam('id') > 0) {
             try {
                 $model = Mage::getModel('demac_multilocationinventory/location');
 
@@ -202,7 +202,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     public function massDeleteAction()
     {
         $locationIds = $this->getRequest()->getParam('demac_multilocationinventory');
-        if (!is_array($locationIds)) {
+        if(!is_array($locationIds)) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('demac_multilocationinventory')->__('Please select a location(s)'));
         } else {
             try {
@@ -231,7 +231,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     public function massStatusAction()
     {
         $locationIds = $this->getRequest()->getParam('demac_multilocationinventory');
-        if (!is_array($locationIds)) {
+        if(!is_array($locationIds)) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select a location(s)'));
         } else {
             try {
@@ -328,27 +328,27 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
 
         $csv = $this->readCSV($csvFile);
         foreach ($csv as $key => $line) {
-            if ($key == 0) continue;
+            if($key == 0) continue;
             $country = $this->getCountry($line[6]);
 
-            if (!$country) {
-                Mage::log('Error with country line:' . $key . ' value:' . $line[6], NULL, 'locationimport.log', TRUE);
+            if(!$country) {
+                Mage::log('Error with country line:' . $key . ' value:' . $line[6], null, 'locationimport.log', true);
                 continue;
             }
 
             $region = Mage::getModel('directory/region')->loadByCode($line[4], $country);
-            if (!$region->getName() && in_array($country, array('US', 'CA', 'DE', 'AT', 'CH', 'ES', 'FR', 'RO', 'FI', 'EE', 'LV', 'LT'))) {
-                Mage::log('Error with region line:' . $key . ' value:' . $line[4], NULL, 'locationimport.log', TRUE);
+            if(!$region->getName() && in_array($country, array('US', 'CA', 'DE', 'AT', 'CH', 'ES', 'FR', 'RO', 'FI', 'EE', 'LV', 'LT'))) {
+                Mage::log('Error with region line:' . $key . ' value:' . $line[4], null, 'locationimport.log', true);
             }
 
-            if (is_null($line[9]) || $line[9] == '' || is_null($line[10]) || $line[10] == '') {
+            if(is_null($line[9]) || $line[9] == '' || is_null($line[10]) || $line[10] == '') {
                 $address  = implode(' ', array($line[2], $line[3], $line[4], $line[5],));
                 $latLong  = Mage::helper('demac_multilocationinventory')->getLatLong($address, $line[6]);
                 $line[9]  = $latLong[0];
                 $line[10] = $latLong[1];
 
-                if (is_null($latLong[0])) {
-                    Mage::log('Error getting lat/long line:' . $key . ' value:' . $latLong[2], NULL, 'locationimport.log', TRUE);
+                if(is_null($latLong[0])) {
+                    Mage::log('Error getting lat/long line:' . $key . ' value:' . $latLong[2], null, 'locationimport.log', true);
                 }
             }
 
@@ -387,10 +387,10 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
      */
     public function getCountry($needle)
     {
-        if (is_null($this->_countries)) {
+        if(is_null($this->_countries)) {
             $countriesList    = Mage::getResourceModel('directory/country_collection')
                 ->loadData()
-                ->toOptionArray(FALSE);
+                ->toOptionArray(false);
             $newCountriesList = array();
             foreach ($countriesList as $key => $val) {
                 $newCountriesList[strtolower($val['label'])] = $val['value'];;
@@ -398,11 +398,11 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
             $this->_countries = $newCountriesList;
         }
         $countryCode = str_replace('USA', 'US', strtolower($needle));
-        if (isset($this->_countries[$countryCode])) {
+        if(isset($this->_countries[$countryCode])) {
             return $this->_countries[$countryCode];
         }
 
-        return FALSE;
+        return false;
     }
 
     /**

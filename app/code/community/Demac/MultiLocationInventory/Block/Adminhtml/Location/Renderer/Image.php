@@ -15,7 +15,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Renderer_Image exten
      */
     public function render(Varien_Object $row)
     {
-        if (!is_null($row->getData($this->getColumn()->getIndex()))) {
+        if(!is_null($row->getData($this->getColumn()->getIndex()))) {
             $html = '<img ';
             $html .= 'id="' . $this->getColumn()->getId() . '" ';
             $html .= 'src="' . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $row->getData($this->getColumn()->getIndex()) . '"';

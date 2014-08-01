@@ -16,15 +16,15 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
     public function create($data)
     {
         try {
-            $data = (array)$data;
+            $data = (array) $data;
 
             $product = $this->_getProduct($data['product_id']);
 
-            if (!$product->getId()) {
+            if(!$product->getId()) {
                 $this->_fault('not_exists');
             }
 
-            if ($product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) {
+            if($product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) {
                 $this->_fault('data_invalid', 'Invalid Product Type: Only Simple Allowed');
             }
 
@@ -38,7 +38,7 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
             );
 
             foreach ($fieldArray as $field) {
-                if (isset($data[$field])) {
+                if(isset($data[$field])) {
                     $stockItem[$field] = $data[$field];
                 }
             }
@@ -67,13 +67,13 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
     public function multiCreate($productData)
     {
 
-        $productData = (array)$productData;
+        $productData = (array) $productData;
 
         foreach ($productData as $data) {
             $this->create($data);
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -85,10 +85,10 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
      */
     public function info($ids)
     {
-        $ids       = (array)$ids;
+        $ids       = (array) $ids;
         $stockItem = Mage::getModel('demac_multilocationinventory/stock')->loadByProduct($ids['location_id'], $ids['product_id']);
 
-        if (!$stockItem->getId()) {
+        if(!$stockItem->getId()) {
             $this->_fault('not_exists');
             // No item found
         }
@@ -108,12 +108,12 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
     public function items($locationId, $filters)
     {
         $collection = Mage::getResourceModel('demac_multilocationinventory/stock_collection');
-        if (isset($locationId) && !is_null($locationId)) {
+        if(isset($locationId) && !is_null($locationId)) {
             $collection->addFieldToFilter('location_id', $locationId);
         }
         $collection->addProductData();
 
-        if (is_array($filters)) {
+        if(is_array($filters)) {
             try {
                 foreach ($filters as $field => $value) {
                     $collection->addFieldToFilter($field, $value);
@@ -139,11 +139,11 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
     public function update($data)
     {
         try {
-            $data = (array)$data;
+            $data = (array) $data;
 
             $stockItem = Mage::getModel('demac_multilocationinventory/stock')->loadByProduct($data['location_id'], $data['product_id']);
 
-            if (!$stockItem->getId()) {
+            if(!$stockItem->getId()) {
                 return $this->create($data);
                 // No item found
             }
@@ -155,7 +155,7 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
             $stockData = array();
 
             foreach ($fieldArray as $field) {
-                if (isset($data[$field])) {
+                if(isset($data[$field])) {
                     $stockItem[$field] = $data[$field];
                 }
             }
@@ -182,13 +182,13 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
     public function multiUpdate($stockDataArray)
     {
 
-        $stockDataArray = (array)$stockDataArray;
+        $stockDataArray = (array) $stockDataArray;
 
         foreach ($stockDataArray as $stockData) {
             $this->update($stockData);
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -200,10 +200,10 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
      */
     public function remove($ids)
     {
-        $ids       = (array)$ids;
+        $ids       = (array) $ids;
         $stockItem = Mage::getModel('demac_multilocationinventory/stock')->loadByProduct($ids['location_id'], $ids['product_id']);
 
-        if (!$stockItem->getId()) {
+        if(!$stockItem->getId()) {
             $this->_fault('not_exists');
             // No item found
         }
@@ -215,7 +215,7 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
             // Some errors while deleting.
         }
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -228,13 +228,13 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
     public function multiRemove($idArray)
     {
 
-        $idArray = (array)$idArray;
+        $idArray = (array) $idArray;
 
         foreach ($idArray as $ids) {
             $this->remove($ids);
         }
 
-        return TRUE;
+        return true;
     }
 
     /**

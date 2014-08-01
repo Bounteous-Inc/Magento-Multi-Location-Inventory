@@ -21,9 +21,9 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index
      *
      * @param bool $productIds If FALSE all products will be indexed
      */
-    public function reindex($productIds = FALSE)
+    public function reindex($productIds = false)
     {
-        if ($productIds !== FALSE && !is_array($productIds) && is_numeric($productIds)) {
+        if($productIds !== false && !is_array($productIds) && is_numeric($productIds)) {
             $productIds = array($productIds);
         }
 
@@ -32,7 +32,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index
         $this->getResource()->createMissingStockIndexRows($productIds);
 
         //Add associated products (parent products, child products, etc)
-        if ($productIds !== FALSE) {
+        if($productIds !== false) {
             $associatedProductIds = $this->getAssociatedProducts($productIds);
             $productIds           = array_merge($productIds, $associatedProductIds);
         }

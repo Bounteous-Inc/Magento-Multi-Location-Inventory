@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Demac_MultiLocationInventory_Model_Resource_Iterator
  */
@@ -15,7 +16,7 @@ class Demac_MultiLocationInventory_Model_Resource_Iterator extends Mage_Core_Mod
      *
      * @return $this
      */
-    public function walk($query, array $callbacks, array $args = array(), $adapter = NULL)
+    public function walk($query, array $callbacks, array $args = array(), $adapter = null)
     {
         $stmt        = $this->_getStatement($query, $adapter);
         $args['idx'] = 0;
@@ -23,10 +24,10 @@ class Demac_MultiLocationInventory_Model_Resource_Iterator extends Mage_Core_Mod
             $args['row'] = $row;
             foreach ($callbacks as $callback) {
                 $result = call_user_func($callback, $args);
-                if ($result === FALSE) {
+                if($result === false) {
                     break 2;
                 }
-                if (!empty($result)) {
+                if(!empty($result)) {
                     $args = array_merge($args, $result);
                 }
             }

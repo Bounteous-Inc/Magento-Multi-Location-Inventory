@@ -16,15 +16,15 @@ class Demac_MultiLocationInventory_IndexController extends Mage_Core_Controller_
 
     public function saveLocationAction()
     {
-        $savedLocation = $this->getRequest()->getParam('saved_location', FALSE);
-        $clear         = $this->getRequest()->getParam('clear_location', FALSE);
+        $savedLocation = $this->getRequest()->getParam('saved_location', false);
+        $clear         = $this->getRequest()->getParam('clear_location', false);
 
-        if ($clear) {
-            $savedLocation = NULL;
+        if($clear) {
+            $savedLocation = null;
         }
 
-        if ($savedLocation || $clear) {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if($savedLocation || $clear) {
+            if(Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $customer = Mage::getSingleton('customer/session')->getCustomer();
                 $customer->setSavedLocation($savedLocation);
                 $customer->save();
@@ -50,10 +50,10 @@ class Demac_MultiLocationInventory_IndexController extends Mage_Core_Controller_
         $model->setAddressDisplay($address);
         $this->fetchCoordinates2($model);
 
-        $num = (int)Mage::getStoreConfig('demac_multilocationinventory/general/num_results', $storeId);
+        $num = (int) Mage::getStoreConfig('demac_multilocationinventory/general/num_results', $storeId);
 
         $units = Mage::getStoreConfig('demac_multilocationinventory/general/distance_units', $storeId);
-        if (!(isset($units)) || empty($units)) {
+        if(!(isset($units)) || empty($units)) {
             $units = $this->getRequest()->getParam('units', $units);
         }
         $radius = $this->getRequest()->getParam('radius');
@@ -68,12 +68,12 @@ class Demac_MultiLocationInventory_IndexController extends Mage_Core_Controller_
         $collection->getSelect()->group('locator_stores.location_id');
         $savedLocation = Mage::getSingleton('customer/session')->getCustomer()->getSavedLocation();
 
-        if (isset($savedLocation) && !empty($savedLocation)) {
-            $collection->addExpressionFieldToSelect('distance', $dist, NULL)
+        if(isset($savedLocation) && !empty($savedLocation)) {
+            $collection->addExpressionFieldToSelect('distance', $dist, null)
                 ->addFieldToFilter("store_id", array('eq' => Mage::app()->getStore()->getStoreId()))
                 ->addFieldToFilter("id", array('neq' => Mage::getSingleton('customer/session')->getCustomer()->getSavedLocation()));
         } else {
-            $collection->addExpressionFieldToSelect('distance', $dist, NULL)
+            $collection->addExpressionFieldToSelect('distance', $dist, null)
                 ->addFieldToFilter("store_id", array('eq' => Mage::app()->getStore()->getStoreId()));
         }
 
@@ -82,9 +82,9 @@ class Demac_MultiLocationInventory_IndexController extends Mage_Core_Controller_
         $privateFields = Mage::getConfig()->getNode('global/demac_multilocationinventory/private_fields');
         $i             = 0;
         $c             = 0;
-        $limit         = (int)Mage::getStoreConfig('demac_multilocationinventory/general/closest_amount', $storeId);
+        $limit         = (int) Mage::getStoreConfig('demac_multilocationinventory/general/closest_amount', $storeId);
         foreach ($collection as $loc) {
-            if ($c == $limit) {
+            if($c == $limit) {
                 break;
             };
 
@@ -99,7 +99,7 @@ class Demac_MultiLocationInventory_IndexController extends Mage_Core_Controller_
     {
         $url = "http://maps.googleapis.com/maps/api/geocode";
 
-        if (substr($url, -1) != '/') {
+        if(substr($url, -1) != '/') {
             $url .= '/';
         }
 
@@ -111,8 +111,8 @@ class Demac_MultiLocationInventory_IndexController extends Mage_Core_Controller_
         curl_setopt($cinit, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($cinit);
 
-        if (is_string($response) && !empty($response)) {
-            $result = json_decode($response, FALSE);
+        if(is_string($response) && !empty($response)) {
+            $result = json_decode($response, false);
             try {
                 $data = $result->results[0]->geometry->location;
                 $model->setLatitude($data->lat)->setLongitude($data->lng);
@@ -128,7 +128,7 @@ class Demac_MultiLocationInventory_IndexController extends Mage_Core_Controller_
         $store_id = $this->getRequest()->getParam('storeId');
         $store    = Mage::getModel('demac_multilocationinventory/location')->load($store_id);
 
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if(Mage::getSingleton('customer/session')->isLoggedIn()) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
             $customer->setSavedLocation($store_id);
             $customer->save();

@@ -12,7 +12,7 @@ interface Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface
      *
      * @return string
      */
-    public function getStockStatusIndexSelectQuery($productIds = FALSE);
+    public function getStockStatusIndexSelectQuery($productIds = false);
 
     /**
      * A select query to retrieve the global stock status index data.
@@ -21,7 +21,7 @@ interface Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface
      *
      * @return string
      */
-    public function getGlobalStockStatusIndexSelectQuery($productIds = FALSE);
+    public function getGlobalStockStatusIndexSelectQuery($productIds = false);
 }
 
 ?>

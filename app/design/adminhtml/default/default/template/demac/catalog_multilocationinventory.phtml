@@ -36,7 +36,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($this->getLocationsInventories() as $_location): ?>
+                <?php foreach ($this->getLocationsInventories() as $_location): ?>
                     <tr>
                         <td>
                             <?php echo $_location['name'] ?>
@@ -45,21 +45,35 @@
                             <input type="text"
                                    name="multilocationinventory[<?php echo $_location['id'] ?>][quantity]"
                                    class="input-text validate-number"
-                                   value="<?php echo $_location['qty'] ?>" />
+                                   value="<?php echo $_location['qty'] ?>"/>
                         </td>
                         <td>
-                            <select name="multilocationinventory[<?php echo $_location['id'] ?>][backorders]" style="width:86%;" class="select">
+                            <select name="multilocationinventory[<?php echo $_location['id'] ?>][backorders]"
+                                    style="width:86%;" class="select">
                                 <?php if($_location['backorders'] == ''): ?>
                                     <option value="-"></option>
                                 <?php endif; ?>
-                                <option value="1" <?php echo ($_location['backorders'] === "1")?'selected="selected"':'' ?>>Yes</option>
-                                <option value="0" <?php echo ($_location['backorders'] !== "1")?'selected="selected"':'' ?>>No</option>
+                                <option
+                                    value="1" <?php echo ($_location['backorders'] === "1") ? 'selected="selected"' : '' ?>>
+                                    Yes
+                                </option>
+                                <option
+                                    value="0" <?php echo ($_location['backorders'] !== "1") ? 'selected="selected"' : '' ?>>
+                                    No
+                                </option>
                             </select>
                         </td>
                         <td>
-                            <select name="multilocationinventory[<?php echo $_location['id'] ?>][is_in_stock]" style="width:86%;" class="select">
-                                <option value="1" <?php echo ($_location['is_in_stock'] === "1")?'selected="selected"':'' ?>>In Stock</option>
-                                <option value="0" <?php echo ($_location['is_in_stock'] !== "1")?'selected="selected"':'' ?>>Out Of Stock</option>
+                            <select name="multilocationinventory[<?php echo $_location['id'] ?>][is_in_stock]"
+                                    style="width:86%;" class="select">
+                                <option
+                                    value="1" <?php echo ($_location['is_in_stock'] === "1") ? 'selected="selected"' : '' ?>>
+                                    In Stock
+                                </option>
+                                <option
+                                    value="0" <?php echo ($_location['is_in_stock'] !== "1") ? 'selected="selected"' : '' ?>>
+                                    Out Of Stock
+                                </option>
                             </select>
                         </td>
                     </tr>

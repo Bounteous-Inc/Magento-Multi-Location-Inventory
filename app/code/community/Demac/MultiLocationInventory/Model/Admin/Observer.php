@@ -20,8 +20,8 @@ class Demac_MultiLocationInventory_Model_Admin_Observer
     {
         $productId       = $observer->getEvent()->getProduct()->getId();
         $this->inputData = Mage::app()->getRequest()->getPost('multilocationinventory');
-        if ($productId) {
-            if ($this->inputData) {
+        if($productId) {
+            if($this->inputData) {
                 $input_multiLocationInventoryDataIds = array_keys($this->inputData);
 
                 //Get select collection to find all existing inventory data to update...
@@ -42,7 +42,7 @@ class Demac_MultiLocationInventory_Model_Admin_Observer
                     );
 
                 //Iterate through the collection of inventory data to update...
-                if ($multilocationinventoryCollection->getSize() > 0) {
+                if($multilocationinventoryCollection->getSize() > 0) {
                     Mage::getSingleton('core/resource_iterator')->walk(
                         $multilocationinventoryCollection->getSelect(),
                         array(
@@ -86,7 +86,7 @@ class Demac_MultiLocationInventory_Model_Admin_Observer
     {
         $_stock     = Mage::getModel('demac_multilocationinventory/stock')->setData($_stockData);
         $locationId = $_stock->getLocationId();
-        if (isset($this->inputData[$locationId])) {
+        if(isset($this->inputData[$locationId])) {
             $inputStock = $this->inputData[$locationId];
             $_stock->setQty($inputStock['quantity']);
             $_stock->setBackorders($inputStock['backorders']);

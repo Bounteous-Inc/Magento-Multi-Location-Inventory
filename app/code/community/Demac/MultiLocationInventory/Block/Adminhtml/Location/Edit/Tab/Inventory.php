@@ -23,7 +23,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Inventory e
         $this->setDefaultSort('id');
         $this->setDefaultDir('desc');
 
-        $this->setSaveParametersInSession(TRUE);
+        $this->setSaveParametersInSession(true);
         //$this->setUseAjax(true);
 
     }
@@ -101,23 +101,23 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Inventory e
         ));
 
         $this->addColumn('action',
-            array(
-                'header'   => Mage::helper('demac_multilocationinventory')->__('Action'),
-                'width'    => '100px',
-                'align'    => 'center',
-                'type'     => 'action',
-                'getter'   => 'getProductId',
-                'actions'  => array(array(
-                    'caption' => Mage::helper('demac_multilocationinventory')->__('Edit'),
-                    'url'     => array(
-                        'base' => '*/catalog_product/edit'
-                    ),
-                    'field'   => 'id'
-                )),
-                'filter'   => FALSE,
-                'sortable' => FALSE,
-                'index'    => 'product_id',
-            ));
+                         array(
+                             'header'   => Mage::helper('demac_multilocationinventory')->__('Action'),
+                             'width'    => '100px',
+                             'align'    => 'center',
+                             'type'     => 'action',
+                             'getter'   => 'getProductId',
+                             'actions'  => array(array(
+                                 'caption' => Mage::helper('demac_multilocationinventory')->__('Edit'),
+                                 'url'     => array(
+                                     'base' => '*/catalog_product/edit'
+                                 ),
+                                 'field'   => 'id'
+                             )),
+                             'filter'   => false,
+                             'sortable' => false,
+                             'index'    => 'product_id',
+                         ));
 
         return parent::_prepareColumns();
     }
@@ -131,7 +131,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Inventory e
     {
         $this->setMassactionIdField('product_id');
         $this->getMassactionBlock()->setFormFieldName('ids');
-        $this->getMassactionBlock()->setUseSelectAll(TRUE);
+        $this->getMassactionBlock()->setUseSelectAll(true);
 
         return $this;
     }

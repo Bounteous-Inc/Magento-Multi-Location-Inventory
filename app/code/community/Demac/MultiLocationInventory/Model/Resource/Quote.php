@@ -5,7 +5,7 @@
  */
 class Demac_MultiLocationInventory_Model_Resource_Quote extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected $_isPkAutoIncrement = FALSE;
+    protected $_isPkAutoIncrement = false;
 
     /**
      * Init Resource

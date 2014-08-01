@@ -31,7 +31,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit extends Mage_Ad
         $sensor    = ($apiSensor == 0) ? 'false' : 'true';
         $img       = "";
         $marker    = "var marker = new google.maps.Marker({position: latLng, map: map });";
-        if (!is_null(Mage::getStoreConfig('demac_multilocationinventory/general/mapicon')) && Mage::getStoreConfig('demac_multilocationinventory/general/mapicon') != '') {
+        if(!is_null(Mage::getStoreConfig('demac_multilocationinventory/general/mapicon')) && Mage::getStoreConfig('demac_multilocationinventory/general/mapicon') != '') {
             $img    = "var imgMarker =  new google.maps.MarkerImage('" . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'multilocationinventory/markers/' . Mage::getStoreConfig('demac_multilocationinventory/general/mapicon') . "');";
             $marker = "var marker = new google.maps.Marker({position: latLng, icon: imgMarker,map: map });";
         }
@@ -131,7 +131,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit extends Mage_Ad
      */
     public function getHeaderText()
     {
-        if (Mage::registry('multilocationinventory_data')->getId()) {
+        if(Mage::registry('multilocationinventory_data')->getId()) {
             return $this->__('Edit Location');
         } else {
             return $this->__('New Location');

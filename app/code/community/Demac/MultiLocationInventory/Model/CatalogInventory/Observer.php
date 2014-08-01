@@ -15,7 +15,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
     {
         $quoteItem = $observer->getEvent()->getItem();
         /* @var $quoteItem Mage_Sales_Model_Quote_Item */
-        if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
+        if(!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
             || $quoteItem->getQuote()->getIsSuperMode()
         ) {
             return $this;
@@ -31,12 +31,12 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
          */
         $stockItem = $quoteItem->getProduct()->getStockItem();
 
-        $parentStockItem = FALSE;
-        if ($quoteItem->getParentItem()) {
+        $parentStockItem = false;
+        if($quoteItem->getParentItem()) {
             $parentStockItem = $quoteItem->getParentItem()->getProduct()->getStockItem();
         }
-        if ($stockItem) {
-            if (!$stockItem->getIsInStock() || ($parentStockItem && !$parentStockItem->getIsInStock())) {
+        if($stockItem) {
+            if(!$stockItem->getIsInStock() || ($parentStockItem && !$parentStockItem->getIsInStock())) {
                 $quoteItem->addErrorInfo(
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
@@ -60,13 +60,13 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
          * Check item for options
          */
         $options = $quoteItem->getQtyOptions();
-        if ($options && $qty > 0) {
-            $qty = $quoteItem->getProduct()->getTypeInstance(TRUE)->prepareQuoteItemQty($qty, $quoteItem->getProduct());
+        if($options && $qty > 0) {
+            $qty = $quoteItem->getProduct()->getTypeInstance(true)->prepareQuoteItemQty($qty, $quoteItem->getProduct());
             $quoteItem->setData('qty', $qty);
 
-            if ($stockItem) {
+            if($stockItem) {
                 $result = $stockItem->checkQtyIncrements($qty);
-                if ($result->getHasError()) {
+                if($result->getHasError()) {
                     $quoteItem->addErrorInfo(
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
@@ -88,7 +88,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
                 }
             }
 
-            $quoteItemHasErrors = FALSE;
+            $quoteItemHasErrors = false;
             foreach ($options as $option) {
                 $optionValue = $option->getValue();
                 /* @var $option Mage_Sales_Model_Quote_Item_Option */
@@ -97,12 +97,12 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
 
                 $stockItem = $option->getProduct()->getStockItem();
 
-                if ($quoteItem->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                if($quoteItem->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
                     $stockItem->setProductName($quoteItem->getName());
                 }
 
                 /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
-                if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item && !$stockItem instanceof Demac_MultiLocationInventory_Model_CatalogInventory_Stock_Item) {
+                if(!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item && !$stockItem instanceof Demac_MultiLocationInventory_Model_CatalogInventory_Stock_Item) {
                     Mage::throwException(
                         Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
                     );
@@ -111,11 +111,11 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
                 /**
                  * define that stock item is child for composite product
                  */
-                $stockItem->setIsChildItem(TRUE);
+                $stockItem->setIsChildItem(true);
                 /**
                  * don't check qty increments value for option product
                  */
-                $stockItem->setSuppressCheckQtyIncrements(TRUE);
+                $stockItem->setSuppressCheckQtyIncrements(true);
 
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $option->getProduct()->getId(),
@@ -125,12 +125,12 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
 
-                if (!is_null($result->getItemIsQtyDecimal())) {
+                if(!is_null($result->getItemIsQtyDecimal())) {
                     $option->setIsQtyDecimal($result->getItemIsQtyDecimal());
                 }
 
-                if ($result->getHasQtyOptionUpdate()) {
-                    $option->setHasQtyOptionUpdate(TRUE);
+                if($result->getHasQtyOptionUpdate()) {
+                    $option->setHasQtyOptionUpdate(true);
                     $quoteItem->updateQtyOption($option, $result->getOrigQty());
                     $option->setValue($result->getOrigQty());
                     /**
@@ -138,17 +138,17 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
                      */
                     $quoteItem->setData('qty', intval($qty));
                 }
-                if (!is_null($result->getMessage())) {
+                if(!is_null($result->getMessage())) {
                     $option->setMessage($result->getMessage());
                     $quoteItem->setMessage($result->getMessage());
                 }
-                if (!is_null($result->getItemBackorders())) {
+                if(!is_null($result->getItemBackorders())) {
                     $option->setBackorders($result->getItemBackorders());
                 }
 
-                if ($result->getHasError()) {
-                    $option->setHasError(TRUE);
-                    $quoteItemHasErrors = TRUE;
+                if($result->getHasError()) {
+                    $option->setHasError(true);
+                    $quoteItemHasErrors = true;
 
                     $quoteItem->addErrorInfo(
                         'cataloginventory',
@@ -162,7 +162,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY,
                         $result->getQuoteMessage()
                     );
-                } elseif (!$quoteItemHasErrors) {
+                } elseif(!$quoteItemHasErrors) {
                     // Delete error from item and its quote, if it was set due to qty lack
                     $this->_removeErrorsFromQuoteAndItem($quoteItem, Mage_CatalogInventory_Helper_Data::ERROR_QTY);
                 }
@@ -171,14 +171,14 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
             }
         } else {
             /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
-            if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item && !$stockItem instanceof Demac_MultiLocationInventory_Model_CatalogInventory_Stock_Item) {
+            if(!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item && !$stockItem instanceof Demac_MultiLocationInventory_Model_CatalogInventory_Stock_Item) {
                 Mage::throwException(Mage::helper('cataloginventory')->__('The stock item for Product is not valid.'));
             }
 
             /**
              * When we work with subitem (as subproduct of bundle or configurable product)
              */
-            if ($quoteItem->getParentItem()) {
+            if($quoteItem->getParentItem()) {
                 $rowQty = $quoteItem->getParentItem()->getQty() * $qty;
                 /**
                  * we are using 0 because original qty was processed
@@ -199,23 +199,23 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
             }
 
             $productTypeCustomOption = $quoteItem->getProduct()->getCustomOption('product_type');
-            if (!is_null($productTypeCustomOption)) {
+            if(!is_null($productTypeCustomOption)) {
                 // Check if product related to current item is a part of grouped product
-                if ($productTypeCustomOption->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+                if($productTypeCustomOption->getValue() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
                     $stockItem->setProductName($quoteItem->getProduct()->getName());
-                    $stockItem->setIsChildItem(TRUE);
+                    $stockItem->setIsChildItem(true);
                 }
             }
 
             $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
 
-            if ($stockItem->hasIsChildItem()) {
+            if($stockItem->hasIsChildItem()) {
                 $stockItem->unsIsChildItem();
             }
 
-            if (!is_null($result->getItemIsQtyDecimal())) {
+            if(!is_null($result->getItemIsQtyDecimal())) {
                 $quoteItem->setIsQtyDecimal($result->getItemIsQtyDecimal());
-                if ($quoteItem->getParentItem()) {
+                if($quoteItem->getParentItem()) {
                     $quoteItem->getParentItem()->setIsQtyDecimal($result->getItemIsQtyDecimal());
                 }
             }
@@ -225,27 +225,27 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
              * qty of child products are declared just during add process
              * exception for updating also managed by product type
              */
-            if ($result->getHasQtyOptionUpdate()
+            if($result->getHasQtyOptionUpdate()
                 && (!$quoteItem->getParentItem()
-                    || $quoteItem->getParentItem()->getProduct()->getTypeInstance(TRUE)
+                    || $quoteItem->getParentItem()->getProduct()->getTypeInstance(true)
                         ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct())
                 )
             ) {
                 $quoteItem->setData('qty', $result->getOrigQty());
             }
 
-            if (!is_null($result->getItemUseOldQty())) {
+            if(!is_null($result->getItemUseOldQty())) {
                 $quoteItem->setUseOldQty($result->getItemUseOldQty());
             }
-            if (!is_null($result->getMessage())) {
+            if(!is_null($result->getMessage())) {
                 $quoteItem->setMessage($result->getMessage());
             }
 
-            if (!is_null($result->getItemBackorders())) {
+            if(!is_null($result->getItemBackorders())) {
                 $quoteItem->setBackorders($result->getItemBackorders());
             }
 
-            if ($result->getHasError()) {
+            if($result->getHasError()) {
                 $quoteItem->addErrorInfo(
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
@@ -284,18 +284,18 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
         $items      = array();
         foreach ($creditmemo->getAllItems() as $item) {
             /* @var $item Mage_Sales_Model_Order_Creditmemo_Item */
-            $return = FALSE;
-            if ($item->hasBackToStock()) {
-                if ($item->getBackToStock() && $item->getQty()) {
-                    $return = TRUE;
+            $return = false;
+            if($item->hasBackToStock()) {
+                if($item->getBackToStock() && $item->getQty()) {
+                    $return = true;
                 }
-            } elseif (Mage::helper('cataloginventory')->isAutoReturnEnabled()) {
-                $return = TRUE;
+            } elseif(Mage::helper('cataloginventory')->isAutoReturnEnabled()) {
+                $return = true;
             }
-            if ($return) {
+            if($return) {
                 $parentOrderId = $item->getOrderItem()->getParentItemId();
                 /* @var $parentItem Mage_Sales_Model_Order_Creditmemo_Item */
-                $parentItem = $parentOrderId ? $creditmemo->getItemByOrderId($parentOrderId) : FALSE;
+                $parentItem = $parentOrderId ? $creditmemo->getItemByOrderId($parentOrderId) : false;
                 $qty        = $parentItem ? ($parentItem->getQty() * $item->getQty()) : $item->getQty();
 
                 $this->inventoryToRestock = $qty;
@@ -350,7 +350,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
 
         $productId = $item->getProductId();
 
-        if ($item->getQuoteItemId() && $qty && empty($children) && $qty) {
+        if($item->getQuoteItemId() && $qty && empty($children) && $qty) {
             $sourceCollection = Mage::getModel('demac_multilocationinventory/order_stock_source')
                 ->getCollection()
                 ->addFieldToSelect(array('id', 'location_id', 'qty'))
@@ -395,7 +395,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
 
         $stockItem = Mage::getModel('demac_multilocationinventory/stock')->loadByProduct($locationId, $productId);
 
-        if ($this->inventoryToRestock < $qtyFromLocation) {
+        if($this->inventoryToRestock < $qtyFromLocation) {
             $orderStockSource = Mage::getModel('demac_multilocationinventory/order_stock_source')->load($row['id']);
             $orderStockSource->setQty($orderStockSource->getQty() - $this->inventoryToRestock);
             $orderStockSource->save();
@@ -404,7 +404,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
             $this->inventoryToRestock = 0;
 
             //return false to exit loop
-            return FALSE;
+            return false;
         } else {
             $orderStockSource = Mage::getModel('demac_multilocationinventory/order_stock_source')->load($row['id']);
             $orderStockSource->setQty($orderStockSource->getQty() - $qtyFromLocation);
