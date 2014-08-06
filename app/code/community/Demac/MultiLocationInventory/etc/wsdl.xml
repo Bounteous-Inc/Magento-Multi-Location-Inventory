@@ -74,13 +74,8 @@
                     <element name="city" type="xsd:string" minOccurs="0" />
                     <element name="region_id" type="xsd:string" minOccurs="0" />
                     <element name="country_id" type="xsd:string" minOccurs="0" />
-                    <element name="phone" type="xsd:string" minOccurs="0" />
-                    <element name="fax" type="xsd:string" minOccurs="0" />
-                    <element name="description" type="xsd:string" minOccurs="0" />
                     <element name="store_url" type="xsd:string" minOccurs="0" />
                     <element name="status" type="xsd:string" minOccurs="0" />
-                    <element name="image" type="xsd:string" minOccurs="0" />
-                    <element name="marker" type="xsd:string" minOccurs="0" />
                     <element name="lat" type="xsd:string" minOccurs="0" />
                     <element name="long" type="xsd:string" minOccurs="0" />
                     <element name="created_time" type="xsd:string" minOccurs="0" />
@@ -104,13 +99,8 @@
                     <element name="city" type="xsd:string" minOccurs="1" />
                     <element name="region_id" type="xsd:string" minOccurs="1" />
                     <element name="country_id" type="xsd:string" minOccurs="1" />
-                    <element name="phone" type="xsd:string" minOccurs="0" />
-                    <element name="fax" type="xsd:string" minOccurs="0" />
-                    <element name="description" type="xsd:string" minOccurs="0" />
                     <element name="store_url" type="xsd:string" minOccurs="0" />
                     <element name="status" type="xsd:string" minOccurs="0" />
-                    <element name="image" type="xsd:string" minOccurs="0" />
-                    <element name="marker" type="xsd:string" minOccurs="0" />
                     <element name="lat" type="xsd:string" minOccurs="0" />
                     <element name="long" type="xsd:string" minOccurs="0" />
                     <element name="store_ids" type="typens:ArrayOfString" minOccurs="0" />
@@ -133,13 +123,8 @@
                     <element name="city" type="xsd:string" minOccurs="0" />
                     <element name="region_id" type="xsd:string" minOccurs="0" />
                     <element name="country_id" type="xsd:string" minOccurs="0" />
-                    <element name="phone" type="xsd:string" minOccurs="0" />
-                    <element name="fax" type="xsd:string" minOccurs="0" />
-                    <element name="description" type="xsd:string" minOccurs="0" />
                     <element name="store_url" type="xsd:string" minOccurs="0" />
                     <element name="status" type="xsd:string" minOccurs="0" />
-                    <element name="image" type="xsd:string" minOccurs="0" />
-                    <element name="marker" type="xsd:string" minOccurs="0" />
                     <element name="lat" type="xsd:string" minOccurs="0" />
                     <element name="long" type="xsd:string" minOccurs="0" />
                     <element name="store_ids" type="typens:ArrayOfString" minOccurs="0" />

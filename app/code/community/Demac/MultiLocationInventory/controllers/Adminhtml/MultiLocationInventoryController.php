@@ -70,58 +70,11 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
      * @return void
      *
      * @TODO Refactor: Current function is too complex needs to be broken down into simpler logic
-     * @TODO Refactor: Avoid using super globals like the $_FILES variable
      */
     public function saveAction()
     {
         if($postData = $this->getRequest()->getPost()) {
-            if(isset($_FILES['image']['name']) and (file_exists($_FILES['image']['tmp_name']))) {
-                try {
-                    $uploader = new Varien_File_Uploader('image');
-                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-                    $uploader->setAllowRenameFiles(false);
-                    $uploader->setFilesDispersion(false);
-                    $locImg = 'multilocationinventory/images/';
-                    $path   = Mage::getBaseDir('media') . DS . $locImg;
-                    $uploader->save($path, $_FILES['image']['name']);
-                    $postData['image'] = $_FILES['image']['name'];
-                    // Start Refactor : Empty catch statement
-                } catch (Exception $e) {
-
-                }
-                // End Refactor
-            } else {
-                if(isset($postData['image']['delete']) && $postData['image']['delete'] == 1) {
-                    $postData['image'] = '';
-                } else {
-                    unset($postData['image']);
-                }
-            }
-
-            if(isset($_FILES['marker']['name']) and (file_exists($_FILES['marker']['tmp_name']))) {
-                try {
-                    $uploader = new Varien_File_Uploader('marker');
-                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-                    $uploader->setAllowRenameFiles(false);
-                    $uploader->setFilesDispersion(false);
-                    $locMarker = 'multilocationinventory/markers/';
-                    $path      = Mage::getBaseDir('media') . DS . $locMarker;
-                    $uploader->save($path, $_FILES['marker']['name']);
-                    $postData['marker'] = $_FILES['marker']['name'];
-                } catch (Exception $e) {
-
-                }
-            } else {
-                if(isset($postData['marker']['delete']) && $postData['marker']['delete'] == 1) {
-                    $postData['marker'] = '';
-                } else {
-                    unset($postData['marker']);
-                }
-            }
-
             $model = Mage::getSingleton('demac_multilocationinventory/location');
-
-
             if($id = $this->getRequest()->getParam('id')) {
                 $model->load($id);
             }
@@ -134,18 +87,6 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
                     $model->setCreatedTime(time());
                 }
                 $model->setUpdateTime(time());
-
-                if(!is_null($model->getImage()) && $model->getImage() != '') {
-                    $filename = str_replace(" ", "_", $model->getImage());
-                    $filename = str_replace(":", "_", $filename);
-                    $model->setImage($locImg . $filename);
-                }
-
-                if(!is_null($model->getMarker()) && $model->getMarker() != '') {
-                    $filename = str_replace(" ", "_", $model->getMarker());
-                    $filename = str_replace(":", "_", $filename);
-                    $model->setMarker($locMarker . $filename);
-                }
 
                 $model->save();
 
@@ -281,101 +222,6 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/demac_multilocationinventory');
-    }
-
-    /**
-     * Export order grid to CSV format
-     *
-     * @return void
-     */
-    public function exportCsvAction()
-    {
-        $fileName = 'locations.csv';
-        $grid     = $this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
-    }
-
-    /**
-     * Read CSV file from disk.
-     *
-     * @param $csvFile
-     *
-     * @return array
-     */
-    public function readCSV($csvFile)
-    {
-        $csvFile      = Mage::getConfig()->getVarDir() . DS . 'import' . DS . 'multilocationinventory' . DS . $csvFile;
-        $file_handle  = fopen($csvFile, 'r');
-        $line_of_text = array();
-        while (!feof($file_handle)) {
-            $line_of_text[] = fgetcsv($file_handle, 1024);
-        }
-        fclose($file_handle);
-
-        return $line_of_text;
-    }
-
-    /**
-     * Import CSV Action
-     *
-     * @return void
-     */
-    public function importAction()
-    {
-
-        // Set path to CSV file
-        $csvFile = Mage::getStoreConfig('demac_multilocationinventory/general/file');
-
-        $csv = $this->readCSV($csvFile);
-        foreach ($csv as $key => $line) {
-            if($key == 0) continue;
-            $country = $this->getCountry($line[6]);
-
-            if(!$country) {
-                Mage::log('Error with country line:' . $key . ' value:' . $line[6], null, 'locationimport.log', true);
-                continue;
-            }
-
-            $region = Mage::getModel('directory/region')->loadByCode($line[4], $country);
-            if(!$region->getName() && in_array($country, array('US', 'CA', 'DE', 'AT', 'CH', 'ES', 'FR', 'RO', 'FI', 'EE', 'LV', 'LT'))) {
-                Mage::log('Error with region line:' . $key . ' value:' . $line[4], null, 'locationimport.log', true);
-            }
-
-            if(is_null($line[9]) || $line[9] == '' || is_null($line[10]) || $line[10] == '') {
-                $address  = implode(' ', array($line[2], $line[3], $line[4], $line[5],));
-                $latLong  = Mage::helper('demac_multilocationinventory')->getLatLong($address, $line[6]);
-                $line[9]  = $latLong[0];
-                $line[10] = $latLong[1];
-
-                if(is_null($latLong[0])) {
-                    Mage::log('Error getting lat/long line:' . $key . ' value:' . $latLong[2], null, 'locationimport.log', true);
-                }
-            }
-
-            $model = Mage::getModel('demac_multilocationinventory/location');
-
-            $data = array(
-                'store_id'    => explode(',', $line[0]),
-                'name'        => $line[1],
-                'address'     => $line[2],
-                'city'        => $region->getRegionId() ? $line[3] : $line[3] . ', ' . $line[4],
-                'region_id'   => $region->getRegionId() ? $region->getRegionId() : '',
-                'zipcode'     => $line[5],
-                'country_id'  => $country,
-                'phone'       => $line[7],
-                'description' => $line[8],
-                'lat'         => $line[9],
-                'long'        => $line[10],
-                'store_url'   => $line[11],
-                'status'      => empty($line[12]) ? 0 : $line[12]
-            );
-
-            $model->setData($data);
-            $model->save();
-
-            $this->_redirect('*/*/');
-        }
-
     }
 
     /**
