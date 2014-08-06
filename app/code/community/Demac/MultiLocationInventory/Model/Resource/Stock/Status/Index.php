@@ -94,6 +94,7 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
         $query =
             'INSERT INTO demac_multilocationinventory_stock (product_id, qty, location_id)'
             . ' (' . $missingStockRowsQueryString . ')';
+        $this->_getWriteAdapter()->query($query);
     }
 
     /**
