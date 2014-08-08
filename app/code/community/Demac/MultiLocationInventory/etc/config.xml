@@ -190,7 +190,6 @@
                 <apiurl>http://maps.googleapis.com/maps/api/js?v=3</apiurl>
                 <apisensor>1</apisensor>
                 <direction>1</direction>
-                <closest_amount>3</closest_amount>
             </general>
         </demac_multilocationinventory>
     </default>

@@ -72,38 +72,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>You can enable the direction</comment>
                         </direction>
-                        <closest_amount translate="label">
-                            <label>Closest stores to show</label>
-                            <frontend_type>text</frontend_type>
-                            <validate>validate-zero-or-greater</validate>
-                            <sort_order>14</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>How many closest stores to show, 0 for none</comment>
-                        </closest_amount>
-                        <defaultimage translate="label comment">
-                            <label>Default Store Image</label>
-                            <comment>Allowed file types: PNG, JPG, JPEG.</comment>
-                            <frontend_type>image</frontend_type>
-                            <backend_model>demac_multilocationinventory/system_config_backend_image</backend_model>
-                            <base_url type="media" scope_info="1">multilocationinventory/images</base_url>
-                            <sort_order>14</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </defaultimage>
-                        <mapicon translate="label comment">
-                            <label>Marker Icon</label>
-                            <comment>Allowed file types: PNG, JPG, JPEG.</comment>
-                            <frontend_type>image</frontend_type>
-                            <backend_model>demac_multilocationinventory/system_config_backend_marker</backend_model>
-                            <base_url type="media" scope_info="1">multilocationinventory/markers</base_url>
-                            <sort_order>15</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </mapicon>
                     </fields>
                 </general>
             </groups>
