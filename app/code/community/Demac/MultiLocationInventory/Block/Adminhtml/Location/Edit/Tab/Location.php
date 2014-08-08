@@ -84,6 +84,25 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
     }
 
     /**
+     * Add field for store selection to the form.
+     *
+     * @param $fieldset
+     */
+    protected function _prepareFormStoreSelectorField($fieldset)
+    {
+        $field    = $fieldset->addField('store_id', 'multiselect', array(
+            'name'     => 'stores[]',
+            'label'    => Mage::helper('demac_multilocationinventory')->__('Inventory For'),
+            'title'    => Mage::helper('demac_multilocationinventory')->__('Inventory For'),
+            'required' => true,
+            'values'   => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false),
+        ));
+        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $field->setRenderer($renderer);
+    }
+
+
+/**
      * Add status field to the form.
      *
      * @param $fieldset
