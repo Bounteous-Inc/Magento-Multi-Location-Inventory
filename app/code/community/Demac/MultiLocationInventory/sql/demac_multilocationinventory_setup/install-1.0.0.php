@@ -42,14 +42,6 @@ $table = $installer->getConnection()
                 array(
                     'nullable' => false
                 ), 'Status')
-    ->addColumn('image', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255,
-                array(
-                    'nullable' => true
-                ), 'Image Link')
-    ->addColumn('marker', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255,
-                array(
-                    'nullable' => true
-                ), 'Marker Link')
     ->addColumn('lat', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255,
                 array(
                     'nullable' => true
