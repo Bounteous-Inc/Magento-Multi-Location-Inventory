@@ -31,12 +31,12 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     public function editAction()
     {
         $this->_initAction();
-        $id    = $this->getRequest()->getParam('id');
-        $model = Mage::getModel('demac_multilocationinventory/location');
+        $locationId    = $this->getRequest()->getParam('id');
+        $locationModel = Mage::getModel('demac_multilocationinventory/location');
 
-        if($id) {
-            $model->load($id);
-            if(!$model->getId()) {
+        if($locationId) {
+            $locationModel->load($locationId);
+            if(!$locationModel->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This location no longer exists.'));
                 $this->_redirect('*/*/');
 
@@ -44,17 +44,17 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
             }
         }
 
-        $this->_title($model->getId() ? $model->getName() : $this->__('New Location'));
+        $this->_title($locationModel->getId() ? $locationModel->getName() : $this->__('New Location'));
         $data = Mage::getSingleton('adminhtml/session')->getStoreData(true);
         if(!empty($data)) {
-            $model->setData($data);
+            $locationModel->setData($data);
         }
-        Mage::register('multilocationinventory_data', $model);
+        Mage::register('multilocationinventory_data', $locationModel);
 
         $this->loadLayout();
         $this->_setActiveMenu('catalog/demac_multilocationinventory');
 
-        $this->_addBreadcrumb($id ? Mage::helper('demac_multilocationinventory')->__('Edit Location') : Mage::helper('demac_multilocationinventory')->__('New Location'), $id ? Mage::helper('demac_multilocationinventory')->__('Edit Location') : Mage::helper('demac_multilocationinventory')->__('New Location'));
+        $this->_addBreadcrumb($locationId ? Mage::helper('demac_multilocationinventory')->__('Edit Location') : Mage::helper('demac_multilocationinventory')->__('New Location'), $locationId ? Mage::helper('demac_multilocationinventory')->__('Edit Location') : Mage::helper('demac_multilocationinventory')->__('New Location'));
 
         $this->_addContent($this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_edit'));
         $this->_addLeft($this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_edit_tabs'));

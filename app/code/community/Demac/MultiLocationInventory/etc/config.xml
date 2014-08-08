@@ -52,9 +52,6 @@
                     <stores>
                         <table>demac_multilocationinventory_stores</table>
                     </stores>
-                    <locator_stores>
-                        <table>demac_multilocationinventory_locator_stores</table>
-                    </locator_stores>
                     <stock>
                         <table>demac_multilocationinventory_stock</table>
                     </stock>
