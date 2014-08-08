@@ -3,9 +3,6 @@ $installer = $this;
 
 $installer->startSetup();
 
-/**
- * Create table 'demac_multilocationinventory/stores'
- */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('demac_multilocationinventory/stock'))
     ->addColumn('stock_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
@@ -63,8 +60,7 @@ $table = $installer->getConnection()
                                           'catalog/product', 'entity_id'), 'product_id',
                     $installer->getTable('catalog/product'), 'entity_id',
                     Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE
-    )
-    ->setComment('Location To Magento Store Linkage Table');
+    );
 
 $installer->getConnection()->createTable($table);
 

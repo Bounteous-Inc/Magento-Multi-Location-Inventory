@@ -13,7 +13,6 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
         $this->_init('demac_multilocationinventory/location');
         $this->_map['fields']['id']                  = 'main_table.id';
         $this->_map['fields']['location_id']         = 'demac_multilocationinventory_stores.location_id';
-        $this->_map['fields']['locator_location_id'] = 'demac_multilocationinventory_locator_stores.location_id';
     }
 
     /**
@@ -37,20 +36,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
                     $item->setData('store_id', $stores);
                 }
             }
-
-            $select = $connection->select()
-                ->from(array('demac_multilocationinventory_locator_stores' => $this->getTable('demac_multilocationinventory/locator_stores')))
-                ->where('demac_multilocationinventory_locator_stores.location_id IN (?)', $items);
-
-            if($result = $connection->fetchPairs($select)) {
-                foreach ($this as $item) {
-                    $stores = $this->lookupLocatorStoreIds($item->getId());
-                    $item->setData('locator_store_id', $stores);
-                }
-            }
         }
-
-
         return parent::_afterLoad();
     }
 
@@ -72,24 +58,6 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
     }
 
     /**
-     * Look up store ids that show up in the frontend under the store locator.
-     *
-     * @param $locationId
-     *
-     * @return array
-     */
-    public function lookupLocatorStoreIds($locationId)
-    {
-        $connection = $this->getConnection();
-        $select     = $connection->select()
-            ->from($this->getTable('demac_multilocationinventory/locator_stores'), 'store_id')
-            ->where('location_id = ?', (int) $locationId);
-
-        return $connection->fetchCol($select);
-    }
-
-
-    /**
      * Join store relation table if there is store filter
      *
      * @return NULL
@@ -100,19 +68,6 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
             $this->getSelect()->join(
                 array('demac_multilocationinventory_stores' => $this->getTable('demac_multilocationinventory/stores')),
                 'main_table.id = demac_multilocationinventory_stores.location_id',
-                array()
-            )->group('main_table.id');
-
-            /*
-             * Allow analytic functions usage because of one field grouping
-             */
-            $this->_useAnalyticFunction = true;
-        }
-
-        if($this->getFilter('locator_store_id')) {
-            $this->getSelect()->join(
-                array('demac_multilocationinventory_locator_stores' => $this->getTable('demac_multilocationinventory/locator_stores')),
-                'main_table.id = demac_multilocationinventory_locator_stores.location_id',
                 array()
             )->group('main_table.id');
 
@@ -150,44 +105,6 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
             }
 
             $this->addFilter('store_id', array('in' => $store), 'public');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Add filter by store
-     *
-     * @param int|Mage_Core_Model_Store $store
-     * @param bool                      $withAdmin
-     *
-     * @return Demac_MultiLocationInventory_Model_Resource_Location_Collection
-     *
-     */
-    public function addLocatorStoreFilter($store, $withAdmin = true)
-    {
-
-        if(!$this->getFlag('locator_store_filter_added')) {
-            if($store instanceof Mage_Core_Model_Store) {
-                $store = array($store->getId());
-            }
-
-            if(!is_array($store)) {
-                $store = array($store);
-            }
-
-            if($withAdmin) {
-                $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
-            }
-            // @method Varien_Db_Select join($name, $cond, $cols = '*', $schema = null)
-
-            $this->getSelect()->join(
-                array('demac_multilocationinventory_locator_stores' => $this->getTable('demac_multilocationinventory/locator_stores')),
-                'main_table.id = demac_multilocationinventory_locator_stores.location_id',
-                array('location_id', 'store_id')
-            );
-
-            $this->addFieldToFilter('store_id', $store);
         }
 
         return $this;

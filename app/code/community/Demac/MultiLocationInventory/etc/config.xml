@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Demac_MultiLocationInventory>
-            <version>1.1.9</version>
+            <version>1.2.0</version>
         </Demac_MultiLocationInventory>
     </modules>
     <global>
@@ -52,9 +52,6 @@
                     <stores>
                         <table>demac_multilocationinventory_stores</table>
                     </stores>
-                    <locator_stores>
-                        <table>demac_multilocationinventory_locator_stores</table>
-                    </locator_stores>
                     <stock>
                         <table>demac_multilocationinventory_stock</table>
                     </stock>
@@ -127,15 +124,6 @@
                 </demac_multilocationinventory>
             </modules>
         </translate>
-        <routers>
-            <demac_multilocationinventory>
-                <use>standard</use>
-                <args>
-                    <module>Demac_MultiLocationInventory</module>
-                    <frontName>storelocator</frontName>
-                </args>
-            </demac_multilocationinventory>
-        </routers>
         <layout>
             <updates>
                 <demac_multilocationinventory>
@@ -199,7 +187,6 @@
                 <apiurl>http://maps.googleapis.com/maps/api/js?v=3</apiurl>
                 <apisensor>1</apisensor>
                 <direction>1</direction>
-                <closest_amount>3</closest_amount>
             </general>
         </demac_multilocationinventory>
     </default>

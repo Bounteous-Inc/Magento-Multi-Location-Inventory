@@ -52,15 +52,6 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
                          )
         );
 
-        $this->addColumn('image', array(
-            'header'   => Mage::helper('demac_multilocationinventory')->__('Image'),
-            'width'    => '100',
-            'renderer' => 'demac_multilocationinventory/adminhtml_location_renderer_image',
-            'index'    => 'image',
-            'sortable' => false,
-            'filter'   => false
-        ));
-
         $this->addColumn('external_id',
                          array(
                              'header' => Mage::helper('demac_multilocationinventory')->__('External ID'),
@@ -110,43 +101,16 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
             'index'  => 'country_id',
         ));
 
-        $this->addColumn('phone',
-                         array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('Phone'),
-                             'index'  => 'phone',
-                         )
-        );
+        $this->addColumn('store_id', array(
+            'header'     => Mage::helper('demac_multilocationinventory')->__('Inventory For'),
+            'index'      => 'store_id',
+            'type'       => 'store',
+            'store_all'  => false,
+            'store_view' => false,
+            'sortable'   => false,
+            'filter'     => false
+        ));
 
-        $this->addColumn('fax',
-                         array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('Fax'),
-                             'index'  => 'fax',
-                         )
-        );
-
-        if(!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
-                'header'     => Mage::helper('demac_multilocationinventory')->__('Inventory For'),
-                'index'      => 'store_id',
-                'type'       => 'store',
-                'store_all'  => false,
-                'store_view' => false,
-                'sortable'   => false,
-                'filter'     => false
-            ));
-        }
-
-        if(!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('locator_store_id', array(
-                'header'     => Mage::helper('demac_multilocationinventory')->__('Locator For'),
-                'index'      => 'locator_store_id',
-                'type'       => 'store',
-                'store_all'  => false,
-                'store_view' => false,
-                'sortable'   => false,
-                'filter'     => false,
-            ));
-        }
 
         $this->addColumn('status',
                          array(
@@ -225,23 +189,4 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
         $this->getCollection()->walk('afterLoad');
         parent::_afterLoadCollection();
     }
-
-    /**
-     * Filter
-     *
-     * @param $collection
-     * @param $column
-     *
-     * @TODO is this filter necessary?
-     */
-    protected function _filterStoreCondition(&$collection, $column)
-    {
-        if(!$value = $column->getFilter()->getValue()) {
-            return;
-        }
-        $collection->addStoreFilter($value);
-
-        return $collection;
-    }
-
 }

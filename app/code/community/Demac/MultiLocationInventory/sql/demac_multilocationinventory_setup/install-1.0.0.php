@@ -38,34 +38,10 @@ $table = $installer->getConnection()
                 array(
                     'nullable' => true
                 ), 'Country')
-    ->addColumn('phone', Varien_Db_Ddl_Table::TYPE_VARCHAR, 30,
-                array(
-                    'nullable' => true
-                ), 'Phone')
-    ->addColumn('fax', Varien_Db_Ddl_Table::TYPE_VARCHAR, 30,
-                array(
-                    'nullable' => true
-                ), 'Fax')
-    ->addColumn('description', Varien_Db_Ddl_Table::TYPE_TEXT, 255,
-                array(
-                    'nullable' => true
-                ), 'Description')
-    ->addColumn('store_url', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255,
-                array(
-                    'nullable' => true
-                ), 'Store Website')
     ->addColumn('status', Varien_Db_Ddl_Table::TYPE_SMALLINT, 6,
                 array(
                     'nullable' => false
                 ), 'Status')
-    ->addColumn('image', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255,
-                array(
-                    'nullable' => true
-                ), 'Image Link')
-    ->addColumn('marker', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255,
-                array(
-                    'nullable' => true
-                ), 'Marker Link')
     ->addColumn('lat', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255,
                 array(
                     'nullable' => true

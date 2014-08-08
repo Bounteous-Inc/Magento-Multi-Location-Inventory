@@ -20,8 +20,8 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
             $locationItem = Mage::getModel('demac_multilocationinventory/location');
 
             $fieldArray = array(
-                'name', 'external_id', 'address', 'zipcode', 'city', 'region_id', 'country_id', 'phone', 'fax', 'description',
-                'store_Url', 'status', 'images', 'marker', 'lat', 'long'
+                'name', 'external_id', 'address', 'zipcode', 'city', 'region_id', 'country_id', 'description',
+                'store_Url', 'status', 'lat', 'long'
             );
 
             $locationData = array();
@@ -144,8 +144,8 @@ class Demac_MultiLocationInventory_Model_Location_Api extends Mage_Catalog_Model
             }
 
             $fieldArray = array(
-                'name', 'external_id', 'address', 'zipcode', 'city', 'region_id', 'country_id', 'phone', 'fax', 'description',
-                'store_Url', 'status', 'images', 'marker', 'lat', 'long'
+                'name', 'external_id', 'address', 'zipcode', 'city', 'region_id', 'country_id', 'description',
+                'store_Url', 'status', 'lat', 'long'
             );
 
             $locationData = array();
