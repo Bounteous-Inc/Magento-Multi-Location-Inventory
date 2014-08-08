@@ -165,7 +165,6 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
             'class'    => 'required-entry',
             'required' => true,
             'name'     => 'address',
-            'onchange' => 'getLatLng()',
         ));
 
         $fieldset->addField('zipcode', 'text', array(
@@ -180,7 +179,6 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
             'class'    => 'required-entry',
             'required' => true,
             'name'     => 'city',
-            'onchange' => 'getLatLng()',
         ));
 
         $values    = array();
@@ -200,7 +198,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
             'name'     => 'country_id',
             'title'    => 'country',
             'values'   => $countryList,
-            'onchange' => 'getLatLng(); getstate(this)',
+            'onchange' => 'getstate(this)',
         ));
         $country->setAfterElementHtml("<script type=\"text/javascript\">
             function getstate(selectElement){
