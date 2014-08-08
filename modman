@@ -57,7 +57,6 @@ app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Ta
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tab/Location.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tab/Location.php
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Grid.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Grid.php
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location.php
-app/code/community/Demac/MultiLocationInventory/Block/Location.php app/code/community/Demac/MultiLocationInventory/Block/Location.php
 app/code/community/Demac/MultiLocationInventory/etc/api.xml app/code/community/Demac/MultiLocationInventory/etc/api.xml
 app/code/community/Demac/MultiLocationInventory/etc/config.xml app/code/community/Demac/MultiLocationInventory/etc/config.xml
 app/code/community/Demac/MultiLocationInventory/etc/system.xml app/code/community/Demac/MultiLocationInventory/etc/system.xml
