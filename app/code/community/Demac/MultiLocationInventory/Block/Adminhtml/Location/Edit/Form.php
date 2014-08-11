@@ -23,7 +23,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Form extends Ma
      */
     protected function _prepareForm()
     {
-        $model = Mage::registry('multilocationinventory_data');
+        $locationModel = Mage::registry('multilocationinventory_data');
 
         $form = new Varien_Data_Form(array(
                                          'id'      => 'edit_form',
@@ -32,7 +32,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Form extends Ma
                                          'enctype' => 'multipart/form-data')
         );
 
-        $form->setValues($model->getData());
+        $form->setValues($locationModel->getData());
         $form->setUseContainer(true);
         $this->setForm($form);
 

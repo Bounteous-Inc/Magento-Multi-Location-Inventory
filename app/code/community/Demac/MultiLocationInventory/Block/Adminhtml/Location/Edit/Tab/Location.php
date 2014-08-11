@@ -19,8 +19,8 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
      */
     protected function _prepareForm()
     {
-        $model  = Mage::registry('multilocationinventory_data');
-        $isEdit = (bool) $model->getId();
+        $locationModel  = Mage::registry('multilocationinventory_data');
+        $isEdit = (bool) $locationModel->getId();
 
         $form     = new Varien_Data_Form();
         $fieldset = $form->addFieldset('demac_multilocationinventory_form', array(
@@ -33,13 +33,13 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
             $this->_prepareFormStoreSelectorField($fieldset);
         } else {
             $this->_prepareFormStoreSelectorHiddenField($fieldset);
-            $model->setStoreId(Mage::app()->getStore(true)->getId());
+            $locationModel->setStoreId(Mage::app()->getStore(true)->getId());
         }
         $this->_prepareFormGeneralFields($fieldset);
         $this->_prepareFormAddressFields($fieldset);
         $this->_prepareFormLocationFields($fieldset);
 
-        $form->setValues($model->getData());
+        $form->setValues($locationModel->getData());
         $this->setForm($form);
 
         return parent::_prepareForm();

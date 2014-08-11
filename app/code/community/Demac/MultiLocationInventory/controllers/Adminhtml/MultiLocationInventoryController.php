@@ -74,25 +74,25 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     public function saveAction()
     {
         if($postData = $this->getRequest()->getPost()) {
-            $model = Mage::getSingleton('demac_multilocationinventory/location');
+            $locationModel = Mage::getSingleton('demac_multilocationinventory/location');
             if($id = $this->getRequest()->getParam('id')) {
-                $model->load($id);
+                $locationModel->load($id);
             }
 
             unset($postData['entity_id']);
-            $model->setData($postData);
+            $locationModel->setData($postData);
 
             try {
-                if(is_null($model->getCreatedTime()) || $model->getCreatedTime() == '') {
-                    $model->setCreatedTime(time());
+                if(is_null($locationModel->getCreatedTime()) || $locationModel->getCreatedTime() == '') {
+                    $locationModel->setCreatedTime(time());
                 }
-                $model->setUpdateTime(time());
+                $locationModel->setUpdateTime(time());
 
-                $model->save();
+                $locationModel->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The Location has been saved.'));
                 if($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                    $this->_redirect('*/*/edit', array('id' => $locationModel->getId()));
 
                     return;
                 }
@@ -120,9 +120,9 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     {
         if($this->getRequest()->getParam('id') > 0) {
             try {
-                $model = Mage::getModel('demac_multilocationinventory/location');
+                $locationModel = Mage::getModel('demac_multilocationinventory/location');
 
-                $model->setId($this->getRequest()->getParam('id'))
+                $locationModel->setId($this->getRequest()->getParam('id'))
                     ->delete();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('demac_multilocationinventory')->__('Location was successfully deleted'));
