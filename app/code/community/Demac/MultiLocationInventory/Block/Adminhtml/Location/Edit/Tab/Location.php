@@ -145,12 +145,6 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
             'required' => false,
             'name'     => 'external_id',
         ));
-
-        $fieldset->addField('store_url', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Store Link'),
-            'required' => false,
-            'name'     => 'store_url',
-        ));
     }
 
     /**

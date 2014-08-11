@@ -13,26 +13,6 @@
 class Demac_MultiLocationInventory_Model_CatalogInventory_Stock extends Mage_CatalogInventory_Model_Stock
 {
     /**
-     * Subtract product qtys from stock.
-     * Return array of items that require full save
-     *
-     * @param array $items
-     *
-     * @return array
-     *
-     * @TODO correct the inventory checks in parent::registerProductSale.
-     * @TODO REVIEW CODE FOR REMOVAL
-     */
-    public function registerProductsSale($items)
-    {
-        Mage::dispatchEvent('catalog_inventory_register_product_sale_before', array('items' => $items));
-        parent::registerProductsSale($items);
-        Mage::dispatchEvent('catalog_inventory_register_product_sale_after', array('items' => $items));
-
-    }
-
-
-    /**
      * Add stock item objects to products
      *
      * @param   collection $productCollection

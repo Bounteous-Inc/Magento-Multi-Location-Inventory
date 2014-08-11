@@ -42,15 +42,6 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tabs extends Ma
                                 'active'  => true
                             )
         );
-        if(Mage::registry('multilocationinventory_data') && Mage::registry('multilocationinventory_data')->getId()) {
-            $tabs[] = array('inventory' =>
-                                array(
-                                    'label'   => Mage::helper('demac_multilocationinventory')->__('Inventory'),
-                                    'title'   => Mage::helper('demac_multilocationinventory')->__('Inventory'),
-                                    'content' => $this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_edit_tab_inventory')->toHtml(),
-                                )
-            );
-        }
         $this->tabs = $tabs;
     }
 

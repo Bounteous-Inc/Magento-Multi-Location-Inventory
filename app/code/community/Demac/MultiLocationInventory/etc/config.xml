@@ -186,7 +186,6 @@
             <general>
                 <apiurl>http://maps.googleapis.com/maps/api/js?v=3</apiurl>
                 <apisensor>1</apisensor>
-                <direction>1</direction>
             </general>
         </demac_multilocationinventory>
     </default>

@@ -74,7 +74,6 @@
                     <element name="city" type="xsd:string" minOccurs="0" />
                     <element name="region_id" type="xsd:string" minOccurs="0" />
                     <element name="country_id" type="xsd:string" minOccurs="0" />
-                    <element name="store_url" type="xsd:string" minOccurs="0" />
                     <element name="status" type="xsd:string" minOccurs="0" />
                     <element name="lat" type="xsd:string" minOccurs="0" />
                     <element name="long" type="xsd:string" minOccurs="0" />
@@ -123,7 +122,6 @@
                     <element name="city" type="xsd:string" minOccurs="0" />
                     <element name="region_id" type="xsd:string" minOccurs="0" />
                     <element name="country_id" type="xsd:string" minOccurs="0" />
-                    <element name="store_url" type="xsd:string" minOccurs="0" />
                     <element name="status" type="xsd:string" minOccurs="0" />
                     <element name="lat" type="xsd:string" minOccurs="0" />
                     <element name="long" type="xsd:string" minOccurs="0" />
