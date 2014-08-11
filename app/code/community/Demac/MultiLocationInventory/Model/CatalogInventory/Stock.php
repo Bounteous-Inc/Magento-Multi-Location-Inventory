@@ -21,6 +21,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Stock extends Mage_Cat
      * @return array
      *
      * @TODO correct the inventory checks in parent::registerProductSale.
+     * @TODO REVIEW CODE FOR REMOVAL
      */
     public function registerProductsSale($items)
     {

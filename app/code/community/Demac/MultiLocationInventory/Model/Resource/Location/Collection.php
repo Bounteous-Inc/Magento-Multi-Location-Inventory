@@ -160,8 +160,6 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
             $this->addFieldToFilter('stores.store_id', $storeViewId);
         }
 
-        //@TODO review join above / group below, should grouping really be necessary to avoid duplicates?
-        //This has to do with joining on stores
         $this->getSelect()->group('main_table.id');
 
 

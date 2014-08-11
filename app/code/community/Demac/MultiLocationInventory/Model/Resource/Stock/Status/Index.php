@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
+ */
 class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
     extends Mage_Core_Model_Resource_Db_Abstract
 {

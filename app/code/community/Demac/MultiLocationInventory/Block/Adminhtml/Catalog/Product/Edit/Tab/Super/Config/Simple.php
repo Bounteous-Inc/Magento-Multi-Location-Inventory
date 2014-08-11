@@ -138,5 +138,3 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Tab_Supe
 
 
 }
-
-?>

@@ -171,8 +171,6 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
      * @param $row
      *
      * @return string
-     *
-     * @TODO is this filter necessary?
      */
     public function getRowUrl($row)
     {

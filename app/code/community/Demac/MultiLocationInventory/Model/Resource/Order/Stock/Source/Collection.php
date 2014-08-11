@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Demac_MultiLocationInventory_Model_Resource_Order_Stock_Source_Collection
  */

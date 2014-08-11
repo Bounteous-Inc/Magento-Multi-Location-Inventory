@@ -23,5 +23,3 @@ interface Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface
      */
     public function getGlobalStockStatusIndexSelectQuery($productIds = false);
 }
-
-?>

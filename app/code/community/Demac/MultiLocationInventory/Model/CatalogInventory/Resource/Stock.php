@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class Demac_MultiLocationInventory_Model_CatalogInventory_Resource_Stock
+ */
 class Demac_MultiLocationInventory_Model_CatalogInventory_Resource_Stock extends Mage_CatalogInventory_Model_Resource_Stock
 {
     /**

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class Demac_MultiLocationInventory_Model_CatalogInventory_Observer
+ */
 class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_CatalogInventory_Model_Observer
 {
     /**
@@ -272,8 +274,6 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
 
     /**
      * Return creditmemo items qty to stock..
-     *
-     * @TODO support a dropdown to pick where inventory is being returned to.
      *
      * @param Varien_Event_Observer $observer
      */

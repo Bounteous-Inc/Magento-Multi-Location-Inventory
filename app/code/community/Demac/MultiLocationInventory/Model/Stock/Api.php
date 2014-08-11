@@ -243,8 +243,6 @@ class Demac_MultiLocationInventory_Model_Stock_Api extends Mage_Catalog_Model_Ap
      * @param Demac_MultiLocationInventory_Model_Resource_Stock_Collection $collection
      *
      * @return array
-     *
-     * @TODO Is there a more efficient way to do this / is it necessary? Does $collection->toArray() work for this?
      */
     public function getResults($collection)
     {
