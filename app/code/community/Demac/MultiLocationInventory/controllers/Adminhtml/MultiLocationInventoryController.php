@@ -258,10 +258,13 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     {
         $countryCode = $this->getRequest()->getParam('country');
         $options     = Mage::helper('demac_multilocationinventory')->getRegions($countryCode);
+        $optionsHtml = '';
 
         // @TODO Start Refactor : Loop through this array in a view instead where we don't have to echo.
         foreach ($options as $option) {
-            echo '<option value="' . $option['value'] . '">' . $option['label'] . '</option>';
+            $optionsHtml .= '<option value="' . $option['value'] . '">' . $option['label'] . '</option>';
         }
+
+        $this->getResponse()->setBody($optionsHtml);
     }
 }
