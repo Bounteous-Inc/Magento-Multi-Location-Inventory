@@ -5,11 +5,13 @@ $installer->startSetup();
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('demac_multilocationinventory/stock_status_index'))
-    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'length'   => 5,
         'unsigned' => true,
         'nullable' => false
     ), 'Location ID')
     ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'length'   => 10,
         'unsigned' => true,
         'nullable' => false
     ), 'Product ID')
