@@ -33,6 +33,7 @@
                     <th>Quantity</th>
                     <th>Backorders</th>
                     <th>Stock Status</th>
+                    <th>Manage Stock</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,6 +74,19 @@
                                 <option
                                     value="0" <?php echo ($_location['is_in_stock'] !== "1") ? 'selected="selected"' : '' ?>>
                                     Out Of Stock
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="multilocationinventory[<?php echo $_location['id'] ?>][manage_stock]"
+                                    style="width:86%;" class="select">
+                                <option
+                                    value="1" <?php echo ($_location['manage_stock'] === "1") ? 'selected="selected"' : '' ?>>
+                                    Yes
+                                </option>
+                                <option
+                                    value="0" <?php echo ($_location['manage_stock'] !== "1") ? 'selected="selected"' : '' ?>>
+                                    No
                                 </option>
                             </select>
                         </td>

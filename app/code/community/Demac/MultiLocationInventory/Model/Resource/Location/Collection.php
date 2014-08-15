@@ -127,7 +127,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
                     'stock' => Mage::getSingleton('core/resource')->getTableName('demac_multilocationinventory/stock')
                 ),
                 'main_table.id = stock.location_id',
-                array('stock.qty', 'stock.backorders', 'stock.is_in_stock')
+                array('stock.qty', 'stock.backorders', 'stock.is_in_stock', 'stock.manage_stock')
             );
 
         $this

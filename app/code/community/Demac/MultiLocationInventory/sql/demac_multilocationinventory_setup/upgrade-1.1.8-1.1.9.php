@@ -3,9 +3,6 @@ $installer = $this;
 $installer->startSetup();
 
 
-$table = $installer->getTable('demac_multilocationinventory/location');
-
-
 $table = $installer->getTable('demac_multilocationinventory/stock');
 
 $installer->getConnection()
