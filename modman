@@ -3,7 +3,6 @@ app/design/adminhtml/default/default/layout/demac/multilocationinventory.xml app
 app/code/community/Demac/MultiLocationInventory/Helper/Data.php app/code/community/Demac/MultiLocationInventory/Helper/Data.php
 app/code/community/Demac/MultiLocationInventory/Helper/Location.php app/code/community/Demac/MultiLocationInventory/Helper/Location.php
 app/code/community/Demac/MultiLocationInventory/Helper/Indexer.php app/code/community/Demac/MultiLocationInventory/Helper/Indexer.php
-app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.0.1-1.0.2.php app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.0.1-1.0.2.php
 app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.1.4-1.1.5.php app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.1.4-1.1.5.php
 app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.1.2-1.1.3.php app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.1.2-1.1.3.php
 app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.1.0-1.1.1.php app/code/community/Demac/MultiLocationInventory/sql/demac_multilocationinventory_setup/upgrade-1.1.0-1.1.1.php
@@ -53,7 +52,6 @@ app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Catalog/Product/
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit.php
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Form.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Form.php
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tabs.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tabs.php
-app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tab/Inventory.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tab/Inventory.php
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tab/Location.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Edit/Tab/Location.php
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Grid.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location/Grid.php
 app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location.php app/code/community/Demac/MultiLocationInventory/Block/Adminhtml/Location.php
