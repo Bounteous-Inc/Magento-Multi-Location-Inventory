@@ -46,11 +46,12 @@
                             <input type="text"
                                    name="multilocationinventory[<?php echo $_location['id'] ?>][quantity]"
                                    class="input-text validate-number"
+                                   <?php echo ($_location['manage_stock'] === "1") ? '' : 'style="visibility:hidden;"' ?>
                                    value="<?php echo $_location['qty'] ?>"/>
                         </td>
                         <td>
                             <select name="multilocationinventory[<?php echo $_location['id'] ?>][backorders]"
-                                    style="width:86%;" class="select">
+                                    style="width:86%;<?php echo ($_location['manage_stock'] === "1") ? '' : 'visibility:hidden;' ?>" class="select">
                                 <?php if($_location['backorders'] == ''): ?>
                                     <option value="-"></option>
                                 <?php endif; ?>
@@ -66,7 +67,7 @@
                         </td>
                         <td>
                             <select name="multilocationinventory[<?php echo $_location['id'] ?>][is_in_stock]"
-                                    style="width:86%;" class="select">
+                                    style="width:86%;<?php echo ($_location['manage_stock'] === "1") ? '' : 'visibility:hidden;' ?>" class="select">
                                 <option
                                     value="1" <?php echo ($_location['is_in_stock'] === "1") ? 'selected="selected"' : '' ?>>
                                     In Stock
@@ -79,7 +80,7 @@
                         </td>
                         <td>
                             <select name="multilocationinventory[<?php echo $_location['id'] ?>][manage_stock]"
-                                    style="width:86%;" class="select">
+                                    style="width:86%;" class="select demac_multilocationinventory_manage_stock">
                                 <option
                                     value="1" <?php echo ($_location['manage_stock'] === "1") ? 'selected="selected"' : '' ?>>
                                     Yes
@@ -97,3 +98,19 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+$$('.demac_multilocationinventory_manage_stock').each(function(element) {
+  element.observe('change', function (ev) {
+    var visibility_str = "hidden";
+    if(ev.target.value == "1") {
+      visibility_str = "visible";
+    }
+    ev.target.parentElement.parentElement.select('input, select').each(function(toggleElement) {
+      if(!toggleElement.hasClassName('demac_multilocationinventory_manage_stock')) {
+        toggleElement.setStyle({visibility: visibility_str});
+      }
+    });
+  });
+});
+</script>
