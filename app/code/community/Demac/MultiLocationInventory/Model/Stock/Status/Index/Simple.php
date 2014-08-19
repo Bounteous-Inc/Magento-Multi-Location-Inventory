@@ -26,7 +26,8 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
             . '      stock.product_id as product_id,'
             . '      SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) as qty,'
             . '      IF(SUM(stock.is_in_stock) > 0, 1, 0) as is_in_stock,'
-            . '      IF(SUM(stock.backorders) > 0, 1, 0) as backorders'
+            . '      IF(SUM(stock.backorders) > 0, 1, 0) as backorders,'
+            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 0, 1) as manage_stock'
             . '    FROM ' . $stockTable . ' as stock'
             . '    JOIN ' . $storesTable . ' as stores'
             . '      ON stock.location_id = stores.location_id'
@@ -43,6 +44,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
         }
 
         $query .= '    GROUP BY CONCAT(stores.store_id, "_", stock.product_id)';
+
 
         return $query;
     }
@@ -66,7 +68,8 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
             . '      stock.product_id as product_id,'
             . '      SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) as qty,'
             . '      IF(SUM(stock.is_in_stock) > 0, 1, 0) as is_in_stock,'
-            . '      IF(SUM(stock.backorders) > 0, 1, 0) as backorders'
+            . '      IF(SUM(stock.backorders) > 0, 1, 0) as backorders,'
+            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 0, 1) as manage_stock'
             . '    FROM ' . $stockTable . ' as stock'
             . '    JOIN ' . $locationsTable . ' as location'
             . '      ON stock.location_id = location.id'

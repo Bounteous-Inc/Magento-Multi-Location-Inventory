@@ -67,7 +67,8 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
             . '  SET'
             . '    dest.qty = src.qty,'
             . '    dest.is_in_stock = src.is_in_stock,'
-            . '    dest.backorders = src.backorders'
+            . '    dest.backorders = src.backorders,'
+            . '    dest.manage_stock = src.manage_stock'
             . '  WHERE'
             . '    dest.store_id = src.store_id'
             . '    AND dest.product_id = src.product_id;';
