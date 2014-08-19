@@ -1,6 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/DemacMedia/Magento-Multi-Location-Inventory.png)](https://codeclimate.com/github/DemacMedia/Magento-Multi-Location-Inventory)
 
-#Multi Location Inventory v1.2.0
+#Multi Location Inventory v1.2.1
 ##Description
 Allows the creation of multiple inventory locations in Magento along with assigning those inventory locations to store views.
 
@@ -13,7 +13,6 @@ Allows the creation of multiple inventory locations in Magento along with assign
 ##Bugs and Limitations
 - Limited to selling 9,999 of a specific virtual product in a single transaction.
 - Decimal quantities are untested and will experience issues.
-- Setting Manage Stock has no effect.
 - Bundled, Downloadable and Gift Card products are not supported yet.
 - Virtual Products and Configurable Products allow you to set inventory levels even though they are never used.
 
