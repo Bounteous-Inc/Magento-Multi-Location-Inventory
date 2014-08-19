@@ -35,7 +35,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Stock extends Mage_Cat
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
                 $stockItem->setStockId(1);
                 $stockItem->setProduct($product);
-                $stockItem->setManageStock(1);
+                $stockItem->setManageStock($stockItems[$product->getId()->getManageStock());
                 $stockItem->setIsInStock((bool) $stockItems[$product->getId()]->getIsInStock());
                 $stockItem->setQty((int) $stockItems[$product->getId()]->getQty());
                 $stockItem->setBackorders((bool) $stockItems[$product->getId()]->getBackorders());
