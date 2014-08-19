@@ -67,7 +67,8 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
             . '  SET'
             . '    dest.qty = src.qty,'
             . '    dest.is_in_stock = src.is_in_stock,'
-            . '    dest.backorders = src.backorders'
+            . '    dest.backorders = src.backorders,'
+            . '    dest.manage_stock = src.manage_stock'
             . '  WHERE'
             . '    dest.store_id = src.store_id'
             . '    AND dest.product_id = src.product_id;';
@@ -81,7 +82,7 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
      */
     protected function getGlobalStockStatusSelectQuery($productIds = false, $additionalFields = array())
     {
-        $fields = array('product_id', 'qty', 'is_in_stock');
+        $fields = array('product_id', 'qty', 'is_in_stock', 'manage_stock');
         $fields = array_merge($fields, $additionalFields);
 
         $stockStatusCollection = Mage::getModel('demac_multilocationinventory/stock_status_index')
@@ -142,7 +143,8 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
             . '  (' . $this->getGlobalStockStatusSelectQuery($productIds, array('backorders')) . ') src '
             . '  SET dest.qty = src.qty,'
             . '    dest.is_in_stock = src.is_in_stock,'
-            . '    dest.backorders = src.backorders'
+            . '    dest.backorders = src.backorders,'
+            . '    dest.manage_stock = src.manage_stock'
             . '  WHERE dest.product_id = src.product_id';
 
         return $query;
