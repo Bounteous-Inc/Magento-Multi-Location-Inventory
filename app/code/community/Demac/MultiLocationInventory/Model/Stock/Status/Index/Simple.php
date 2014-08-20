@@ -24,7 +24,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
         $query->addField('product_id', 'stock.product_id');
         $query->addField('qty', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, SUM(IF(stock.is_in_stock = 1, stock.qty, 0)))');
         $query->addField('is_in_stock', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(stock.is_in_stock) > 0, 1, 0))');
-        $query->addField('backorder', 'IF(SUM(stock.backorders) > 0, 1, 0)');
+        $query->addField('backorders', 'IF(SUM(stock.backorders) > 0, 1, 0)');
         $query->addField('manage_stock', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 0, 1)');
         $query->setFrom($stockTable, 'stock');
         $query->addJoin('JOIN', $locationsTable, 'location', 'stock.location_id = location.id');
