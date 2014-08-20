@@ -11,10 +11,8 @@ Allows the creation of multiple inventory locations in Magento along with assign
 4. Run all indexers.
 
 ##Bugs and Limitations
-- Limited to selling 9,999 of a specific virtual product in a single transaction.
 - Decimal quantities are untested and will experience issues.
-- Bundled, Downloadable and Gift Card products are not supported yet.
-- Virtual Products and Configurable Products allow you to set inventory levels even though they are never used.
+- Bundled and Gift Card products are not supported yet.
 
 ##Troubleshooting
 Verify that you aren't running any other extensions that may conflict with Multi Location Inventory.

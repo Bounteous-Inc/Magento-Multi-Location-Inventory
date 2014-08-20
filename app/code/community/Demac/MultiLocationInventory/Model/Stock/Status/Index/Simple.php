@@ -6,6 +6,7 @@
 class Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
     implements Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface
 {
+    protected $productType = 'simple';
     /**
      * A select query to retrieve the stock status index data of simple products.
      *
@@ -37,7 +38,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
             . '      ON stock.product_id = product_entity.entity_id'
             . '    WHERE'
             . '      location.status = 1'
-            . '      AND product_entity.type_id = "simple"';
+            . '      AND product_entity.type_id = "' . $this->productType . '"';
 
         if(is_array($productIds)) {
             $query .= '      AND stock.product_id IN (' . implode(',', $productIds) . ')';
@@ -77,7 +78,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
             . '      ON stock.product_id = product_entity.entity_id'
             . '    WHERE'
             . '      location.status = 1'
-            . '      AND product_entity.type_id = "simple"';
+            . '      AND product_entity.type_id = "' . $this->productType . '"';
 
         if(is_array($productIds)) {
             $query .= '      AND stock.product_id IN (' . implode(',', $productIds) . ')';
