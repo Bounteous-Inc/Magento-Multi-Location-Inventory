@@ -15,12 +15,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Query
      * @param $field
      */
     public function addField($fieldAs, $field) {
-        array_push(
-            $this->fields,
-            array(
-                $fieldAs => $field
-            )
-        );
+        $this->fields[$fieldAs] = $field;
     }
 
     /**
