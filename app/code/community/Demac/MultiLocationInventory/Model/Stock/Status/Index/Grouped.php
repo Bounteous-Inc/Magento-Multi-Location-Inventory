@@ -18,18 +18,21 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Grouped
      */
     protected function getBaseQuery($productIds = false) {
         $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
-        $locationsTable                = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/location');
         $coreCatalogProductEntityTable = Mage::getModel('core/resource')->getTableName('catalog/product');
+        $locationsTable                = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/location');
         $coreCatalogProductlink        = Mage::getModel('core/resource')->getTableName('catalog/product_link');
 
         $query = parent::getBaseQuery($productIds);
+        $query->removeJoin('product_entity');
+        $query->removeJoin('location');
         $query->addField('product_id', 'product_entity.entity_id');
-        $query->addField('qty', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0))');
-        $query->addField('is_in_stock', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0))');
+        $query->addField('qty', 'IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0)');
+        $query->addField('is_in_stock', 'IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0)');
         $query->setFrom($coreCatalogProductEntityTable, 'product_entity');
         $query->addJoin('JOIN', $coreCatalogProductlink, 'link', 'product_entity.entity_id = link.product_id');
         $query->addJoin('JOIN', $stockTable, 'stock', 'link.linked_product_id = stock.product_id');
-        $query->removeJoin('product_entity');
+        $query->addJoin('JOIN', $locationsTable, 'location', 'stock.location_id = location.id');
+
 
         return $query;
     }
