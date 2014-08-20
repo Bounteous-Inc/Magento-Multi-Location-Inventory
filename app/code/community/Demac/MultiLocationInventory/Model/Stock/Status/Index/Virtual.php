@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 /**
  * Class Demac_MultiLocationInventory_Model_Stock_Status_Index_Virtual
  */
