@@ -28,6 +28,7 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Grouped
         $query->addField('is_in_stock', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0))');
         $query->setFrom($coreCatalogProductEntityTable, 'product_entity');
         $query->addJoin('JOIN', $coreCatalogProductlink, 'link', 'product_entity.entity_id = link.product_id');
+        $query->addJoin('JOIN', $stockTable, 'stock', 'link.linked_product_id = stock.product_id');
         $query->removeJoin('product_entity');
 
         return $query;
