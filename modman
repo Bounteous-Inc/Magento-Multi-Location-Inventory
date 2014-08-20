@@ -17,6 +17,7 @@ app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index.php app
 app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Grouped.php app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Grouped.php
 app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Configurable.php app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Configurable.php
 app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Virtual.php app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Virtual.php
+app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Query.php app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Query.php
 app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Downloadable.php app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Downloadable.php
 app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Interface.php app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Interface.php
 app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Simple.php app/code/community/Demac/MultiLocationInventory/Model/Stock/Status/Index/Simple.php

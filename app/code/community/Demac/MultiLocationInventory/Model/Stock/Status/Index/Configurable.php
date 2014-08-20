@@ -48,7 +48,6 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Configurable
 
         $query .= '    GROUP BY CONCAT(stores.store_id, "_", product_entity.entity_id)';
 
-
         return $query;
     }
 
