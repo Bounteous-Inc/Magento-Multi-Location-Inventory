@@ -137,7 +137,7 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
         if($productId) {
             $this
                 ->addFieldToFilter(
-                    stock.product_id',
+                    'stock.product_id',
                     array(
                         array('eq' => $productId),
                         array('null' => true)
