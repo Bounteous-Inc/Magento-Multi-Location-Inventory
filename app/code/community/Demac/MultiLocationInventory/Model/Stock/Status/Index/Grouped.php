@@ -4,8 +4,40 @@
  * Class Demac_MultiLocationInventory_Model_Stock_Status_Index_Grouped
  */
 class Demac_MultiLocationInventory_Model_Stock_Status_Index_Grouped
+    extends Demac_MultiLocationInventory_Model_Stock_Status_Index_Simple
     implements Demac_MultiLocationInventory_Model_Stock_Status_Index_Interface
 {
+    protected $productType = 'grouped';
+
+    /**
+     * Get base simple product select query.
+     *
+     * @param bool $productIds
+     *
+     * @return mixed
+     */
+    protected function getBaseQuery($productIds = false) {
+        $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
+        $coreCatalogProductEntityTable = Mage::getModel('core/resource')->getTableName('catalog/product');
+        $locationsTable                = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/location');
+        $coreCatalogProductlink        = Mage::getModel('core/resource')->getTableName('catalog/product_link');
+
+        $query = parent::getBaseQuery($productIds);
+        $query->removeJoin('product_entity');
+        $query->removeJoin('location');
+        $query->addField('product_id', 'product_entity.entity_id');
+        $query->addField('qty', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0))');
+        $query->addField('is_in_stock', 'IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0))');
+        $query->setFrom($coreCatalogProductEntityTable, 'product_entity');
+        $query->addJoin('JOIN', $coreCatalogProductlink, 'link', 'product_entity.entity_id = link.product_id');
+        $query->addJoin('JOIN', $stockTable, 'stock', 'link.linked_product_id = stock.product_id');
+        $query->addJoin('JOIN', $locationsTable, 'location', 'stock.location_id = location.id');
+
+
+        return $query;
+    }
+
+
     /**
      * A select query to retrieve the stock status index data of grouped products.
      *
@@ -15,41 +47,14 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Grouped
      */
     public function getStockStatusIndexSelectQuery($productIds = false)
     {
-        $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
         $storesTable                   = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stores');
-        $locationsTable                = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/location');
-        $coreCatalogProductEntityTable = Mage::getModel('core/resource')->getTableName('catalog/product');
-        $coreCatalogProductlink        = Mage::getModel('core/resource')->getTableName('catalog/product_link');
 
-        $query =
-            '    SELECT'
-            . '      stores.store_id as store_id,'
-            . '      product_entity.entity_id as product_id,'
-            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0)) as qty,'
-            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0)) as is_in_stock,'
-            . '      IF(SUM(stock.backorders) > 0, 1, 0) as backorders,'
-            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 0, 1) as manage_stock'
-            . '    FROM ' . $coreCatalogProductEntityTable . ' as product_entity'
-            . '    JOIN ' . $coreCatalogProductlink . ' as link'
-            . '      ON product_entity.entity_id = link.product_id'
-            . '    JOIN ' . $stockTable . ' AS stock'
-            . '      ON link.linked_product_id = stock.product_id'
-            . '    JOIN ' . $storesTable . ' as stores'
-            . '      ON stock.location_id = stores.location_id'
-            . '    JOIN ' . $locationsTable . ' as location'
-            . '      ON stock.location_id = location.id'
-            . '    WHERE'
-            . '      location.status = 1'
-            . '      AND product_entity.type_id = "grouped"';
+        $query = $this->getBaseQuery($productIds);
+        $query->addField('store_id', 'stores.store_id');
+        $query->addJoin('JOIN', $storesTable, 'stores', 'stock.location_id = stores.location_id');
+        $query->setGroup('CONCAT(stores.store_id, "_", product_entity.entity_id)');
 
-        if(is_array($productIds)) {
-            $query .= '      AND product_entity.entity_id IN (' . implode(',', $productIds) . ')';
-        }
-
-        $query .= '    GROUP BY CONCAT(stores.store_id, "_", product_entity.entity_id)';
-
-
-        return $query;
+        return (string) $query;
     }
 
 
@@ -60,39 +65,11 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index_Grouped
      *
      * @return string
      */
-    public function getGlobalStockStatusIndexSelectQuery($productIds = false)
-    {
-        $stockTable                    = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock');
-        $locationsTable                = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/location');
-        $coreCatalogProductEntityTable = Mage::getModel('core/resource')->getTableName('catalog/product');
-        $coreCatalogProductlink        = Mage::getModel('core/resource')->getTableName('catalog/product_link');
+    public function getGlobalStockStatusIndexSelectQuery($productIds = false) {
+        $query = $this->getBaseQuery($productIds);
+        $query->addField('store_id', '0');
+        $query->setGroup('product_entity.entity_id');
 
-        $query =
-            '    SELECT'
-            . '      0 as store_id,'
-            . '      product_entity.entity_id as product_id,'
-            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0)) as qty,'
-            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 1, IF(SUM(IF(stock.is_in_stock = 1, stock.qty, 0)) AND SUM(stock.is_in_stock) > 0, 1, 0)) as is_in_stock,'
-            . '      IF(SUM(stock.backorders) > 0, 1, 0) as backorders,'
-            . '      IF(GROUP_CONCAT(stock.manage_stock) LIKE "%0%", 0, 1) as manage_stock'
-            . '    FROM ' . $coreCatalogProductEntityTable . ' as product_entity'
-            . '    JOIN ' . $coreCatalogProductlink . ' as link'
-            . '      ON product_entity.entity_id = link.product_id'
-            . '    JOIN ' . $stockTable . ' AS stock'
-            . '      ON link.linked_product_id = stock.product_id'
-            . '    JOIN ' . $locationsTable . ' as location'
-            . '      ON stock.location_id = location.id'
-            . '    WHERE'
-            . '      location.status = 1'
-            . '      AND product_entity.type_id = "grouped"';
-
-        if(is_array($productIds)) {
-            $query .= '      AND product_entity.entity_id IN (' . implode(',', $productIds) . ')';
-        }
-
-        $query .= '    GROUP BY product_entity.entity_id';
-
-
-        return $query;
+        return (string) $query;
     }
 }
