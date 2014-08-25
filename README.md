@@ -13,6 +13,7 @@ Allows the creation of multiple inventory locations in Magento along with assign
 ##Bugs and Limitations
 - Decimal quantities are untested and will experience issues.
 - Bundled and Gift Card products are not supported yet.
+- Configurable products stock status logic is incorrectly based on grouped products.
 
 ##Troubleshooting
 Verify that you aren't running any other extensions that may conflict with Multi Location Inventory.
