@@ -113,7 +113,6 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
     public function getUpdateCoreStockStatusQuery($productIds = false)
     {
 
-        $stockStatusIndexTable = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock_status_index');
         $coreStockStatusTable  = Mage::getModel('core/resource')->getTableName('cataloginventory/stock_status');
         $query                 =
             'UPDATE'
@@ -135,7 +134,6 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
      */
     public function getUpdateCoreStockItemQuery($productIds = false)
     {
-        $stockStatusIndexTable = Mage::getModel('core/resource')->getTableName('demac_multilocationinventory/stock_status_index');
         $coreStockItemTable    = Mage::getModel('core/resource')->getTableName('cataloginventory/stock_item');
         $query                 =
             'UPDATE'
