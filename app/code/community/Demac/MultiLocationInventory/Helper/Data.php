@@ -79,6 +79,7 @@ class Demac_MultiLocationInventory_Helper_Data extends Mage_Core_Helper_Abstract
             curl_close($ch);
             $response_a = json_decode($response);
 
+            //@TODO handle invalid api responses that don't contain this element.
             $lat  = $response_a->results[0]->geometry->location->lat;
             $long = $response_a->results[0]->geometry->location->lng;
 
