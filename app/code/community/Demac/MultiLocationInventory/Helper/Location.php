@@ -127,6 +127,10 @@ class Demac_MultiLocationInventory_Helper_Location extends Mage_Core_Helper_Abst
     /**
      * Get a priority score based on Order ID, Location ID and Quote Item ID.
      *
+     * @param int $orderId
+     * @param int $locationId
+     * @param int $quoteItemId
+     *
      * @return int
      */
     public function getPriorityForOrderLocationQuoteItem($orderId, $locationId, $quoteItemId)
