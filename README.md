@@ -4,6 +4,7 @@
 ##Description
 Allows the creation of multiple inventory locations in Magento along with assigning those inventory locations to store views.
 
+
 ##Use Cases
 Multi Location Inventory is likely a good fit if any of the following statements accurately describe the needs of the inventory and shipping management solution.
 
@@ -21,9 +22,18 @@ Multi Location Inventory does not support the following situations out of the bo
 3. Create inventory for products.
 4. Run all indexers.
 
+
 ##Bugs and Limitations
-- Decimal quantities don't work. Don't try it. Things will break.
+- Decimal quantities don't work.
 - Bundled and Gift Card products are not supported yet.
+- Warehouses can only be linked to store views and can’t be associated in other ways (without extensive custom development).
+- Locations can’t be limited or attached to particular shipping methods.
+- If live shipping rates are used, shipping isn’t calculated from the warehouse location, it is calculated from the store view’s address.
+- Bundled and Gift Card products aren’t supported.
+- Latitude and Longitude are required but not used. Locations created via the API will have their latitude and longitude pulled from Google Maps API. Stores created in the frontend need to have their latitude and longitude manually entered. If there is no additional functionality being created relating to latitude and longitude it is an option to enter 1 in both fields.
+- The inventory setting use_config_backorders is unsupported.
+- The inventory setting use_config_manage_stack is unsupported.
+
 
 ##Troubleshooting
 Verify that you aren't running any other extensions that may conflict with Multi Location Inventory.
@@ -39,8 +49,10 @@ Please contribute other extensions you find that are not compatible either by se
 ##Finding Your Way Around (Customization)
 Below is a list of several major components of this extension that should help you to get started with it.
 
+
 ###Indexers
 Indexers take data from the demac_multilocationinventory_stock table that is attached to stores and summarizes it per store view in the demac_multilocationinventory_stock_status_index table.  This allows for the data to be added to product collections with a single join.
+
 
 ###Mocking Stock Item Objects
 Various parts of the Magento core expect stock item objects.
@@ -59,6 +71,7 @@ By taking this approach we can leave the underlying tables untouched allowing mu
 
 Example: app/code/community/Demac/MultiLocationInventory/Model/CatalogInventory/Stock.php
 
+
 ###Inventory Reduction On Checkout
 The getPriorityForOrderLocationQuoteItem method in app/code/community/Demac/MultiLocationInventory/Helper/Location.php is called once per location, per product in an order (during checkout, as the inventory is being assigned).
 
@@ -67,6 +80,7 @@ Currently we return a random number from this method. This is suitable when ther
 In other cases we can take one of these approaches:
 Create a scoring algorithm that looks at products individually inside of a quote as this is called.
 Create a singleton with the algorithm that looks at the data and ranks it in a single call, and have it called to return the appropriate results from getPriorityForOrderLocationQuoteItem.
+
 
 ###Custom Iterator
 We have built our own iterator - Demac_MultiLocationInventory_Model_Resource_Iterator
