@@ -12,8 +12,7 @@ Multi Location Inventory is likely a good fit if any of the following statements
  - uses Magento to manage their inventory levels across multiple warehouses (even if they aren’t restricted in where they ship).
  - SKUs overlap between store views and represent different products. This isn't advised.
 
-Multi Location Inventory does not support the following situations out of the box, but it is likely a good starting point if...
- - Client ships from multiple locations, has no restrictions on where each warehouse ships to, and has a reason to store inventory data separately in Magento (e.g. shipping quotes depend on inventory location)
+Multi Location Inventory does not support the following situations out of the box, but it is likely a good starting point if you ship from multiple locations, have no restrictions on where each warehouse ships to, and have a reason to store inventory data separately in Magento (e.g. shipping quotes depend on inventory location)
 
 
 ##Installation
