@@ -31,10 +31,16 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index
         $this->getResource()->createMissingStockRows($productIds);
         $this->getResource()->createMissingStockIndexRows($productIds);
 
+        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         //Add associated products (parent products, child products, etc)
         if($productIds !== false) {
             $associatedProductIds = $this->getAssociatedProducts($productIds);
             $productIds           = array_merge($productIds, $associatedProductIds);
+            //Update multi location inventory stock status index table for specified products
+            $write->exec('CALL DEMAC_MLI_REINDEX_SET("'.implode(',', $productIds).'")');
+        } else {
+            //Update multi location inventory stock status index table globally.
+            $write->exec('CALL DEMAC_MLI_REINDEX_ALL()');
         }
 
         //Update multi location inventory stock status index table
