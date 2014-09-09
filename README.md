@@ -4,6 +4,17 @@
 ##Description
 Allows the creation of multiple inventory locations in Magento along with assigning those inventory locations to store views.
 
+##Use Cases
+Multi Location Inventory is likely a good fit if any of the following statements accurately describe the needs of the inventory and shipping management solution.
+
+ - ships from multiple locations, and has restrictions on which warehouses ship to which store views (e.g. regional warehouses that coincide with regional store views)
+ - uses Magento to manage their inventory levels across multiple warehouses (even if they aren’t restricted in where they ship).
+ - SKUs overlap between store views and represent different products. This isn't advised.
+
+Multi Location Inventory does not support the following situations out of the box, but it is likely a good starting point if...
+ - Client ships from multiple locations, has no restrictions on where each warehouse ships to, and has a reason to store inventory data separately in Magento (e.g. shipping quotes depend on inventory location)
+
+
 ##Installation
 1. Create Locations
 2. Run Multi Location Inventory Indexer
