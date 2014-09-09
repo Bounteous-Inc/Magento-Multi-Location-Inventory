@@ -50,6 +50,12 @@ Please contribute other extensions you find that are not compatible either by se
 Below is a list of several major components of this extension that should help you to get started with it.
 
 
+###Inventory Reduction On Checkout
+It is recommended to disable this functionality and allow integrations to push inventory updates. The easiest way to disable this functionality is to set the following config setting: Configuration > Catalog > Inventory > Stock Options > Decrease stock when order is placed
+
+If stock updates need to happen on the Magento side the recommended approach is to update the getPriorityForOrderLocationQuoteItem method in app/code/community/Demac/MultiLocationInventory/Helper/Location.php. This method is run once per location on every quote item. Inventory is reduced from the location which returns the highest number first and works its way down until all of the inventory requested is fulfilled. If there is only one warehouse per store view this function can be left as is.
+
+
 ###Indexers
 Indexers take data from the demac_multilocationinventory_stock table that is attached to stores and summarizes it per store view in the demac_multilocationinventory_stock_status_index table.  This allows for the data to be added to product collections with a single join.
 
