@@ -43,9 +43,6 @@ class Demac_MultiLocationInventory_Model_Stock_Status_Index
             $write->exec('CALL DEMAC_MLI_REINDEX_ALL()');
         }
 
-        //Update multi location inventory stock status index table
-        $this->getResource()->updateStockStatusIndex($productIds);
-
         //Update core stock status table.
         $this->getResource()->updateCoreStockStatus($productIds);
 

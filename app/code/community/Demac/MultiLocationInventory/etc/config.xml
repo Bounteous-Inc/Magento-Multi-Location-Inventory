@@ -107,13 +107,6 @@
                 </connection>
             </demac_multilocationinventory_setup>
         </resources>
-        <mli_index_types>
-            <simple>demac_multilocationinventory/stock_status_index_simple</simple>
-            <configurable>demac_multilocationinventory/stock_status_index_configurable</configurable>
-            <grouped>demac_multilocationinventory/stock_status_index_grouped</grouped>
-            <virtual>demac_multilocationinventory/stock_status_index_virtual</virtual>
-            <downloadable>demac_multilocationinventory/stock_status_index_downloadable</downloadable>
-        </mli_index_types>
     </global>
     <frontend>
         <translate>

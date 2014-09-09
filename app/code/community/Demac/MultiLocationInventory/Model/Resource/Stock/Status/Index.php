@@ -14,18 +14,6 @@ class Demac_MultiLocationInventory_Model_Resource_Stock_Status_Index
     }
 
     /**
-     * Update multi location inventory stock status index.
-     *
-     * @param bool|array $productIds
-     */
-    public function updateStockStatusIndex($productIds = false)
-    {
-        $query  = Mage::helper('demac_multilocationinventory/indexer')->getAllStockStatusIndexSelects($productIds);
-        $update = Mage::helper('demac_multilocationinventory/indexer')->getUpdateStockStatusIndexQuery($query);
-        $this->_getWriteAdapter()->query($update);
-    }
-
-    /**
      * Update core stock status.
      *
      * @param bool|array $productIds
