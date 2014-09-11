@@ -25,7 +25,6 @@ Multi Location Inventory does not support the following situations out of the bo
 ##Bugs and Limitations
 - Decimal quantities don't work.
 - Bundled products are not supported yet.
-- Gift Cards don't reduce quantity in stock when they are purchased.
 - Warehouses can only be linked to store views and can’t be associated in other ways (without extensive custom development).
 - Locations can’t be limited or attached to particular shipping methods.
 - If live shipping rates are used, shipping isn’t calculated from the warehouse location, it is calculated from the store view’s address.
