@@ -62,29 +62,23 @@ class Demac_MultiLocationInventory_Helper_Data extends Mage_Core_Helper_Abstract
     public function getLatLong($postalCode, $country)
     {
         sleep(1);
-        if($this->geocodingAvailable()) {
-            $coordinates = Mage::getModel('geocoding/geocode')->loadByPostalCode($postalCode, $country);
+        $postalCode = urlencode($postalCode);
+        $country    = urlencode($country);
+        $url        = "http://maps.google.com/maps/api/geocode/json?address=$postalCode&sensor=false&region=$country";
+        $ch         = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response_a = json_decode($response);
 
-            return array($coordinates['latitude'], $coordinates['longitude']);
-        } else {
-            $postalCode = urlencode($postalCode);
-            $country    = urlencode($country);
-            $url        = "http://maps.google.com/maps/api/geocode/json?address=$postalCode&sensor=false&region=$country";
-            $ch         = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-            $response = curl_exec($ch);
-            curl_close($ch);
-            $response_a = json_decode($response);
+        //@TODO handle invalid api responses that don't contain this element.
+        $lat  = $response_a->results[0]->geometry->location->lat;
+        $long = $response_a->results[0]->geometry->location->lng;
 
-            //@TODO handle invalid api responses that don't contain this element.
-            $lat  = $response_a->results[0]->geometry->location->lat;
-            $long = $response_a->results[0]->geometry->location->lng;
-
-            return array($lat, $long);
-        }
+        return array($lat, $long);
     }
 
     /**
