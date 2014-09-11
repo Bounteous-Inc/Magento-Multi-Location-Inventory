@@ -95,15 +95,12 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
             if($store instanceof Mage_Core_Model_Store) {
                 $store = array($store->getId());
             }
-
             if(!is_array($store)) {
                 $store = array($store);
             }
-
             if($withAdmin) {
                 $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
             }
-
             $this->addFilter('store_id', array('in' => $store), 'public');
         }
 
