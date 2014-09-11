@@ -90,7 +90,7 @@ class Demac_MultiLocationInventory_Model_Observer
 
         foreach ($this->checkoutProducts as $checkoutProductQuoteItemId => $checkoutProductQuantity) {
             $checkoutProductItem = $quote->getItemById($checkoutProductQuoteItemId);
-            if($checkoutProductItem->getProduct()->getTypeId() == 'simple') {
+            if($checkoutProductItem->getProduct()->getTypeId() == 'simple' || $checkoutProductItem->getProduct()->getTypeId() == 'giftcard') {
                 $checkoutProductId = $checkoutProductItem->getProductId();
                 $locationIds       = Mage::helper('demac_multilocationinventory/location')->getPrioritizedLocationsForOrderQuoteItem($orderId, $checkoutProductQuoteItemId);
                 //loop through each location and distribute the inventory
