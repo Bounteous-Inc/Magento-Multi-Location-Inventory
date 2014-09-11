@@ -400,6 +400,9 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
             $orderStockSource->setQty($orderStockSource->getQty() - $this->inventoryToRestock);
             $orderStockSource->save();
             $stockItem->setQty($stockItem->getQty() + $this->inventoryToRestock);
+            if($stockItem->getQty() > 0) {
+                $stockItem->setIsInStock(1);
+            }
             $stockItem->save();
             $this->inventoryToRestock = 0;
 
@@ -410,6 +413,9 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Observer extends Mage_
             $orderStockSource->setQty($orderStockSource->getQty() - $qtyFromLocation);
             $orderStockSource->save();
             $stockItem->setQty($stockItem->getQty() + $qtyFromLocation);
+            if($stockItem->getQty() > 0) {
+                $stockItem->setIsInStock(1);
+            }
             $stockItem->save();
             $this->inventoryToRestock -= $qtyFromLocation;
         }
