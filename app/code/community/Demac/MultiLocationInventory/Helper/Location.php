@@ -34,41 +34,6 @@ class Demac_MultiLocationInventory_Helper_Location extends Mage_Core_Helper_Abst
     }
 
     /**
-     * Finds the closest location to a postal code, with an optional list of locations to exclude.
-     *
-     * @param array $customerCoordinates The customer's location (array with 2 keys: latitude/longitude).
-     * @param array $excludes            Locations to exclude from the search (e.g. because we know they don't stock an item).
-     *
-     * @return bool|Demac_MultiLocationInventory_Model_Location
-     * @throws Mage_Core_Exception Throws exception when Demac_Geocoding isn't loaded.
-     */
-    protected function getClosestLocation($customerCoordinates, $excludes = array())
-    {
-        if(!Mage::helper('geocoding')) {
-            Mage::throwException('Demac_Geocoding module must be loaded before calling getClosestLocation.');
-        }
-        $closestLocation = false;
-        $closestDistance = 0;
-        $locations       = Mage::getModel('demac_multilocationinventory/location')->getCollection();
-        foreach ($locations as $location) {
-            if(!in_array($location->getId(), $excludes)) {
-                $locationCoordinates = array(
-                    'latitude'  => $location->getLat(),
-                    'longitude' => $location->getLong()
-                );
-
-                $locationDistance = Mage::helper('geocoding')->getGeocodingEngine()->findDistance($customerCoordinates, $locationCoordinates);
-                if($closestLocation == false || $closestDistance > $locationDistance) {
-                    $closestLocation = $location;
-                    $closestDistance = $locationDistance;
-                }
-            }
-        }
-
-        return $closestLocation;
-    }
-
-    /**
      *
      *
      * @param $orderId
