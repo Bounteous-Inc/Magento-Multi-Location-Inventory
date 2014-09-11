@@ -6,34 +6,6 @@
 class Demac_MultiLocationInventory_Helper_Location extends Mage_Core_Helper_Abstract
 {
     /**
-     * Finds the closest location with a product in stock.
-     *
-     * @param array $customerCoordinates The customer's location (array with 2 keys: latitude/longitude).
-     * @param int   $productId           Product ID that is being searched for.
-     * @param int   $quantity            Minimum quantity that is being searched for.
-     *
-     * @return bool|Demac_MultiLocationInventory_Model_Location Location if the location is found, otherwise false.
-     * @throws Mage_Core_Exception Throws exception when Demac_Geocoding isn't loaded.
-     */
-    public function getClosestLocationWithProduct($customerCoordinates, $productId, $quantity)
-    {
-        $closestLocation = $this->getClosestLocation($customerCoordinates);
-        $excludes        = array();
-        while ($closestLocation !== false) {
-            //check if inventory of the correct product is available at this location...
-            $quantityAvailable = Mage::getModel('demac_multilocationinventory/stock')->loadByProduct($closestLocation->getId(), $productId)->getQty();
-            if($quantityAvailable > $quantity) {
-                return $closestLocation;
-            }
-
-            $excludes[]      = $closestLocation->getId();
-            $closestLocation = $this->getClosestLocation($customerCoordinates, $excludes);
-        }
-
-        return false;
-    }
-
-    /**
      *
      *
      * @param $orderId

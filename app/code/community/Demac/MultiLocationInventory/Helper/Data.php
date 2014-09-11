@@ -90,10 +90,7 @@ class Demac_MultiLocationInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getConfigData($field, $storeId = null)
     {
-        // Start Refactor : Add a class constant for the path
         $path = self::CONFIG_PATH . $field;
-
-        // End Refactor
         return Mage::getStoreConfig($path, $storeId);
     }
 }
