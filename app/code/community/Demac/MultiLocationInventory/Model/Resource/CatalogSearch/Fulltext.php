@@ -23,9 +23,7 @@ class Demac_MultiLocationInventory_Model_Resource_CatalogSearch_Fulltext extends
     {
         $websiteId    = Mage::app()->getStore($storeId)->getWebsiteId();
         $writeAdapter = $this->_getWriteAdapter();
-
         $select = $writeAdapter->select();
-
         $select
             ->useStraightJoin(true)
             ->from(
@@ -48,17 +46,13 @@ class Demac_MultiLocationInventory_Model_Resource_CatalogSearch_Fulltext extends
                 ),
                 array('in_stock' => 'is_in_stock')
             );
-
         if(!is_null($productIds)) {
             $select->where('e.entity_id IN(?)', $productIds);
         }
-
         $select->where('e.entity_id>?', $lastProductId)
             ->limit($limit)
             ->order('e.entity_id');
-
         $result = $writeAdapter->fetchAll($select);
-
         return $result;
     }
 }

@@ -10,6 +10,9 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
     /**
      * Get Global Stock Status Select (for use in updates)
      *
+     * @param bool  $productIds
+     * @param array $additionalFields
+     *
      * @return string
      */
     protected function getGlobalStockStatusSelectQuery($productIds = false, $additionalFields = array())
@@ -41,6 +44,8 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
      * @param bool|array $productIds
      *
      * @return array|string
+     *
+     * @TODO Update to use varien query builder.
      */
     public function getUpdateCoreStockStatusQuery($productIds = false)
     {
@@ -63,6 +68,8 @@ class Demac_MultiLocationInventory_Helper_Indexer extends Mage_Core_Helper_Abstr
      * @param bool|array $productIds
      *
      * @return array|string
+     *
+     * @TODO Update to use varien query builder.
      */
     public function getUpdateCoreStockItemQuery($productIds = false)
     {
