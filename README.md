@@ -133,6 +133,29 @@ Example: app/code/community/Demac/MultiLocationInventory/Model/CatalogInventory/
       WHERE  dest.store_id = 0
              AND dest.product_id = src.product_id;
     -- STORE SPECIFIC:
+      UPDATE demac_multilocationinventory_stock_status_index dest,
+      (
+        SELECT
+          demac_multilocationinventory_stores.store_id as store_id,
+          catalog_product_bundle_selection.parent_product_id as product_id,
+          IF(SUM(demac_multilocationinventory_stock.is_in_stock) > 0, 99999, 0) as qty,
+          IF(SUM(demac_multilocationinventory_stock.is_in_stock) > 0, 1, 0) as is_in_stock
+        FROM catalog_product_bundle_selection
+        JOIN demac_multilocationinventory_bundled_indexer_tmp
+          ON demac_multilocationinventory_bundled_indexer_tmp.entity_id = catalog_product_bundle_selection.parent_product_id
+        JOIN demac_multilocationinventory_stock
+          ON demac_multilocationinventory_stock.product_id = catalog_product_bundle_selection.product_id
+        JOIN demac_multilocationinventory_stores
+          ON demac_multilocationinventory_stock.location_id = demac_multilocationinventory_stores.location_id
+        WHERE required_count = 0
+        GROUP BY CONCAT(catalog_product_bundle_selection.parent_product_id, '_', demac_multilocationinventory_stores.store_id)
+      ) src
+      SET    dest.qty = src.qty,
+             dest.is_in_stock = src.is_in_stock,
+             dest.backorders = 0,
+             dest.manage_stock = 1
+      WHERE  dest.store_id = src.store_id
+             AND dest.product_id = src.product_id;
   -- SOME REQUIRED: Verify that each required option has at least one child item in stock (sum is_in_stock grouped by option, if all are greater than 1)
   
 -- CLEANUP:
