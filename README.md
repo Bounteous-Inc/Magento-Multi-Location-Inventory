@@ -93,3 +93,48 @@ We have built our own iterator - Demac_MultiLocationInventory_Model_Resource_Ite
 This implements the exact same walk functionality as the built in iterator but allows you to break the iterator loop by returning false from the callback function. This was necessary as sometimes we return more stores than necessary to avoid having to do additional lookups when removing quantity.
 
 Example: app/code/community/Demac/MultiLocationInventory/Model/CatalogInventory/Observer.php Line 309
+
+
+##Bundled Products Indexer Query [INCOMPLETE]
+```
+-- check if all fields are optional
+  CREATE TEMPORARY TABLE IF NOT EXISTS demac_multilocationinventory_bundled_indexer_tmp AS 
+  (
+    SELECT
+      catalog_product_entity.entity_id,
+      SUM(catalog_product_bundle_option.required) as required_count
+    FROM catalog_product_entity
+    JOIN catalog_product_bundle_option
+      ON catalog_product_bundle_option.parent_id = catalog_product_entity.entity_id
+    WHERE
+      type_id = 'bundle'
+    GROUP BY catalog_product_entity.entity_id
+  );
+  -- ALL OPTIONAL: get all child products, if sum of is_in_stock > 0 then set is_in_stock = 1 and qty = some really big number
+    -- GLOBAL:
+      UPDATE demac_multilocationinventory_stock_status_index dest,
+      (
+        SELECT
+          catalog_product_bundle_selection.parent_product_id as product_id,
+          IF(SUM(is_in_stock) > 0, 99999, 0) as qty,
+          IF(SUM(is_in_stock) > 0, 1, 0) as is_in_stock
+        FROM catalog_product_bundle_selection
+        JOIN demac_multilocationinventory_bundled_indexer_tmp
+          ON demac_multilocationinventory_bundled_indexer_tmp.entity_id = catalog_product_bundle_selection.parent_product_id
+        JOIN demac_multilocationinventory_stock
+          ON demac_multilocationinventory_stock.product_id = catalog_product_bundle_selection.product_id
+        WHERE required_count = 0
+        GROUP BY catalog_product_bundle_selection.parent_product_id
+      ) src
+      SET    dest.qty = src.qty,
+             dest.is_in_stock = src.is_in_stock,
+             dest.backorders = 0,
+             dest.manage_stock = 1
+      WHERE  dest.store_id = 0
+             AND dest.product_id = src.product_id;
+    -- STORE SPECIFIC:
+  -- SOME REQUIRED: Verify that each required option has at least one child item in stock (sum is_in_stock grouped by option, if all are greater than 1)
+  
+-- CLEANUP:
+  DROP TABLE IF EXISTS demac_multilocationinventory_bundled_indexer_tmp;
+```
