@@ -6,6 +6,11 @@
 class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * Used module name in current adminhtml controller
+     */
+    protected $_usedModuleName = 'Demac_MultiLocationInventory';
+
+    /**
      * Index page
      *
      * @return void
@@ -54,7 +59,8 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
         $this->loadLayout();
         $this->_setActiveMenu('catalog/demac_multilocationinventory');
 
-        $this->_addBreadcrumb($locationId ? Mage::helper('demac_multilocationinventory')->__('Edit Location') : Mage::helper('demac_multilocationinventory')->__('New Location'), $locationId ? Mage::helper('demac_multilocationinventory')->__('Edit Location') : Mage::helper('demac_multilocationinventory')->__('New Location'));
+        $breadcrumbLabel = $this->__($locationId ? 'Edit Location' : 'New Location');
+        $this->_addBreadcrumb($breadcrumbLabel, $breadcrumbLabel);
 
         $this->_addContent($this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_edit'));
         $this->_addLeft($this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_edit_tabs'));
@@ -125,7 +131,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
                 $locationModel->setId($this->getRequest()->getParam('id'))
                     ->delete();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('demac_multilocationinventory')->__('Location was successfully deleted'));
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Location was successfully deleted'));
                 $this->_redirect('*/*/');
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -144,7 +150,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
     {
         $locationIds = $this->getRequest()->getParam('demac_multilocationinventory');
         if(!is_array($locationIds)) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('demac_multilocationinventory')->__('Please select a location(s)'));
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Please select a location(s)'));
         } else {
             try {
                 foreach ($locationIds as $locationId) {
@@ -152,11 +158,7 @@ class Demac_MultiLocationInventory_Adminhtml_MultiLocationInventoryController ex
                         ->setId($locationId)
                         ->delete();
                 }
-                Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('demac_multilocationinventory')->__(
-                        'Total of %d record(s) were successfully deleted', count($locationIds)
-                    )
-                );
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Total of %d record(s) were successfully deleted', count($locationIds)));
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
