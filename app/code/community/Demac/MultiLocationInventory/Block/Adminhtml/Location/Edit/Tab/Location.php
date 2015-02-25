@@ -24,7 +24,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
 
         $form     = new Varien_Data_Form();
         $fieldset = $form->addFieldset('demac_multilocationinventory_form', array(
-            'legend' => Mage::helper('demac_multilocationinventory')->__('Location Information')
+            'legend' => $this->__('Location Information')
         ));
 
         $this->_prepareFormHiddenFields($fieldset, $isEdit);
@@ -92,8 +92,8 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
     {
         $field    = $fieldset->addField('store_id', 'multiselect', array(
             'name'     => 'stores[]',
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Inventory For'),
-            'title'    => Mage::helper('demac_multilocationinventory')->__('Inventory For'),
+            'label'    => $this->__('Inventory For'),
+            'title'    => $this->__('Inventory For'),
             'required' => true,
             'values'   => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false),
         ));
@@ -110,17 +110,17 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
     protected function _prepareFormStatusField($fieldset)
     {
         $fieldset->addField('status', 'select', array(
-            'label'  => Mage::helper('demac_multilocationinventory')->__('Status'),
+            'label'  => $this->__('Status'),
             'name'   => 'status',
             'values' => array(
                 array(
                     'value' => 1,
-                    'label' => Mage::helper('demac_multilocationinventory')->__('Enabled'),
+                    'label' => $this->__('Enabled'),
                 ),
 
                 array(
                     'value' => 0,
-                    'label' => Mage::helper('demac_multilocationinventory')->__('Disabled'),
+                    'label' => $this->__('Disabled'),
                 ),
             ),
         ));
@@ -134,14 +134,14 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
     protected function _prepareFormGeneralFields($fieldset)
     {
         $fieldset->addField('name', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Name'),
+            'label'    => $this->__('Name'),
             'class'    => 'required-entry',
             'required' => true,
             'name'     => 'name',
         ));
 
         $fieldset->addField('external_id', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('External ID'),
+            'label'    => $this->__('External ID'),
             'required' => false,
             'name'     => 'external_id',
         ));
@@ -155,21 +155,21 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
     protected function _prepareFormAddressFields($fieldset)
     {
         $fieldset->addField('address', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Address'),
+            'label'    => $this->__('Address'),
             'class'    => 'required-entry',
             'required' => true,
             'name'     => 'address',
         ));
 
         $fieldset->addField('zipcode', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Postal Code'),
+            'label'    => $this->__('Postal Code'),
             'class'    => 'required-entry',
             'required' => true,
             'name'     => 'zipcode',
         ));
 
         $fieldset->addField('city', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('City'),
+            'label'    => $this->__('City'),
             'class'    => 'required-entry',
             'required' => true,
             'name'     => 'city',
@@ -188,7 +188,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
 
         $countryList = Mage::getModel('directory/country')->getCollection()->toOptionArray();
         $country     = $fieldset->addField('country_id', 'select', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Country'),
+            'label'    => $this->__('Country'),
             'name'     => 'country_id',
             'title'    => 'country',
             'values'   => $countryList,
@@ -218,13 +218,13 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tab_Location ex
     protected function _prepareFormLocationFields($fieldset)
     {
         $fieldset->addField('lat', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Latitude'),
+            'label'    => $this->__('Latitude'),
             'required' => true,
             'name'     => 'lat',
         ));
 
         $fieldset->addField('long', 'text', array(
-            'label'    => Mage::helper('demac_multilocationinventory')->__('Longitude'),
+            'label'    => $this->__('Longitude'),
             'required' => true,
             'name'     => 'long',
         ));

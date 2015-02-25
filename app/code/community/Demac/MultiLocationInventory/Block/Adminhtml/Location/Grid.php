@@ -45,7 +45,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
         // Add the columns that should appear in the grid
         $this->addColumn('id',
                          array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('ID'),
+                             'header' => $this->__('ID'),
                              'align'  => 'right',
                              'width'  => '50px',
                              'index'  => 'id'
@@ -54,55 +54,55 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
 
         $this->addColumn('external_id',
                          array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('External ID'),
+                             'header' => $this->__('External ID'),
                              'index'  => 'external_id',
                          )
         );
 
         $this->addColumn('name',
                          array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('Name'),
+                             'header' => $this->__('Name'),
                              'index'  => 'name',
                          )
         );
 
         $this->addColumn('address',
                          array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('Address'),
+                             'header' => $this->__('Address'),
                              'index'  => 'address',
                          )
         );
 
         $this->addColumn('zipcode',
                          array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('Postal Code'),
+                             'header' => $this->__('Postal Code'),
                              'index'  => 'zipcode',
                          )
         );
 
         $this->addColumn('city',
                          array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('City'),
+                             'header' => $this->__('City'),
                              'index'  => 'city',
                          )
         );
 
         $this->addColumn('region_id',
                          array(
-                             'header' => Mage::helper('demac_multilocationinventory')->__('Region'),
+                             'header' => $this->__('Region'),
                              'index'  => 'region_id',
                          )
         );
 
         $this->addColumn('country_id', array(
-            'header' => Mage::helper('demac_multilocationinventory')->__('Country'),
+            'header' => $this->__('Country'),
             'width'  => '100',
             'type'   => 'country',
             'index'  => 'country_id',
         ));
 
         $this->addColumn('store_id', array(
-            'header'     => Mage::helper('demac_multilocationinventory')->__('Inventory For'),
+            'header'     => $this->__('Inventory For'),
             'index'      => 'store_id',
             'type'       => 'store',
             'store_all'  => false,
@@ -111,15 +111,14 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
             'filter'     => false
         ));
 
-
         $this->addColumn('status',
                          array(
-                             'header'  => Mage::helper('demac_multilocationinventory')->__('Status'),
-                             'index'   => Mage::helper('demac_multilocationinventory')->__('status'),
+                             'header'  => $this->__('Status'),
+                             'index'   => $this->__('status'),
                              'type'    => 'options',
                              'options' => array(
-                                 0 => Mage::helper('demac_multilocationinventory')->__('Disabled'),
-                                 1 => Mage::helper('demac_multilocationinventory')->__('Enabled'),
+                                 0 => $this->__('Disabled'),
+                                 1 => $this->__('Enabled'),
                              ),
                          )
         );
@@ -139,24 +138,24 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
         $this->getMassactionBlock()->setFormFieldName('demac_multilocationinventory');
 
         $this->getMassactionBlock()->addItem('delete', array(
-            'label'   => Mage::helper('demac_multilocationinventory')->__('Delete'),
+            'label'   => $this->__('Delete'),
             'url'     => $this->getUrl('*/*/massDelete'),
-            'confirm' => Mage::helper('demac_multilocationinventory')->__('Are you sure?')
+            'confirm' => $this->__('Are you sure?')
         ));
 
         $statuses = array(
-            1 => Mage::helper('demac_multilocationinventory')->__('Enabled'),
-            0 => Mage::helper('demac_multilocationinventory')->__('Disabled')
+            1 => $this->__('Enabled'),
+            0 => $this->__('Disabled')
         );
         $this->getMassactionBlock()->addItem('status', array(
-            'label'      => Mage::helper('demac_multilocationinventory')->__('Change status'),
+            'label'      => $this->__('Change status'),
             'url'        => $this->getUrl('*/*/massStatus', array('_current' => true)),
             'additional' => array(
                 'visibility' => array(
                     'name'   => 'status',
                     'type'   => 'select',
                     'class'  => 'required-entry',
-                    'label'  => Mage::helper('demac_multilocationinventory')->__('Status'),
+                    'label'  => $this->__('Status'),
                     'values' => $statuses
                 )
             )
