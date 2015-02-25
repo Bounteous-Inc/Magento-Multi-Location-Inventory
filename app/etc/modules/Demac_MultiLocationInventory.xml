@@ -4,6 +4,17 @@
         <Demac_MultiLocationInventory>
             <active>true</active>
             <codePool>community</codePool>
+            <depends>
+                <Mage_Core/>
+                <Mage_Adminhtml/>
+                <Mage_Api/>
+                <Mage_Catalog/>
+                <Mage_CatalogInventory/>
+                <Mage_Index/>
+                <Mage_CatalogSearch/>
+                <Mage_Sales/>
+                <Mage_Directory/>
+            </depends>
         </Demac_MultiLocationInventory>
     </modules>
 </config>
