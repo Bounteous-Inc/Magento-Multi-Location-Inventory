@@ -16,11 +16,11 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit extends Mage_Ad
         $this->_controller = 'adminhtml_location';
 
 
-        $this->_updateButton('save', 'label', Mage::helper('demac_multilocationinventory')->__('Save Location'));
-        $this->_updateButton('delete', 'label', Mage::helper('demac_multilocationinventory')->__('Delete Location'));
+        $this->_updateButton('save', 'label', $this->__('Save Location'));
+        $this->_updateButton('delete', 'label', $this->__('Delete Location'));
 
         $this->_addButton('saveandcontinue', array(
-            'label'   => Mage::helper('demac_multilocationinventory')->__('Save and Continue Edit'),
+            'label'   => $this->__('Save and Continue Edit'),
             'onclick' => 'saveAndContinueEdit()',
             'class'   => 'save',
         ), -100);

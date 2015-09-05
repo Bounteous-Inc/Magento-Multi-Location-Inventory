@@ -25,7 +25,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tabs extends Ma
         parent::__construct();
         $this->setId('multilocationinventory_tabs');
         $this->setDestElementId('edit_form');
-        $this->setTitle(Mage::helper('demac_multilocationinventory')->__('Multi-Inventory Location'));
+        $this->setTitle($this->__('Multi-Inventory Location'));
     }
 
     /**
@@ -36,8 +36,8 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit_Tabs extends Ma
         $tabs   = array();
         $tabs[] = array('form_section' =>
                             array(
-                                'label'   => Mage::helper('demac_multilocationinventory')->__('Location'),
-                                'title'   => Mage::helper('demac_multilocationinventory')->__('Location'),
+                                'label'   => $this->__('Location'),
+                                'title'   => $this->__('Location'),
                                 'content' => $this->getLayout()->createBlock('demac_multilocationinventory/adminhtml_location_edit_tab_location')->toHtml(),
                                 'active'  => true
                             )
