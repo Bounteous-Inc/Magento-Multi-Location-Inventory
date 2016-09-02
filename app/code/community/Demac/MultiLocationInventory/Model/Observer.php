@@ -60,13 +60,15 @@ class Demac_MultiLocationInventory_Model_Observer
             $quoteItems             = $observer->getEvent()->getQuote()->getAllItems();
 
             foreach ($quoteItems as $quoteItem) {
-                if(sizeof($quoteItem->getChildren()) == 0) {
-                    $updatedProducts[] = $quoteItem->getProductId();
+                $updatedProducts[] = $quoteItem->getProductId();
 
-                    $this->checkoutProducts[$quoteItem->getId()] = $quoteItem->getQty();
-                    if(!is_null($quoteItem->getParentItem())) {
-                        $this->checkoutProducts[$quoteItem->getId()] = $quoteItem->getParentItem()->getQty();
+                $children = $quoteItem->getChildrenItems();
+                if ($children) {
+                    foreach ($children as $childItem) {
+                        $this->checkoutProducts[$childItem->getId()] = $childItem->getTotalQty();
                     }
+                } else {
+                    $this->checkoutProducts[$quoteItem->getId()] = $quoteItem->getTotalQty();
                 }
             }
 
