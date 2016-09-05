@@ -1,6 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/DemacMedia/Magento-Multi-Location-Inventory.png)](https://codeclimate.com/github/DemacMedia/Magento-Multi-Location-Inventory)
 
-#Multi Location Inventory v1.2.5
+#Multi Location Inventory v1.2.6
 ##Description
 Allows the creation of multiple inventory locations in Magento along with assigning those inventory locations to store views.
 
