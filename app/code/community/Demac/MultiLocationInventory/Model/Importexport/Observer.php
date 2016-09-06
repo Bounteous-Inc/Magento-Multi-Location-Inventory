@@ -8,8 +8,10 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
     const COL_SKU            = 'sku';
     const COL_STOCK_LOCATION = 'stock_location';
 
+    /** @var array */
     protected $locationIds = array();
 
+    /** @var array */
     protected $defaultStockData = array(
         'manage_stock'              => 1,
         'use_config_manage_stock'   => 1,
@@ -22,6 +24,7 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
     /** @var string */
     protected $stockTable;
 
+    /** @var array */
     protected $stockData = array();
 
     /**
@@ -86,15 +89,20 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
                     continue;
                 }
 
-                // Currently we only work with one location per store
-                if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $adapter->getRowScope($rowData)) {
+                $rowScope = $adapter->getRowScope($rowData);
+                // Let's reset the sku value on every default scope
+                if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope) {
                     $sku = $rowData[self::COL_SKU];
-                } else {
+                } elseif (null === $sku) {
                     continue;
                 }
 
                 // If we have no sku we have nothing to do
                 if(!$sku) {
+                    continue;
+                }
+
+                if (!isset($rowData[self::COL_STOCK_LOCATION])) {
                     continue;
                 }
 
@@ -156,8 +164,12 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
         $row = array();
         $row['location_id'] = $locationId;
         $row['product_id']  = $productId;
-        $row['qty']         = $rowData['qty'];
-        $row['backorders']  = $rowData['backorders'];
+        if (isset($rowData['qty'])) {
+            $row['qty'] = $rowData['qty'];
+        }
+        if (isset($rowData['backorders'])) {
+            $row['backorders'] = $rowData['backorders'];
+        }
 
         /** @var $stockItem Demac_MultiLocationInventory_Model_Stock */
         $stockItem = Mage::getModel('demac_multilocationinventory/stock');

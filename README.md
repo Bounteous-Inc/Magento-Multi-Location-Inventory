@@ -56,6 +56,8 @@ You can then include multiple rows per product containing data for `qty`, `is_in
 
 Download a sample CSV import [here](https://github.com/DemacMedia/Magento-Multi-Location-Inventory/blob/master/sample_import.csv).
 
+***Note:** Import currently only works with data set against the default level and not the store level*
+
 ###Inventory Reduction On Checkout
 It is recommended to disable this functionality and allow integrations to push inventory updates. The easiest way to disable this functionality is to set the following config setting: Configuration > Catalog > Inventory > Stock Options > Decrease stock when order is placed
 
