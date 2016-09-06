@@ -1,6 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/DemacMedia/Magento-Multi-Location-Inventory.png)](https://codeclimate.com/github/DemacMedia/Magento-Multi-Location-Inventory)
 
-#Multi Location Inventory v1.2.6
+#Multi Location Inventory v1.2.7
 ##Description
 Allows the creation of multiple inventory locations in Magento along with assigning those inventory locations to store views.
 
@@ -48,6 +48,13 @@ Please contribute other extensions you find that are not compatible either by se
 ##Finding Your Way Around (Customization)
 Below is a list of several major components of this extension that should help you to get started with it.
 
+###Batch importing
+Bulk uploads of inventory data can be done using the core ImportExport module.
+Similar to specifying data per store view using the `_store` column, you can include a `stock_location` column in your spreadsheet.
+The corresponding values in each row should be the code of the location you wish to import data against.
+You can then include multiple rows per product containing data for `qty`, `is_in_stock`, `backorders`, etc.
+
+Download a sample CSV import [here](https://github.com/DemacMedia/Magento-Multi-Location-Inventory/blob/master/sample_import.csv).
 
 ###Inventory Reduction On Checkout
 It is recommended to disable this functionality and allow integrations to push inventory updates. The easiest way to disable this functionality is to set the following config setting: Configuration > Catalog > Inventory > Stock Options > Decrease stock when order is placed
