@@ -19,7 +19,7 @@
                 <observers>
                     <multi_location_inventory_import>
                         <class>demac_multilocationinventory/importexport_observer</class>
-                        <method>catalogProductImportFinishBefore</method>
+                        <method>importMultiLocationInventory</method>
                     </multi_location_inventory_import>
                 </observers>
             </catalog_product_import_finish_before>

@@ -58,12 +58,12 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
     }
 
     /**
-     * catalog_product_import_finish_before
+     * Loop through all rows of the import and save the inventory data
      *
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function catalogProductImportFinishBefore(Varien_Event_Observer $observer)
+    public function importMultiLocationInventory(Varien_Event_Observer $observer)
     {
         /** @var Mage_ImportExport_Model_Import_Entity_Product $adapter */
         $adapter = $observer->getData('adapter');
@@ -90,15 +90,9 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
                 }
 
                 $rowScope = $adapter->getRowScope($rowData);
-                // Let's reset the sku value on every default scope
                 if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope) {
                     $sku = $rowData[self::COL_SKU];
-                } elseif (null === $sku) {
-                    continue;
-                }
-
-                // If we have no sku we have nothing to do
-                if(!$sku) {
+                } elseif (!$sku) {
                     continue;
                 }
 
