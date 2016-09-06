@@ -5,13 +5,10 @@
  */
 class Demac_MultiLocationInventory_Model_Importexport_Observer
 {
-    const COL_SKU               = 'sku';
-    const STOCK_SCOPE_NULL      = -1;
-    const STOCK_SCOPE_LOCATION  = 1;
-
+    const COL_SKU            = 'sku';
     const COL_STOCK_LOCATION = 'stock_location';
 
-    protected $_locationIds = array();
+    protected $locationIds = array();
 
     protected $defaultStockData = array(
         'manage_stock'              => 1,
@@ -51,7 +48,7 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
 
         /** @var Demac_MultiLocationInventory_Model_Location $location */
         foreach($collection as $location) {
-            $this->_locationIds[$location->getCode()] = $location->getId();
+            $this->locationIds[$location->getCode()] = $location->getId();
         }
 
         return $this;
@@ -84,7 +81,7 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
 
             // Format bunch to stock data rows
             foreach ($bunch as $rowNum => $rowData) {
-                $this->_filterRowData($rowData);
+                $this->filterRowData($rowData);
                 if (!$adapter->isRowAllowedToImport($rowData, $rowNum)) {
                     continue;
                 }
@@ -125,7 +122,7 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
      *
      * @param array $rowData
      */
-    protected function _filterRowData(&$rowData)
+    protected function filterRowData(&$rowData)
     {
         $rowData = array_filter($rowData, 'strlen');
         // Exceptions - for sku - put them back in
@@ -142,7 +139,7 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
      */
     private function isStoredLocation($locationCode)
     {
-        return array_key_exists($locationCode, $this->_locationIds);
+        return array_key_exists($locationCode, $this->locationIds);
     }
 
     /**
@@ -154,7 +151,7 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
      */
     private function buildStockData($locationCode, $productId, $rowData)
     {
-        $locationId = $this->_locationIds[$locationCode];
+        $locationId = $this->locationIds[$locationCode];
 
         $row = array();
         $row['location_id'] = $locationId;
