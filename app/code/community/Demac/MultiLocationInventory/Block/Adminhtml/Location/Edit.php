@@ -24,6 +24,10 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Edit extends Mage_Ad
             'onclick' => 'saveAndContinueEdit()',
             'class'   => 'save',
         ), -100);
+
+        $this->_formScripts[] = 'function saveAndContinueEdit() {
+            editForm.submit($("edit_form").action + \'back/edit/\');
+        }';
     }
 
     /**
