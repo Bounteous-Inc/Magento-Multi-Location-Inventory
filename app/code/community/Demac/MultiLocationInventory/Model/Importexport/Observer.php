@@ -5,7 +5,6 @@
  */
 class Demac_MultiLocationInventory_Model_Importexport_Observer
 {
-
     const COL_SKU               = 'sku';
     const STOCK_SCOPE_NULL      = -1;
     const STOCK_SCOPE_LOCATION  = 1;
@@ -14,19 +13,41 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
 
     protected $_locationIds = array();
 
+    protected $defaultStockData = array(
+        'manage_stock'              => 1,
+        'use_config_manage_stock'   => 1,
+        'qty'                       => 0,
+        'backorders'                => 0,
+        'use_config_backorders'     => 1,
+        'is_in_stock'               => 0
+    );
+
+    /** @var string */
+    protected $stockTable;
+
+    protected $stockData = array();
+
+    /**
+     * Build up the locations for use later on
+     */
+    public function __construct()
+    {
+        $this->_initLocations();
+
+        $this->stockTable = Mage::getResourceModel('demac_multilocationinventory/stock')->getMainTable();
+    }
 
     /**
      * Load all location IDs
      *
      * @return $this
      */
-    protected function _initLocations() {
-
+    private function _initLocations()
+    {
         /** @var Demac_MultiLocationInventory_Model_Resource_Location_Collection $collection */
         $collection = Mage::getModel('demac_multilocationinventory/location')->getCollection();
-        $collection
-            ->addFieldToSelect('id')
-            ->addFieldToSelect('code');
+        $collection->addFieldToSelect('id');
+        $collection->addFieldToSelect('code');
 
         /** @var Demac_MultiLocationInventory_Model_Location $location */
         foreach($collection as $location) {
@@ -39,106 +60,65 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
     /**
      * catalog_product_import_finish_before
      *
-     * @param $observer
+     * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function catalogProductImportFinishBefore($observer) {
+    public function catalogProductImportFinishBefore(Varien_Event_Observer $observer)
+    {
         /** @var Mage_ImportExport_Model_Import_Entity_Product $adapter */
         $adapter = $observer->getData('adapter');
-        if(!$adapter) return;
+        if(!$adapter) {
+            return $this;
+        }
 
         // Only process replace or append imports
-        if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $adapter->getBehavior()) return;
-
-        $defaultStockData = array(
-            'manage_stock'                  => 1,
-            'use_config_manage_stock'       => 1,
-            'qty'                           => 0,
-            'backorders'                    => 0,
-            'use_config_backorders'         => 1,
-            'is_in_stock'                   => 0
-        );
-
-        // Pre-load all the valid location codes
-        $this->_initLocations();
-
-        $stockTable = Mage::getResourceModel('demac_multilocationinventory/stock')->getMainTable();
+        if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $adapter->getBehavior()) {
+            return $this;
+        }
 
         $newSku = $adapter->getNewSku();
-        $sku = false;
+        $sku    = false;
 
         while ($bunch = $adapter->getNextBunch()) {
-            $stockData = array();
+            $this->resetStockData();
 
             // Format bunch to stock data rows
             foreach ($bunch as $rowNum => $rowData) {
-
                 $this->_filterRowData($rowData);
                 if (!$adapter->isRowAllowedToImport($rowData, $rowNum)) {
                     continue;
                 }
 
+                // Currently we only work with one location per store
                 if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $adapter->getRowScope($rowData)) {
                     $sku = $rowData[self::COL_SKU];
+                } else {
+                    continue;
                 }
 
-                if(!$sku) continue;
-
-                // only process items with a stock location scope specified
-                if (self::STOCK_SCOPE_LOCATION != $this->getRowStockScope($rowData)) {
+                // If we have no sku we have nothing to do
+                if(!$sku) {
                     continue;
                 }
 
                 $locationCode = $rowData[self::COL_STOCK_LOCATION];
-                if(!array_key_exists($locationCode, $this->_locationIds)) continue;
+                // Check to see if we have this location code in the DB
+                if(!$this->isStoredLocation($locationCode)) {
+                    continue;
+                }
 
-                $locationId = $this->_locationIds[$locationCode];
-
-                $row = array();
-                $row['location_id'] = $locationId;
-                $row['product_id']  = $newSku[$sku]['entity_id'];
-                $row['qty']         = $rowData['qty'];
-                $row['backorders']  = $rowData['backorders'];
-
-                /** @var $stockItem Demac_MultiLocationInventory_Model_Stock */
-                $stockItem = Mage::getModel('demac_multilocationinventory/stock');
-                $stockItem->loadByProduct($locationId, $row['product_id']);
-                $existStockData = $stockItem->getData();
-
-                $row = array_merge(
-                    $defaultStockData,
-                    array_intersect_key($existStockData, $defaultStockData),
-                    array_intersect_key($rowData, $defaultStockData),
-                    $row
-                );
-
-                $stockItem->setData($row);
-                unset($row);
-
-                $stockData[] = $stockItem->unsetOldData()->getData();
+                $productId = $newSku[$sku]['entity_id'];
+                $this->buildStockData($locationCode, $productId, $rowData);
             }
 
             // Insert rows
-            if ($stockData) {
-                $adapter->getConnection()->insertOnDuplicate($stockTable, $stockData);
+            if ($this->stockData) {
+                $adapter->getConnection()->insertOnDuplicate($this->stockTable, $this->stockData);
             }
         }
 
+        return $this;
     }
-
-    /**
-     * @param array $rowData
-     * @return mixed
-     */
-    public function getRowStockScope($rowData) {
-
-        if(isset($rowData[self::COL_STOCK_LOCATION]) && strlen(trim($rowData[self::COL_STOCK_LOCATION]))) {
-            return self::STOCK_SCOPE_LOCATION;
-        } else {
-            return self::STOCK_SCOPE_NULL;
-        }
-    }
-
 
     /**
      * Removes empty keys in case value is null or empty string
@@ -154,4 +134,56 @@ class Demac_MultiLocationInventory_Model_Importexport_Observer
         }
     }
 
+    /**
+     * Check to see if we have a given location code in the database
+     *
+     * @param string $locationCode
+     * @return bool
+     */
+    private function isStoredLocation($locationCode)
+    {
+        return array_key_exists($locationCode, $this->_locationIds);
+    }
+
+    /**
+     * Build the stock data array for a given location/product combination
+     *
+     * @param string $locationCode
+     * @param int $productId
+     * @param array $rowData
+     */
+    private function buildStockData($locationCode, $productId, $rowData)
+    {
+        $locationId = $this->_locationIds[$locationCode];
+
+        $row = array();
+        $row['location_id'] = $locationId;
+        $row['product_id']  = $productId;
+        $row['qty']         = $rowData['qty'];
+        $row['backorders']  = $rowData['backorders'];
+
+        /** @var $stockItem Demac_MultiLocationInventory_Model_Stock */
+        $stockItem = Mage::getModel('demac_multilocationinventory/stock');
+        $stockItem->loadByProduct($locationId, $productId);
+        $existStockData = $stockItem->getData();
+
+        $row = array_merge(
+            $this->defaultStockData,
+            array_intersect_key($existStockData, $this->defaultStockData),
+            array_intersect_key($rowData, $this->defaultStockData),
+            $row
+        );
+
+        $stockItem->setData($row);
+
+        $this->stockData[] = $stockItem->unsetOldData()->getData();
+    }
+
+    /**
+     * Reset the internal stock data array
+     */
+    private function resetStockData()
+    {
+        $this->stockData = array();
+    }
 }
