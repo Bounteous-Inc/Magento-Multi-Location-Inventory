@@ -7,7 +7,7 @@
             <table cellspacing="0" class="form-list">
                 <tr>
                     <td class="label">
-                        <label for="multilocationinventory_global_inventory">Global Inventory</label>
+                        <label for="multilocationinventory_global_inventory"><?php echo $this->__('Global Inventory') ?></label>
                     </td>
                     <td class="value">
                         <span class="bold"><?php echo $this->getGlobalInventory() ?></span>
@@ -15,7 +15,7 @@
                 </tr>
                 <tr>
                     <td class="label">
-                        <label for="multilocationinventory_global_location">Scope Inventory</label>
+                        <label for="multilocationinventory_global_location"><?php echo $this->__('Scope Inventory') ?></label>
                     </td>
                     <td class="value">
                         <span class="bold"><?php echo $this->getScopeInventory() ?></span>
@@ -29,11 +29,12 @@
             <table cellspacing="0" class="data border">
                 <thead>
                 <tr class="headings">
-                    <th>Location</th>
-                    <th>Quantity</th>
-                    <th>Backorders</th>
-                    <th>Stock Status</th>
-                    <th>Manage Stock</th>
+                    <th><?php echo $this->__('Location') ?></th>
+                    <th><?php echo $this->__('Quantity') ?></th>
+                    <th><?php echo $this->__('Qty for Item\'s Status to Become Out of Stock') ?></th>
+                    <th><?php echo $this->__('Backorders') ?></th>
+                    <th><?php echo $this->__('Stock Status') ?></th>
+                    <th><?php echo $this->__('Manage Stock') ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,13 @@
                                    value="<?php echo $_location['qty'] ?>"/>
                         </td>
                         <td>
+                            <input type="text"
+                                   name="multilocationinventory[<?php echo $_location['id'] ?>][min_qty]"
+                                   class="input-text validate-number"
+                                <?php echo ($_location['manage_stock'] === "1") ? '' : 'style="visibility:hidden;"' ?>
+                                   value="<?php echo $_location['min_qty'] ?>"/>
+                        </td>
+                        <td>
                             <select name="multilocationinventory[<?php echo $_location['id'] ?>][backorders]"
                                     style="width:86%;<?php echo ($_location['manage_stock'] === "1") ? '' : 'visibility:hidden;' ?>" class="select">
                                 <?php if($_location['backorders'] == ''): ?>
@@ -57,11 +65,11 @@
                                 <?php endif; ?>
                                 <option
                                     value="1" <?php echo ($_location['backorders'] === "1") ? 'selected="selected"' : '' ?>>
-                                    Yes
+                                    <?php echo $this->__('Yes') ?>
                                 </option>
                                 <option
                                     value="0" <?php echo ($_location['backorders'] !== "1") ? 'selected="selected"' : '' ?>>
-                                    No
+                                    <?php echo $this->__('No') ?>
                                 </option>
                             </select>
                         </td>
@@ -70,11 +78,11 @@
                                     style="width:86%;<?php echo ($_location['manage_stock'] === "1") ? '' : 'visibility:hidden;' ?>" class="select">
                                 <option
                                     value="1" <?php echo ($_location['is_in_stock'] === "1") ? 'selected="selected"' : '' ?>>
-                                    In Stock
+                                    <?php echo $this->__('In Stock') ?>
                                 </option>
                                 <option
                                     value="0" <?php echo ($_location['is_in_stock'] !== "1") ? 'selected="selected"' : '' ?>>
-                                    Out Of Stock
+                                    <?php echo $this->__('Out Of Stock') ?>
                                 </option>
                             </select>
                         </td>
@@ -83,11 +91,11 @@
                                     style="width:86%;" class="select demac_multilocationinventory_manage_stock">
                                 <option
                                     value="1" <?php echo ($_location['manage_stock'] === "1") ? 'selected="selected"' : '' ?>>
-                                    Yes
+                                    <?php echo $this->__('Yes') ?>
                                 </option>
                                 <option
                                     value="0" <?php echo ($_location['manage_stock'] !== "1") ? 'selected="selected"' : '' ?>>
-                                    No
+                                    <?php echo $this->__('No') ?>
                                 </option>
                             </select>
                         </td>
