@@ -176,4 +176,23 @@ class Demac_MultiLocationInventory_Model_Resource_Location extends Mage_Core_Mod
     {
         return Mage::app()->getStore($this->_store);
     }
+
+    /**
+     * Get location identifier by code
+     *
+     * @param string $code
+     * @return int|false
+     */
+    public function getIdByCode($code)
+    {
+        $adapter = $this->_getReadAdapter();
+
+        $select = $adapter->select()
+            ->from($this->getTable('demac_multilocationinventory/location'), 'id')
+            ->where('code = :code');
+
+        $bind = array(':code' => (string)$code);
+
+        return $adapter->fetchOne($select, $bind);
+    }
 }
