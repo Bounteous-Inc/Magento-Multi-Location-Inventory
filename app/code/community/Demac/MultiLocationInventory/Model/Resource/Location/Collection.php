@@ -163,4 +163,11 @@ class Demac_MultiLocationInventory_Model_Resource_Location_Collection extends Ma
         return $this;
     }
 
+    /**
+     * @return Varien_Data_Collection_Db
+     */
+    public function reset()
+    {
+        return $this->_reset();
+    }
 }
