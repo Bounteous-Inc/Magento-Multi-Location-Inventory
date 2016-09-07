@@ -140,6 +140,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Multiloc
         $locations = array();
         foreach ($locationStockCollection as $locationStock) {
             $locationStock->setQty(floatval($locationStock->getQty()));
+            $locationStock->setMinQty(floatval($locationStock->getMinQty()));
             $this->scopeInventory += $locationStock->getQty();
             array_push($locations, $locationStock->toArray());
         }
