@@ -78,6 +78,7 @@
                 <resourceModel>cataloginventory_resource</resourceModel>
                 <rewrite>
                     <stock>Demac_MultiLocationInventory_Model_CatalogInventory_Stock</stock>
+                    <stock_item>Demac_MultiLocationInventory_Model_CatalogInventory_Stock_Item</stock_item>
                     <observer>Demac_MultiLocationInventory_Model_CatalogInventory_Observer</observer>
                 </rewrite>
             </cataloginventory>
