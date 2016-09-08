@@ -209,7 +209,7 @@ class Demac_MultiLocationInventory_Model_Observer
                 $orderStockSource->save();
                 $this->checkoutProducts[$quoteItemId] -= $availableQty;
                 $stock = Mage::getModel('demac_multilocationinventory/stock')->load($stockId);
-                $stock->setQty(0);
+                $stock->setQty($stock->getQty() - $availableQty);
                 if(!$stock->getBackorders()) {
                     $stock->setIsInStock(0);
                 }
