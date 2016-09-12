@@ -46,7 +46,7 @@ class Demac_MultiLocationInventory_Model_CatalogInventory_Stock_Item extends Mag
 
         /** @var Demac_MultiLocationInventory_Model_Resource_Location_Collection $locations */
         $locations = Mage::getModel('demac_multilocationinventory/location')->getCollection();
-        $locations->joinStockDataOnProductAndStoreView(1855, Mage::app()->getStore()->getId());
+        $locations->joinStockDataOnProductAndStoreView($this->getProductId(), Mage::app()->getStore()->getId());
 
         foreach ($locations as $location) {
             $locationAvailableQty = $location->getQty() - $location->getMinQty();
