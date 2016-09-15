@@ -108,7 +108,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Multiloc
     /**
      * Get inventory within the current store view scope.
      *
-     * @return array
+     * @return float
      */
     public function getScopeInventory()
     {
@@ -118,7 +118,7 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Multiloc
     /**
      * Get global inventory.
      *
-     * @return array
+     * @return float
      */
     public function getGlobalInventory()
     {
@@ -133,13 +133,14 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Multiloc
         $productId   = $this->getProductId();
         $storeViewId = $this->getStoreViewId();
 
-        $locationStockCollection = Mage::getModel('demac_multilocationinventory/location')
-            ->getCollection()
-            ->joinStockDataOnProductAndStoreView($productId, $storeViewId);
+        /** @var Demac_MultiLocationInventory_Model_Resource_Location_Collection $locationStockCollection */
+        $locationStockCollection = Mage::getModel('demac_multilocationinventory/location')->getCollection();
+        $locationStockCollection->joinStockDataOnProductAndStoreView($productId, $storeViewId);
 
         $locations = array();
         foreach ($locationStockCollection as $locationStock) {
             $locationStock->setQty(floatval($locationStock->getQty()));
+            $locationStock->setMinQty(floatval($locationStock->getMinQty()));
             $this->scopeInventory += $locationStock->getQty();
             array_push($locations, $locationStock->toArray());
         }
@@ -149,9 +150,13 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Catalog_Product_Edit_Multiloc
 
     /**
      * Load global inventory.
+     *
+     * @param int $productId
      */
     private function loadGlobalInventory($productId)
     {
-        $this->globalInventory = Mage::getModel('demac_multilocationinventory/stock')->getGlobalInventory($productId);
+        /** @var Demac_MultiLocationInventory_Model_Stock $stock */
+        $stock = Mage::getModel('demac_multilocationinventory/stock');
+        $this->globalInventory = $stock->getGlobalInventory($productId);
     }
 }

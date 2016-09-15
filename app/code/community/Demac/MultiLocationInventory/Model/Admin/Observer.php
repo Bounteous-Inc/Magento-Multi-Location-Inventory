@@ -89,6 +89,7 @@ class Demac_MultiLocationInventory_Model_Admin_Observer
         if(isset($this->inputData[$locationId])) {
             $inputStock = $this->inputData[$locationId];
             $_stock->setQty($inputStock['quantity']);
+            $_stock->setMinQty($inputStock['min_qty']);
             $_stock->setBackorders($inputStock['backorders']);
             $_stock->setIsInStock($inputStock['is_in_stock']);
             $_stock->setManageStock($inputStock['manage_stock']);

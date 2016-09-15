@@ -87,8 +87,6 @@ class Demac_MultiLocationInventory_Model_Observer
     protected function removeStockFromLocations($order, $quote)
     {
         $orderId = $order->getId();
-        $storeId = $order->getStoreId();
-
 
         foreach ($this->checkoutProducts as $checkoutProductQuoteItemId => $checkoutProductQuantity) {
             $checkoutProductItem = $quote->getItemById($checkoutProductQuoteItemId);
@@ -98,7 +96,7 @@ class Demac_MultiLocationInventory_Model_Observer
                 //loop through each location and distribute the inventory
                 $stockCollection = Mage::getModel('demac_multilocationinventory/stock')
                     ->getCollection()
-                    ->addFieldToSelect(array('location_id', 'qty'))
+                    ->addFieldToSelect(array('location_id', 'qty', 'min_qty'))
                     ->addFieldToFilter(
                         'location_id',
                         array(
@@ -192,12 +190,17 @@ class Demac_MultiLocationInventory_Model_Observer
         $stockId      = $row['stock_id'];
         $locationId   = $row['location_id'];
         $availableQty = $row['qty'];
+        $minQty       = $row['min_qty'];
         $requestedQty = $this->checkoutProducts[$quoteItemId];
 
         $orderStockSource = Mage::getModel('demac_multilocationinventory/order_stock_source');
         $orderStockSource->setSalesQuoteItemId($quoteItemId);
         $orderStockSource->setLocationId($locationId);
 
+        // If we have a min_qty set then this should be used as the available qty value
+        if ($minQty > 0) {
+            $availableQty = $availableQty - $minQty;
+        }
 
         if($requestedQty > 0) {
             if($requestedQty >= $availableQty) {
@@ -206,7 +209,7 @@ class Demac_MultiLocationInventory_Model_Observer
                 $orderStockSource->save();
                 $this->checkoutProducts[$quoteItemId] -= $availableQty;
                 $stock = Mage::getModel('demac_multilocationinventory/stock')->load($stockId);
-                $stock->setQty(0);
+                $stock->setQty($stock->getQty() - $availableQty);
                 if(!$stock->getBackorders()) {
                     $stock->setIsInStock(0);
                 }
