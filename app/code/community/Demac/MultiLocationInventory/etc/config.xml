@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Demac_MultiLocationInventory>
-            <version>1.2.5</version>
+            <version>1.2.8</version>
         </Demac_MultiLocationInventory>
     </modules>
     <global>
@@ -10,11 +10,19 @@
             <checkout_submit_all_after>
                 <observers>
                     <multilocationinventory_submit_all_after>
-                        <class>Demac_MultiLocationInventory_Model_Observer</class>
+                        <class>demac_multilocationinventory/observer</class>
                         <method>checkoutAllSubmitAfter</method>
                     </multilocationinventory_submit_all_after>
                 </observers>
             </checkout_submit_all_after>
+            <catalog_product_import_finish_before>
+                <observers>
+                    <multi_location_inventory_import>
+                        <class>demac_multilocationinventory/importexport_observer</class>
+                        <method>importMultiLocationInventory</method>
+                    </multi_location_inventory_import>
+                </observers>
+            </catalog_product_import_finish_before>
         </events>
         <index>
             <indexer>
@@ -70,6 +78,7 @@
                 <resourceModel>cataloginventory_resource</resourceModel>
                 <rewrite>
                     <stock>Demac_MultiLocationInventory_Model_CatalogInventory_Stock</stock>
+                    <stock_item>Demac_MultiLocationInventory_Model_CatalogInventory_Stock_Item</stock_item>
                     <observer>Demac_MultiLocationInventory_Model_CatalogInventory_Observer</observer>
                 </rewrite>
             </cataloginventory>

@@ -59,6 +59,13 @@ class Demac_MultiLocationInventory_Block_Adminhtml_Location_Grid extends Mage_Ad
                          )
         );
 
+        $this->addColumn('code',
+            array(
+                'header' => $this->__('Code'),
+                'index'  => 'code'
+            )
+        );
+
         $this->addColumn('name',
                          array(
                              'header' => $this->__('Name'),
